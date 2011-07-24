@@ -108,6 +108,7 @@
     <ClInclude Include="Source\DistanceSorter.h" />
     <ClInclude Include="Source\Important\Common.h" />
     <ClInclude Include="Source\NexusManager.h" />
+    <ClInclude Include="Source\Util\Timed.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

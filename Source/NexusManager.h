@@ -2,6 +2,7 @@
 
 #include "Important/Common.h"
 #include "DistanceSorter.h"
+#include "Util/Timed.h"
 
 using BWAPI::Unit;
 
@@ -16,24 +17,28 @@ public:
     void findMinerals(void);
 
     void onFrame(void);
+	void onUnitCreate(Unit* unit);
 private:
     void adjustRemainingFrames();
-    void buildProbe();
+	void checkTraining(void);
+    void buildProbe(void);
     bool findBuiltProbe();
 
-    int remainingBuildFrames;
-    bool lookingForProbe;
-    bool building;
+	const static int s_mineralDistance;
+	const int c_unitTrainTime;
+	Unit *m_trainingUnit;
+	Timed m_trainingTime;
+
     // Want uniqueness and fast access, don't care about order
-    UnitSet minGatherers;
-    UnitSet gasGatherers;
+    UnitSet m_minGatherers;
+    UnitSet m_gasGatherers;
 
     // minerals we don't care as much about uniqueness (should only be added once anyhow)
     // but ordering is nice (nearness to base)
-    UnitList minerals;
+    UnitList m_minerals;
 
-    Unit *builder;
-    Unit &nexus;
+    Unit *m_builder;
+    Unit &m_nexus;
 
     // Not implemented to disallow assignment
     NexusManager& operator=(const NexusManager&);

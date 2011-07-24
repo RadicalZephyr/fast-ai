@@ -3,119 +3,98 @@
 using namespace BWAPI;
 
 
+const int NexusManager::s_mineralDistance = 270;
 
-NexusManager::NexusManager(Unit &theNexus): remainingBuildFrames(0),
-                                                   minGatherers(),
-                                                   gasGatherers(),
-                                                   minerals(),
-                                                   builder(0),
-                                                   nexus(theNexus) {
-    if (nexus.getType().isResourceDepot()) {
+NexusManager::NexusManager(Unit &theNexus): c_unitTrainTime(theNexus.getType().getRace().getWorker().buildTime()),
+											m_trainingUnit(0),
+											m_trainingTime(),
+                                            m_minGatherers(),
+                                            m_gasGatherers(),
+                                            m_minerals(),
+                                            m_builder(0),
+                                            m_nexus(theNexus) {
+												Broodwar->printf("constant time value: %d", c_unitTrainTime);
+    if (m_nexus.getType().isResourceDepot()) {
         buildProbe();
     } else {
         // Should invalidate the manager somehow if passed a non-ResourceDepot
-        std::invalid_argument badArg("Non-ResourceDepot object passed to constructor");
+        std::invalid_argument badArg("ERROR: NexusManager: Non-ResourceDepot object passed to constructor");
         throw badArg;
     }
 }
 
-bool NexusManager::findBuiltProbe() {
-    Broodwar->printf("Attempting to find probe");
-    Position nexPos = nexus.getPosition();
-
-    UnitSet probes = Broodwar->getUnitsInRectangle(nexPos.x()-70, nexus.getPosition().y()+35, 
-        nexus.getPosition().x()+60, nexPos.y()+85);
-    bool addedProbe = false;
-
-    for (UnitSet::const_iterator probe = probes.begin();
-        probe != probes.end(); ++probe) {
-            if ((*probe)->getType().isWorker()) {
-                if (addMiner(*probe)) {
-                    addedProbe = true;
-                }
-            }
-    }
-    return addedProbe;
-}
-
-void NexusManager::adjustRemainingFrames() {
-    if (lookingForProbe) {
-        lookingForProbe = !findBuiltProbe();
-
-    } else if (0 == remainingBuildFrames  && building) {
-        remainingBuildFrames = nexus.getRemainingTrainTime();
-
-    } else if (1 == remainingBuildFrames) {
-        building = false;
-        Broodwar->printf("Training done, setting look flag");
-        lookingForProbe = true;
-        --remainingBuildFrames;
-
-    } else if (remainingBuildFrames > 1) {
-        --remainingBuildFrames;
-    }
+void NexusManager::checkTraining() {
+	if (m_trainingTime.isDone()) {
+		addMiner(m_trainingUnit);
+		buildProbe();
+	}
 }
 
 void NexusManager::buildProbe() {
-    if (!building && (0 == remainingBuildFrames) && 
-        (Broodwar->self()->minerals() >= 50) && 
+    if ((Broodwar->self()->minerals() >= 50) && 
         (Broodwar->self()->supplyUsed() < Broodwar->self()->supplyTotal())) {
-        building = true;
-        Broodwar->printf("building A Probe");
-        Broodwar->printf("Buildframes: %d", remainingBuildFrames);
-        Race myRace = nexus.getType().getRace();
-        if (Races::Zerg != myRace) {
-            nexus.train(myRace.getWorker());
-        } else {
-            // Zerg handling code goes here
-        }
+
+        Race myRace = m_nexus.getType().getRace();
+        m_nexus.train(myRace.getWorker());
+		m_trainingUnit = 0;
     }
 }
 
 bool NexusManager::addMiner(BWAPI::Unit *probe) {
-    std::pair<UnitSet::iterator, bool> isIn = minGatherers.insert(probe);
+	if (probe == 0) {
+		//Broodwar->printf("ERROR: addMiner: null pointer");
+		return false;
+	}
+    std::pair<UnitSet::iterator, bool> isIn = m_minGatherers.insert(probe);
 
     if (isIn.second) {
-        Unit *min = minerals.front();
-        minerals.pop_front();
+        Unit *min = m_minerals.front();
+        m_minerals.pop_front();
         probe->rightClick(min);
-        minerals.push_back(min);
-        Broodwar->printf("added a miner.");
+        m_minerals.push_back(min);
     }
     return isIn.second;
 }
 
 bool NexusManager::addGasser(BWAPI::Unit *probe) {
-    gasGatherers.insert(probe);
+    m_gasGatherers.insert(probe);
 
-    Broodwar->printf("added a gasser.");
+    Broodwar->printf("UNIMP: addGasser");
 	return false;
 }
 
-void NexusManager::onFrame(void) {
-    //Broodwar->drawBoxMap(nexus.getPosition().x()-70, nexus.getPosition().y()+35, 
-    //                      nexus.getPosition().x()+60, nexus.getPosition().y()+85, Colors::Red);
-    //Broodwar->printf("Time till done building: %d", nexus.getRemainingTrainTime());
-    Broodwar->drawTextScreen(40, 40, "building: %s\nlookingForProbe: %s\nremainingBuildFrames: %d",
-        (building ? "yes" : "no"), (lookingForProbe ? "yes" : "no"), remainingBuildFrames);
-    adjustRemainingFrames();
-    buildProbe();
+void NexusManager::onUnitCreate(Unit* unit) {
+
+	if (m_nexus.isTraining() && !unit->isCompleted() &&
+		m_nexus.getPosition().getApproxDistance(unit->getPosition()) < s_mineralDistance) {
+		Broodwar->printf("Inside unitcreate if");
+		m_trainingUnit = unit;
+		m_trainingTime.reset(c_unitTrainTime);
+	}
 }
 
+void NexusManager::onFrame(void) {
+    //Broodwar->drawBoxMap(m_nexus.getPosition().x()-70, m_nexus.getPosition().y()+35, 
+    //                      m_nexus.getPosition().x()+60, m_nexus.getPosition().y()+85, Colors::Red);
+    //Broodwar->printf("Time till done building: %d", m_nexus.getRemainingTrainTime());
+    Broodwar->drawTextScreen(40, 40, "unitTraining isDone: %s\namountDone: %d", 
+			(m_trainingTime ? "yes" : "no"), m_trainingTime.amountDone() );
+
+	checkTraining();
+}
 
 void NexusManager::findMinerals(void) {
-    // 260 is the magic number at which we get the local min patch for starting positions on AIIDE maps
-    UnitSet& aroundNexus = Broodwar->getUnitsInRadius(nexus.getPosition(), 260);
+    UnitSet& aroundNexus = Broodwar->getUnitsInRadius(m_nexus.getPosition(), s_mineralDistance);
     
-    minerals.assign(aroundNexus.begin(), aroundNexus.end());
+    m_minerals.assign(aroundNexus.begin(), aroundNexus.end());
 
     // Now we filter the list for only mineral items with isMineralField()
-    for (UnitList::iterator unit = minerals.begin(); unit != minerals.end(); unit++) {
+    for (UnitList::iterator unit = m_minerals.begin(); unit != m_minerals.end(); unit++) {
         if (!(*unit)->getType().isMineralField()) {
-            minerals.erase(unit);
+            m_minerals.erase(unit);
         }
     }
 
-    minerals.sort(DistanceSorter(nexus));
+    m_minerals.sort(DistanceSorter(m_nexus));
     // We are now ready to start adding miners
 }

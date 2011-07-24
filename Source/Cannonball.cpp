@@ -138,6 +138,10 @@ void Cannonball::onUnitCreate(BWAPI::Unit* unit)
     // The unit belongs to us
     if (unit->getPlayer() == Broodwar->self()) {
         //Broodwar->printf("Created a %s", unit->getType().getName().c_str());
+		for (NexusManagerSet::const_iterator manager = managers.begin();
+			manager != managers.end(); manager++) {
+			(*manager)->onUnitCreate(unit);
+		}
     }
 }
 
