@@ -7,11 +7,13 @@ public:
 	Timed(int const& delta) : m_frameStart(g_frame), m_frameEnd(delta + m_frameStart) {}
 	Timed(Timed const& copy) : m_frameStart(copy.m_frameStart), m_frameEnd(copy.m_frameEnd) {}
 
+	inline void reset(int const& delta) {m_frameEnd = delta + (m_frameStart = g_frame);}
+
 	inline bool isDone() const {return m_frameEnd >= g_frame;}
-	inline operator bool() {return isDone();}
+	inline operator bool() const {return isDone();}
 
 	inline int doneOn() const {return m_frameEnd;}
-	inline operator int() {return doneOn();}
+	inline operator int() const {return doneOn();}
 
 	inline int tillDone() const {return m_frameEnd - g_frame;}
 	inline int amountDone() const {return g_frame - m_frameStart;}
