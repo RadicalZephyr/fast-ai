@@ -31,7 +31,8 @@ void NexusManager::checkTraining() {
 }
 
 void NexusManager::buildProbe() {
-    if ((Broodwar->self()->minerals() >= 50) && 
+    if (!m_nexus.isTraining() && 
+		(Broodwar->self()->minerals() >= 50) && 
         (Broodwar->self()->supplyUsed() < Broodwar->self()->supplyTotal())) {
 
         Race myRace = m_nexus.getType().getRace();
