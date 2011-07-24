@@ -1,5 +1,5 @@
 #include "Cannonball.h"
-#include "CommonHeaders.h"
+#include "Important/Common.h"
 
 using namespace BWAPI;
 
@@ -118,6 +118,9 @@ void Cannonball::onSaveGame(std::string gameName)
 // The actually import callbacks to our AI
 void Cannonball::onFrame()
 {
+	/* Global Update TODO: Move somewhere more general */
+	g_frame = Broodwar->getFrameCount();
+
     if (Broodwar->isReplay())
         return;
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "CommonHeaders.h"
+#include "Important/Common.h"
 
 using BWAPI::Unit;
 

@@ -6,7 +6,12 @@
 
 #include <BWAPI.h>
 
-#include "Cannonball.h"
+// This file compiles the globals in.
+#define COMPILE_GLOBAL
+#include "Common.h"
+
+#include "../Cannonball.h"
+
 namespace BWAPI { Game* Broodwar; }
 BOOL APIENTRY DllMain( HANDLE, 
                        DWORD  ul_reason_for_call, 

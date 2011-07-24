@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CommonHeaders.h"
+#include "Important/Common.h"
 #include "DistanceSorter.h"
 
 using BWAPI::Unit;

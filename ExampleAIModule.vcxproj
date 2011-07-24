@@ -100,13 +100,13 @@
   <ItemGroup>
     <ClCompile Include="Source\Cannonball.cpp" />
     <ClCompile Include="Source\DistanceSorter.cpp" />
-    <ClCompile Include="Source\Dll.cpp" />
+    <ClCompile Include="Source\Important\Dll.cpp" />
     <ClCompile Include="Source\NexusManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Cannonball.h" />
-    <ClInclude Include="Source\CommonHeaders.h" />
     <ClInclude Include="Source\DistanceSorter.h" />
+    <ClInclude Include="Source\Important\Common.h" />
     <ClInclude Include="Source\NexusManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
