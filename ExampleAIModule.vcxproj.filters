@@ -7,6 +7,7 @@
     <ClCompile Include="Source\Important\Dll.cpp">
       <Filter>Important</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Cheese.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Cannonball.h" />
@@ -18,6 +19,7 @@
     <ClInclude Include="Source\Util\Timed.h">
       <Filter>Util</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Cheese.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Important">
