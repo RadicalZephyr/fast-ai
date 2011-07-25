@@ -8,6 +8,7 @@
       <Filter>Important</Filter>
     </ClCompile>
     <ClCompile Include="Source\Cheese.cpp" />
+    <ClCompile Include="Source\ProbeControl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Cannonball.h" />
@@ -20,6 +21,8 @@
       <Filter>Util</Filter>
     </ClInclude>
     <ClInclude Include="Source\Cheese.h" />
+    </ClInclude>
+    <ClInclude Include="Source\ProbeControl.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Important">

@@ -103,6 +103,7 @@
     <ClCompile Include="Source\DistanceSorter.cpp" />
     <ClCompile Include="Source\Important\Dll.cpp" />
     <ClCompile Include="Source\NexusManager.cpp" />
+    <ClCompile Include="Source\ProbeControl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Cannonball.h" />
@@ -110,6 +111,7 @@
     <ClInclude Include="Source\DistanceSorter.h" />
     <ClInclude Include="Source\Important\Common.h" />
     <ClInclude Include="Source\NexusManager.h" />
+    <ClInclude Include="Source\ProbeControl.h" />
     <ClInclude Include="Source\Util\Timed.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

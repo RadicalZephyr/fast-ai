@@ -3,6 +3,7 @@
 #include <BWAPI.h>
 
 #include "NexusManager.h"
+#include "ProbeControl.h"
 
 class Cannonball : public BWAPI::AIModule {
 public:
@@ -27,4 +28,5 @@ public:
 
 private:
     NexusManagerSet managers;
+	ProbeControl *probes;
 };

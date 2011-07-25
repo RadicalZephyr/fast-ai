@@ -12,7 +12,7 @@ void Cannonball::onStart()
 
     std::set<Unit*>& startLocSet = Broodwar->getUnitsInRadius(BWAPI::Position(Broodwar->self()->getStartLocation()), 100);
     
-
+	bool first = true;
     for (std::set<Unit*>::const_iterator i = startLocSet.begin(); i != startLocSet.end(); i++) {
         if ((*i)->getType().isResourceDepot()) {
             NexusManagerPtr manager(new NexusManager(*(*i)));
@@ -26,8 +26,17 @@ void Cannonball::onStart()
     {
         if ((*i)->getType().isWorker())
         {
-            (*(managers.begin()))->addMiner(*i);
-        }
+			if(first == true)
+			{
+				probes = new ProbeControl(*i);
+				probes->addProbe();
+				first = false;
+			}
+			else
+			{
+				(*(managers.begin()))->addMiner(*i);
+			}
+		}
     }
 }
 
@@ -123,6 +132,11 @@ void Cannonball::onFrame()
 
     if (Broodwar->isReplay())
         return;
+
+	if(probes->inLocation()){
+		Broodwar->printf("Happened");
+		probes->nextLocation();
+	}
 
     for (NexusManagerSet::const_iterator manager = managers.begin();
         manager != managers.end(); manager++) {

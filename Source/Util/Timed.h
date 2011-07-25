@@ -1,3 +1,4 @@
+#pragma once
 #include "../Important/Common.h"
 
 //Provides a way to see when timed points of time have passed
