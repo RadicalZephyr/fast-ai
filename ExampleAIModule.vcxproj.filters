@@ -10,7 +10,9 @@
     <ClCompile Include="Source\Cheese.cpp" />
     <ClCompile Include="Source\ProbeControl.cpp" />
     <ClCompile Include="Source\BuildingManager.cpp" />
-
+    <ClCompile Include="Source\Util\Debug.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Cannonball.h" />
@@ -25,6 +27,9 @@
     <ClInclude Include="Source\Cheese.h" />
     <ClInclude Include="Source\ProbeControl.h" />
     <ClInclude Include="Source\BuildingManager.h" />
+    <ClInclude Include="Source\Util\Debug.h">
+      <Filter>Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Important">

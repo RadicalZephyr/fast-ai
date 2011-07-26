@@ -91,7 +91,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>$(BWAPI_ROOT)/lib;$(BOOST_ROOT)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(BWAPI_ROOT)\lib;$(BOOST_ROOT)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>copy $(SolutionDir)\Release\Cannonball.dll $(ChaosDir)\..\bwapi-data\AI </Command>
@@ -105,6 +105,7 @@
     <ClCompile Include="Source\Important\Dll.cpp" />
     <ClCompile Include="Source\NexusManager.cpp" />
     <ClCompile Include="Source\ProbeControl.cpp" />
+    <ClCompile Include="Source\Util\Debug.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\BuildingManager.h" />
@@ -114,6 +115,7 @@
     <ClInclude Include="Source\Important\Common.h" />
     <ClInclude Include="Source\NexusManager.h" />
     <ClInclude Include="Source\ProbeControl.h" />
+    <ClInclude Include="Source\Util\Debug.h" />
     <ClInclude Include="Source\Util\Timed.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -25,6 +25,7 @@ private:
     bool findBuiltProbe();
 
 	const static int s_mineralDistance;
+
 	const int c_unitTrainTime;
 	Unit *m_trainingUnit;
 	Timed m_trainingTime;

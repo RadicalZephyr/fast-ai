@@ -5,10 +5,10 @@ using namespace BWAPI;
 // Constant for how far away units can be from their training building
 const int BuildingManager::c_buildDistance = 100;
 
-bool BuildingManager::buildUnit(UnitType buildType) {
-	if (Broodwar->canMake(&m_building, buildType) &&
-		(m_shouldBuild ? m_shouldBuild(buildType) : true)) {
-			m_building.train(buildType);
+bool BuildingManager::buildUnit(UnitType *buildType) {
+	if (Broodwar->canMake(&m_building, *buildType) &&
+		(m_shouldBuild ? m_shouldBuild(*buildType) : true)) {
+			m_building.train(*buildType);
 			m_trainingUnit = 0;
             return true;
     } else {
@@ -35,19 +35,32 @@ void BuildingManager::onSendText(std::string text) {
 }
 
 void BuildingManager::checkTraining(void) {
-	if (m_trainingTime.isDone()) {
+	if (m_trainingUnit && m_trainingTime.isDone()) {
         if (m_postBuild) {
             m_postBuild(m_trainingUnit);
         }
         m_trainingUnit = 0;
+		buildUnit(m_trainingType);
 	}
 }
 
 void BuildingManager::printDebug(void) {
     Broodwar->drawTextScreen(40, 40, "unitTraining isDone: %s\namountDone: %d", 
-			(m_trainingTime ? "yes" : "no"), m_trainingTime.amountDone() );
+			(m_trainingTime ? "yes" : "no"), m_trainingTime.amountDone());
 }
 
 bool BuildingManager::isMyUnitSelected(void) {
     return m_building.isSelected();
+}
+
+BuildingManagerPtr checkForBuildings(Unit *unit, managerWatchVector watchVector) {
+	for (managerWatchVector::const_iterator itr = watchVector.begin(); itr != watchVector.end(); ++itr) {
+		// Check if the unit is of a type given in the watchVector
+		if (unit->getType() == (*itr).get<0>()) {
+			BuildingManagerPtr newManager(new BuildingManager(*unit));
+			newManager->setShouldBuild(itr->get<1>());
+			newManager->setPostBuild(itr->get<2>());
+			return newManager;
+		}
+	}
 }
