@@ -26,8 +26,7 @@ void BuildingManager::buildUnit(UnitType buildType) {
 }
 
 void BuildingManager::onFrame(void) {
-    Broodwar->drawTextScreen(40, 40, "unitTraining isDone: %s\namountDone: %d", 
-			(m_trainingTime ? "yes" : "no"), m_trainingTime.amountDone() );
+    doFrame();
 	checkTraining();
 }
 
@@ -40,9 +39,22 @@ void BuildingManager::onUnitCreate(Unit* unit) {
 	}
 }
 
+void BuildingManager::onSendText(std::string text) {
+    doSendText(text);
+}
+
 void BuildingManager::checkTraining(void) {
 	if (m_trainingTime.isDone()) {
 
 
 	}
+}
+
+void BuildingManager::printDebug(void) {
+    Broodwar->drawTextScreen(40, 40, "unitTraining isDone: %s\namountDone: %d", 
+			(m_trainingTime ? "yes" : "no"), m_trainingTime.amountDone() );
+}
+
+bool BuildingManager::isMyUnitSelected(void) {
+    return m_building.isSelected();
 }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Important/Common.h"
-#include "DistanceSorter.h"
+#include "Util/Debug.h"
 #include "Util/Timed.h"
 #include <boost/function.hpp>
 
@@ -9,7 +9,7 @@ using BWAPI::Unit;
 
 typedef boost::function<bool (BWAPI::UnitType)> boolUnitFunc;
 
-class BuildingManager {
+class BuildingManager : private Debug {
 public:
 	BuildingManager(Unit &theBuilding);
 
@@ -17,9 +17,15 @@ public:
 	void setShouldBuild(boolUnitFunc newPredicate);
 	void onFrame(void);
 	void onUnitCreate(Unit* unit);
+    void onSendText(std::string text);
 private:
+    virtual void printDebug(void);
+    virtual bool isMyUnitSelected(void);
+
+    void checkTraining(void);
+
 	const static int c_buildDistance;
-	void checkTraining(void);
+
 	Unit *m_trainingUnit;
 	Timed m_trainingTime;
 
