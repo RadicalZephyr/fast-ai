@@ -7,14 +7,21 @@
 
 using BWAPI::Unit;
 
-typedef boost::function<bool (BWAPI::UnitType)> boolUnitFunc;
+typedef boost::function<bool (BWAPI::UnitType)> boolUnitTypeFunc;
+typedef boost::function<void (BWAPI::Unit *)> voidUnitFunc;
 
 class BuildingManager : private Debug {
 public:
-	BuildingManager(Unit &theBuilding);
+    explicit BuildingManager(Unit &theBuilding): m_trainingUnit(0),
+												 m_trainingTime(),
+												 m_building(theBuilding),
+												 m_shouldBuild(0),
+                                                 m_postBuild(0) {}
 
-	void buildUnit(BWAPI::UnitType buildType);
-	void setShouldBuild(boolUnitFunc newPredicate);
+	bool buildUnit(BWAPI::UnitType buildType);
+    void setShouldBuild(boolUnitTypeFunc newPredicate) {m_shouldBuild = newPredicate;}
+    void setPostBuild(voidUnitFunc newPostBuild) {m_postBuild = newPostBuild;}
+
 	void onFrame(void);
 	void onUnitCreate(Unit* unit);
     void onSendText(std::string text);
@@ -30,7 +37,8 @@ private:
 	Timed m_trainingTime;
 
 	Unit &m_building;
-	boolUnitFunc m_shouldBuild;
+	boolUnitTypeFunc m_shouldBuild;
+    voidUnitFunc m_postBuild;
 
     // Not implemented to disallow assignment
 	BuildingManager &operator=(const BuildingManager&);
