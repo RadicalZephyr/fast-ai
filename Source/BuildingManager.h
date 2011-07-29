@@ -34,7 +34,7 @@ public:
 
 	void onFrame(void);
 	void onUnitCreate(Unit* unit);
-    void onSendText(std::string text);
+    //void onSendText(std::string text);
 private:
     virtual void printDebug(void);
     virtual bool isMyUnitSelected(void);

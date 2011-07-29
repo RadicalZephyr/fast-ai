@@ -99,6 +99,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\BuildingManager.cpp" />
+    <ClCompile Include="Source\BuildingManagerFactory.cpp" />
     <ClCompile Include="Source\Cannonball.cpp" />
     <ClCompile Include="Source\Cheese.cpp" />
     <ClCompile Include="Source\DistanceSorter.cpp" />
@@ -109,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\BuildingManager.h" />
+    <ClInclude Include="Source\BuildingManagerFactory.h" />
     <ClInclude Include="Source\Cannonball.h" />
     <ClInclude Include="Source\Cheese.h" />
     <ClInclude Include="Source\DistanceSorter.h" />

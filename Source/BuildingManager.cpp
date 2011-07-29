@@ -17,7 +17,6 @@ bool BuildingManager::buildUnit(UnitType *buildType) {
 }
 
 void BuildingManager::onFrame(void) {
-    doFrame();
 	checkTraining();
 }
 
@@ -28,10 +27,6 @@ void BuildingManager::onUnitCreate(Unit* unit) {
 		m_trainingUnit = unit;
 		m_trainingTime.reset(unit->getType().buildTime());
 	}
-}
-
-void BuildingManager::onSendText(std::string text) {
-    doSendText(text);
 }
 
 void BuildingManager::checkTraining(void) {

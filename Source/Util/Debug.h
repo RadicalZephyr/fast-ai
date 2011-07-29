@@ -4,8 +4,8 @@
 class Debug
 {
 public:
-    Debug(void) : debug(false) {}
-    ~Debug(void) {}
+    Debug(void);
+    ~Debug(void);
 
     void doSendText(std::string text);
     void doFrame(void);

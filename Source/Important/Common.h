@@ -14,8 +14,9 @@
   #define GLOBAL
 #endif
 
-/* globals */
-GLOBAL int g_frame;
+class Debug;
+
+typedef std::set<Debug*> DebugSet;
 
 typedef std::set<BWAPI::Unit*> UnitSet;
 typedef std::list<BWAPI::Unit*> UnitList;
@@ -25,3 +26,13 @@ class NexusManager;
 
 typedef boost::shared_ptr<NexusManager> NexusManagerPtr;
 typedef std::set<NexusManagerPtr> NexusManagerSet;
+
+class BuildingManager;
+
+typedef boost::shared_ptr<BuildingManager> BuildingManagerPtr;
+typedef std::set<BuildingManagerPtr> BuildingManagerSet;
+
+/* globals */
+GLOBAL int g_frame;
+GLOBAL DebugSet debuggers;
+GLOBAL BuildingManagerSet managers;

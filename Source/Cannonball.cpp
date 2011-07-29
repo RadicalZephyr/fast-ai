@@ -1,5 +1,7 @@
 #include "Cannonball.h"
+
 #include "Important/Common.h"
+#include "Util\Debug.h"
 
 using namespace BWAPI;
 
@@ -40,17 +42,78 @@ void Cannonball::onStart()
     }
 }
 
+void Cannonball::onSendText(std::string text)
+{
+    // This is the place to capture user input to do stuff with
+	for (DebugSet::const_iterator dbg = debuggers.begin();
+		dbg != debuggers.end(); ++dbg) {
+		(*dbg)->doSendText(text);
+	}
+	Broodwar->printf("onSendText called: '%s'", text.c_str());
+}
+
+// The actually import callbacks to our AI
+void Cannonball::onFrame()
+{
+	/* Global Update TODO: Move somewhere more general */
+	g_frame = Broodwar->getFrameCount();
+
+    if (Broodwar->isReplay())
+        return;
+
+	if(probes->inLocation()){
+		Broodwar->printf("Happened");
+		probes->nextLocation();
+	}
+
+    for (NexusManagerSet::const_iterator manager = managers.begin();
+        manager != managers.end(); ++manager) {
+        (*manager)->onFrame();
+    }
+
+	for (DebugSet::const_iterator dbg = debuggers.begin();
+			dbg != debuggers.end(); ++dbg) {
+		(*dbg)->doFrame();
+	}
+}
+
+// Best place to do stuff with our units because going to be 
+// called more for our units than the enemies
+void Cannonball::onUnitCreate(BWAPI::Unit* unit)
+{
+    // The unit belongs to us
+    if (unit->getPlayer() == Broodwar->self()) {
+        //Broodwar->printf("Created a %s", unit->getType().getName().c_str());
+		for (NexusManagerSet::const_iterator manager = managers.begin();
+			manager != managers.end(); manager++) {
+			(*manager)->onUnitCreate(unit);
+		}
+    }
+}
+
+// Probably mostly for responding to enemy units
+void Cannonball::onUnitDiscover(BWAPI::Unit* unit)
+{
+    if (!Broodwar->isReplay() && Broodwar->getFrameCount()>1)
+        Broodwar->sendText("A %s [%x] has been discovered at (%d,%d)",unit->getType().getName().c_str(),unit,unit->getPosition().x(),unit->getPosition().y());
+}
+
+void Cannonball::onUnitShow(BWAPI::Unit* unit)
+{
+    if (!Broodwar->isReplay() && Broodwar->getFrameCount()>1)
+        Broodwar->sendText("A %s [%x] has been spotted at (%d,%d)",unit->getType().getName().c_str(),unit,unit->getPosition().x(),unit->getPosition().y());
+}
+
+
+
+/// Relatively unused callbacks
+
 void Cannonball::onEnd(bool isWinner)
 {
     if (isWinner)
     {
         //log win to file
     }
-}
-
-void Cannonball::onSendText(std::string text)
-{
-    // This is the place to capture user input to do stuff with
 }
 
 void Cannonball::onReceiveText(BWAPI::Player* player, std::string text)
@@ -75,12 +138,6 @@ void Cannonball::onUnitEvade(BWAPI::Unit* unit)
 {
     if (!Broodwar->isReplay() && Broodwar->getFrameCount()>1)
         Broodwar->sendText("A %s [%x] was last accessible at (%d,%d)",unit->getType().getName().c_str(),unit,unit->getPosition().x(),unit->getPosition().y());
-}
-
-void Cannonball::onUnitShow(BWAPI::Unit* unit)
-{
-    if (!Broodwar->isReplay() && Broodwar->getFrameCount()>1)
-        Broodwar->sendText("A %s [%x] has been spotted at (%d,%d)",unit->getType().getName().c_str(),unit,unit->getPosition().x(),unit->getPosition().y());
 }
 
 void Cannonball::onUnitHide(BWAPI::Unit* unit)
@@ -122,46 +179,4 @@ void Cannonball::onUnitRenegade(BWAPI::Unit* unit)
 void Cannonball::onSaveGame(std::string gameName)
 {
     Broodwar->printf("The game was saved to \"%s\".", gameName.c_str());
-}
-
-// The actually import callbacks to our AI
-void Cannonball::onFrame()
-{
-	/* Global Update TODO: Move somewhere more general */
-	g_frame = Broodwar->getFrameCount();
-
-    if (Broodwar->isReplay())
-        return;
-
-	if(probes->inLocation()){
-		Broodwar->printf("Happened");
-		probes->nextLocation();
-	}
-
-    for (NexusManagerSet::const_iterator manager = managers.begin();
-        manager != managers.end(); manager++) {
-        (*manager)->onFrame();
-    }
-
-}
-
-// Best place to do stuff with our units because going to be 
-// called more for our units than the enemies
-void Cannonball::onUnitCreate(BWAPI::Unit* unit)
-{
-    // The unit belongs to us
-    if (unit->getPlayer() == Broodwar->self()) {
-        //Broodwar->printf("Created a %s", unit->getType().getName().c_str());
-		for (NexusManagerSet::const_iterator manager = managers.begin();
-			manager != managers.end(); manager++) {
-			(*manager)->onUnitCreate(unit);
-		}
-    }
-}
-
-// Probably mostly for responding to enemy units
-void Cannonball::onUnitDiscover(BWAPI::Unit* unit)
-{
-    if (!Broodwar->isReplay() && Broodwar->getFrameCount()>1)
-        Broodwar->sendText("A %s [%x] has been discovered at (%d,%d)",unit->getType().getName().c_str(),unit,unit->getPosition().x(),unit->getPosition().y());
 }
