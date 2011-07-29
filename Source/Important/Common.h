@@ -34,10 +34,15 @@ class BuildingManager;
 typedef boost::shared_ptr<BuildingManager> BuildingManagerPtr;
 typedef std::set<BuildingManagerPtr> BuildingManagerSet;
 
-typedef boost::function<bool (BWAPI::UnitType)> boolUnitTypeFunc;
-typedef boost::function<void (BWAPI::Unit *)> voidUnitFunc;
+typedef boost::function<bool (BWAPI::UnitType)> BM_shouldBuildFunc;
+typedef boost::function<void (BWAPI::Unit *)> BM_postBuildFunc;
 
-typedef boost::tuple<BWAPI::UnitType, boolUnitTypeFunc, voidUnitFunc> managerWatchTriple;
+struct managerWatchTriple {
+	BWAPI::UnitType    watchUnit;
+	BM_shouldBuildFunc shouldBuildCallback;
+	BM_postBuildFunc   postBuildCallback;
+};
+typedef boost::tuple<BWAPI::UnitType, BM_shouldBuildFunc, BM_postBuildFunc> ;
 typedef std::vector<managerWatchTriple> managerWatchVector;
 
 /* globals */

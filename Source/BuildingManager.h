@@ -18,12 +18,12 @@ public:
 
 	bool buildUnit(BWAPI::UnitType *buildType);
 
-    void setShouldBuild(boolUnitTypeFunc newPredicate) {m_shouldBuild = newPredicate;}
-    void setPostBuild(voidUnitFunc newPostBuild) {m_postBuild = newPostBuild;}
+    void setShouldBuild(BM_shouldBuildFunc newPredicate) {m_shouldBuild = newPredicate;}
+    void setPostBuild(BM_postBuildFunc newPostBuild) {m_postBuild = newPostBuild;}
 	bool setUnitType(UnitType *newType) {m_trainingType = newType;}
 	
-	boolUnitTypeFunc getShouldBuild(void) {return m_shouldBuild;}
-	voidUnitFunc getPostBuild(void) {return m_postBuild;}
+	BM_shouldBuildFunc getShouldBuild(void) {return m_shouldBuild;}
+	BM_postBuildFunc getPostBuild(void) {return m_postBuild;}
 	UnitType *getUnitType(void) {return m_trainingType;}
 
 	void onFrame(void);
@@ -43,8 +43,8 @@ private:
 
 	Unit &m_building;
 
-	boolUnitTypeFunc m_shouldBuild;
-    voidUnitFunc m_postBuild;
+	BM_shouldBuildFunc m_shouldBuild;
+    BM_postBuildFunc m_postBuild;
 
     // Not implemented to disallow assignment
 	BuildingManager(void);
@@ -54,4 +54,12 @@ private:
 
 // BuildingManagerFactory function, used for essentially registering a factory producer function in onUnitCreate
 // make a default 'postBuild' function and a 'shouldBuild' function, pass it to the factory along with the unittype 
-// that it goes with, and the function will register every instance of that 
+// that it goes with, and the function will register every instance of that unit with those functions
+
+
+
+// New plan for how buildingmanager works.  No function pointers, instead it has a 'behaviour' (delegate) 
+// object that has a bunch of virtual functions defined on it (i.e. a protocol) some of which are pure 
+// virtual (required) and some of which are simple virtual (optional).
+
+// If no 'behaviour' is provided, then there are reasonable defaults... or rather, a default behaviour is always specified
