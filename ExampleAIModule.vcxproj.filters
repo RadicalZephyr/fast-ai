@@ -13,6 +13,7 @@
     <ClCompile Include="Source\Util\Debug.cpp">
       <Filter>Util</Filter>
     </ClCompile>
+    <ClCompile Include="Source\BuildingManagerFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Cannonball.h" />
@@ -30,6 +31,7 @@
     <ClInclude Include="Source\Util\Debug.h">
       <Filter>Util</Filter>
     </ClInclude>
+    <ClInclude Include="Source\BuildingManagerFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Important">
