@@ -99,25 +99,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\BuildingManager.cpp" />
-    <ClCompile Include="Source\BuildingManagerFactory.cpp" />
     <ClCompile Include="Source\Cannonball.cpp" />
     <ClCompile Include="Source\Cheese\ProbeControl.cpp" />
     <ClCompile Include="Source\Cheese\Strategy.cpp" />
     <ClCompile Include="Source\Function Objects\DistanceSorter.cpp" />
+    <ClCompile Include="Source\Function Objects\NexusFunc.cpp" />
     <ClCompile Include="Source\Important\Dll.cpp" />
     <ClCompile Include="Source\NexusManager.cpp" />
     <ClCompile Include="Source\Util\Debug.cpp" />
+    <ClCompile Include="Source\Util\Functions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\BuildingManager.h" />
-    <ClInclude Include="Source\BuildingManagerFactory.h" />
     <ClInclude Include="Source\Cannonball.h" />
     <ClInclude Include="Source\Cheese\ProbeControl.h" />
     <ClInclude Include="Source\Cheese\Strategy.h" />
     <ClInclude Include="Source\Function Objects\DistanceSorter.h" />
+    <ClInclude Include="Source\Function Objects\NexusFunc.h" />
     <ClInclude Include="Source\Important\Common.h" />
     <ClInclude Include="Source\NexusManager.h" />
     <ClInclude Include="Source\Util\Debug.h" />
+    <ClInclude Include="Source\Util\Functions.h" />
     <ClInclude Include="Source\Util\Timed.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

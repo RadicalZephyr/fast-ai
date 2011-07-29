@@ -4,14 +4,8 @@
 #include "Util/Debug.h"
 #include "Util/Timed.h"
 
-#include <boost/function.hpp>
-#include <boost/tuple/tuple.hpp>
-
 using BWAPI::Unit;
 using BWAPI::UnitType;
-
-typedef boost::function<bool (BWAPI::UnitType)> boolUnitTypeFunc;
-typedef boost::function<void (BWAPI::Unit *)> voidUnitFunc;
 
 class BuildingManager : private Debug {
 public:
@@ -53,16 +47,11 @@ private:
     voidUnitFunc m_postBuild;
 
     // Not implemented to disallow assignment
+	BuildingManager(void);
+	BuildingManager(BuildingManager &);
 	BuildingManager &operator=(const BuildingManager&);
 };
 
 // BuildingManagerFactory function, used for essentially registering a factory producer function in onUnitCreate
 // make a default 'postBuild' function and a 'shouldBuild' function, pass it to the factory along with the unittype 
 // that it goes with, and the function will register every instance of that 
-
-typedef boost::shared_ptr<BuildingManager> BuildingManagerPtr;
-
-typedef boost::tuple<BWAPI::UnitType, boolUnitTypeFunc, voidUnitFunc> managerWatchTriple;
-typedef std::vector<managerWatchTriple> managerWatchVector;
-
-BuildingManagerPtr checkForBuildings(Unit *unit, managerWatchVector watchVector);

@@ -10,7 +10,6 @@
     <ClCompile Include="Source\Util\Debug.cpp">
       <Filter>Util</Filter>
     </ClCompile>
-    <ClCompile Include="Source\BuildingManagerFactory.cpp" />
     <ClCompile Include="Source\Cheese\ProbeControl.cpp">
       <Filter>Cheese</Filter>
     </ClCompile>
@@ -19,6 +18,12 @@
     </ClCompile>
     <ClCompile Include="Source\Cheese\Strategy.cpp">
       <Filter>Cheese</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Function Objects\NexusFunc.cpp">
+      <Filter>Function Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Util\Functions.cpp">
+      <Filter>Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -34,7 +39,6 @@
     <ClInclude Include="Source\Util\Debug.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="Source\BuildingManagerFactory.h" />
     <ClInclude Include="Source\Cheese\ProbeControl.h">
       <Filter>Cheese</Filter>
     </ClInclude>
@@ -43,6 +47,12 @@
     </ClInclude>
     <ClInclude Include="Source\Cheese\Strategy.h">
       <Filter>Cheese</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Function Objects\NexusFunc.h">
+      <Filter>Function Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Util\Functions.h">
+      <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

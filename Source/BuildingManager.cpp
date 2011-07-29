@@ -35,27 +35,18 @@ void BuildingManager::checkTraining(void) {
             m_postBuild(m_trainingUnit);
         }
         m_trainingUnit = 0;
+	} else {
 		buildUnit(m_trainingType);
 	}
 }
 
 void BuildingManager::printDebug(void) {
-    Broodwar->drawTextScreen(40, 40, "unitTraining isDone: %s\namountDone: %d", 
-			(m_trainingTime ? "yes" : "no"), m_trainingTime.amountDone());
+    Broodwar->drawTextMap(m_building.getPosition().x()+30, m_building.getPosition().y()+30, 
+							"trainingType: %s\nunitTraining isDone: %s\namountDone: %d",
+							m_trainingType->getName().c_str(),
+							(m_trainingTime ? "yes" : "no"), m_trainingTime.amountDone());
 }
 
 bool BuildingManager::isMyUnitSelected(void) {
     return m_building.isSelected();
-}
-
-BuildingManagerPtr checkForBuildings(Unit *unit, managerWatchVector watchVector) {
-	for (managerWatchVector::const_iterator itr = watchVector.begin(); itr != watchVector.end(); ++itr) {
-		// Check if the unit is of a type given in the watchVector
-		if (unit->getType() == (*itr).get<0>()) {
-			BuildingManagerPtr newManager(new BuildingManager(*unit));
-			newManager->setShouldBuild(itr->get<1>());
-			newManager->setPostBuild(itr->get<2>());
-			return newManager;
-		}
-	}
 }
