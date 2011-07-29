@@ -14,11 +14,11 @@
     <ClCompile Include="Source\Cheese\ProbeControl.cpp">
       <Filter>Cheese</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Cheese\Cheese.cpp">
-      <Filter>Cheese</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Function Objects\DistanceSorter.cpp">
       <Filter>Function Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Cheese\Strategy.cpp">
+      <Filter>Cheese</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -35,14 +35,14 @@
       <Filter>Util</Filter>
     </ClInclude>
     <ClInclude Include="Source\BuildingManagerFactory.h" />
-    <ClInclude Include="Source\Cheese\Cheese.h">
-      <Filter>Cheese</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Cheese\ProbeControl.h">
       <Filter>Cheese</Filter>
     </ClInclude>
     <ClInclude Include="Source\Function Objects\DistanceSorter.h">
       <Filter>Function Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Cheese\Strategy.h">
+      <Filter>Cheese</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
