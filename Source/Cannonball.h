@@ -3,7 +3,7 @@
 #include <BWAPI.h>
 
 #include "NexusManager.h"
-#include "ProbeControl.h"
+#include "Cheese/ProbeControl.h"
 
 class Cannonball : public BWAPI::AIModule {
 public:

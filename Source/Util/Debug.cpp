@@ -1,4 +1,4 @@
-#include "../Important/Common.h"
+#include "Important/Common.h"
 #include "Debug.h"
 
 Debug::Debug(void) : debug(false) {

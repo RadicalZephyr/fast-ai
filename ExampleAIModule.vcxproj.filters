@@ -3,21 +3,26 @@
   <ItemGroup>
     <ClCompile Include="Source\Cannonball.cpp" />
     <ClCompile Include="Source\NexusManager.cpp" />
-    <ClCompile Include="Source\DistanceSorter.cpp" />
     <ClCompile Include="Source\Important\Dll.cpp">
       <Filter>Important</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Cheese.cpp" />
-    <ClCompile Include="Source\ProbeControl.cpp" />
     <ClCompile Include="Source\BuildingManager.cpp" />
     <ClCompile Include="Source\Util\Debug.cpp">
       <Filter>Util</Filter>
     </ClCompile>
     <ClCompile Include="Source\BuildingManagerFactory.cpp" />
+    <ClCompile Include="Source\Cheese\ProbeControl.cpp">
+      <Filter>Cheese</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Cheese\Cheese.cpp">
+      <Filter>Cheese</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Function Objects\DistanceSorter.cpp">
+      <Filter>Function Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Cannonball.h" />
-    <ClInclude Include="Source\DistanceSorter.h" />
     <ClInclude Include="Source\NexusManager.h" />
     <ClInclude Include="Source\Important\Common.h">
       <Filter>Important</Filter>
@@ -25,13 +30,20 @@
     <ClInclude Include="Source\Util\Timed.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Cheese.h" />
-    <ClInclude Include="Source\ProbeControl.h" />
     <ClInclude Include="Source\BuildingManager.h" />
     <ClInclude Include="Source\Util\Debug.h">
       <Filter>Util</Filter>
     </ClInclude>
     <ClInclude Include="Source\BuildingManagerFactory.h" />
+    <ClInclude Include="Source\Cheese\Cheese.h">
+      <Filter>Cheese</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Cheese\ProbeControl.h">
+      <Filter>Cheese</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Function Objects\DistanceSorter.h">
+      <Filter>Function Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Important">
@@ -39,6 +51,12 @@
     </Filter>
     <Filter Include="Util">
       <UniqueIdentifier>{9ca54144-cb95-4fc4-a49a-471e6b623b42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Function Objects">
+      <UniqueIdentifier>{76f61bfa-44f3-4c9f-8f8f-2fb9a4f7c99d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cheese">
+      <UniqueIdentifier>{3ca301d6-4a3f-4f59-82c7-2094d257b493}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

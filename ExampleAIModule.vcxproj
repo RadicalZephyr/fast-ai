@@ -74,7 +74,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(BOOST_ROOT);$(BWAPI_ROOT)\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(BOOST_ROOT);$(BWAPI_ROOT)\include;$(SolutionDir)\Source</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;EXAMPLEAIMODULE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -101,22 +101,22 @@
     <ClCompile Include="Source\BuildingManager.cpp" />
     <ClCompile Include="Source\BuildingManagerFactory.cpp" />
     <ClCompile Include="Source\Cannonball.cpp" />
-    <ClCompile Include="Source\Cheese.cpp" />
-    <ClCompile Include="Source\DistanceSorter.cpp" />
+    <ClCompile Include="Source\Cheese\Cheese.cpp" />
+    <ClCompile Include="Source\Cheese\ProbeControl.cpp" />
+    <ClCompile Include="Source\Function Objects\DistanceSorter.cpp" />
     <ClCompile Include="Source\Important\Dll.cpp" />
     <ClCompile Include="Source\NexusManager.cpp" />
-    <ClCompile Include="Source\ProbeControl.cpp" />
     <ClCompile Include="Source\Util\Debug.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\BuildingManager.h" />
     <ClInclude Include="Source\BuildingManagerFactory.h" />
     <ClInclude Include="Source\Cannonball.h" />
-    <ClInclude Include="Source\Cheese.h" />
-    <ClInclude Include="Source\DistanceSorter.h" />
+    <ClInclude Include="Source\Cheese\Cheese.h" />
+    <ClInclude Include="Source\Cheese\ProbeControl.h" />
+    <ClInclude Include="Source\Function Objects\DistanceSorter.h" />
     <ClInclude Include="Source\Important\Common.h" />
     <ClInclude Include="Source\NexusManager.h" />
-    <ClInclude Include="Source\ProbeControl.h" />
     <ClInclude Include="Source\Util\Debug.h" />
     <ClInclude Include="Source\Util\Timed.h" />
   </ItemGroup>
