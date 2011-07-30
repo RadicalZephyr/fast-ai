@@ -14,21 +14,12 @@ void Cannonball::onStart()
     // Uncomment to enable complete map information
     //Broodwar->enableFlag(Flag::CompleteMapInformation);
 
-    //std::set<Unit*>& startLocSet = Broodwar->getUnitsInRadius(BWAPI::Position(Broodwar->self()->getStartLocation()), 100);
-    
-	bool first = true;
-    //for (std::set<Unit*>::const_iterator i = startLocSet.begin(); i != startLocSet.end(); i++) {
-    //    if ((*i)->getType().isResourceDepot()) {
-    //        NexusManagerPtr manager(new NexusManager(*(*i)));
-    //        managers.insert(manager);
-    //    }
-    //}
-
-    //(*(managers.begin()))->findMinerals();
 	managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::getUnitType("Protoss Nexus"), 
 										  static_cast<BM_BaseBehaviourFactory *>(new BM_BehaviourFactory<NexusBehaviour>)));
 
-	//Signal::onFriendlyUnitCreate().connect(boost::bind(&checkForBuildings, _1, managerWatchMap));
+	Signal::onFriendlyUnitCreate().connect(boost::bind(&checkForBuildings, _1, managerWatchMap));
+	
+	bool first = true;
 
     for(std::set<Unit*>::const_iterator i=Broodwar->self()->getUnits().begin();i!=Broodwar->self()->getUnits().end();i++)
     {
@@ -36,9 +27,9 @@ void Cannonball::onStart()
         {
 			if(first == true)
 			{
-				probes = new ProbeControl(*i);
-				probes->addProbe();
-				first = false;
+				//probes = new ProbeControl(*i);
+				//probes->addProbe();
+				//first = false;
 			}
 			else
 			{
@@ -67,10 +58,10 @@ void Cannonball::onFrame()
     if (Broodwar->isReplay())
         return;
 
-	if(probes->inLocation()) {
-		Broodwar->printf("Happened");
-		probes->nextLocation();
-	}
+	//if(probes->inLocation()) {
+	//	Broodwar->printf("Happened");
+	//	probes->nextLocation();
+	//}
 
 	Signal::onFrame()();
 }
@@ -82,7 +73,6 @@ void Cannonball::onUnitCreate(BWAPI::Unit* unit)
     // The unit belongs to us
     if (unit->getPlayer() == Broodwar->self()) {
         //Broodwar->printf("Created a %s", unit->getType().getName().c_str());
-		checkForBuildings(unit, managerWatchMap);
 		Signal::onFriendlyUnitCreate()(unit);
     } else {
 		Signal::onEnemyUnitCreate()(unit);

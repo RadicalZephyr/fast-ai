@@ -1,10 +1,12 @@
 #pragma once
 
 #include <BWAPI.h>
+
 #include <list>
 #include <vector>
 #include <set>
 #include <map>
+#include <algorithm>
 
 #include <boost/shared_ptr.hpp>
 #include <boost/function.hpp>
