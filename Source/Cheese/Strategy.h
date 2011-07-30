@@ -31,7 +31,8 @@ public: //Usage Section
 	BWAPI::Unit* enemyBase;
 	BWAPI::TilePosition enemyStartLocation;
 
-
 	// Will be called every time a new probe arrives at the cheese site
 	virtual void newProbe(BWAPI::Unit* probe) = 0;
+
+	virtual void setRunning(bool isRunning) = 0;
 };
