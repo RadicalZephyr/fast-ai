@@ -3,6 +3,7 @@
 #include "Important/Common.h"
 #include "Util/Debug.h"
 #include "Util/Timed.h"
+#include "IBuildingManagerBehaviour.h"
 
 using BWAPI::Unit;
 using BWAPI::UnitType;
@@ -13,17 +14,12 @@ public:
 												 m_trainingUnit(0),
 												 m_trainingTime(),
 												 m_building(theBuilding),
-												 m_shouldBuild(0),
-                                                 m_postBuild(0) {}
+												 m_behaviour() {}
 
 	bool buildUnit(BWAPI::UnitType *buildType);
 
-    void setShouldBuild(BM_shouldBuildFunc newPredicate) {m_shouldBuild = newPredicate;}
-    void setPostBuild(BM_postBuildFunc newPostBuild) {m_postBuild = newPostBuild;}
 	bool setUnitType(UnitType *newType) {m_trainingType = newType;}
-	
-	BM_shouldBuildFunc getShouldBuild(void) {return m_shouldBuild;}
-	BM_postBuildFunc getPostBuild(void) {return m_postBuild;}
+
 	UnitType *getUnitType(void) {return m_trainingType;}
 
 	void onFrame(void);
@@ -43,8 +39,7 @@ private:
 
 	Unit &m_building;
 
-	BM_shouldBuildFunc m_shouldBuild;
-    BM_postBuildFunc m_postBuild;
+	IBuildingManagerBehaviour *m_behaviour;
 
     // Not implemented to disallow assignment
 	BuildingManager(void);

@@ -24,15 +24,15 @@ TilePosition ReconsiderBuildLocation(Unit * builder, TilePosition original_posit
 	}
 }
 
-BuildingManagerPtr checkForBuildings(Unit *unit, managerWatchVector watchVector) {
-	for (managerWatchVector::const_iterator itr = watchVector.begin(); itr != watchVector.end(); ++itr) {
-
-		// Check if the unit is of a type given in the watchVector
-		if (unit->getType() == (*itr).get<0>()) {
-			BuildingManagerPtr newManager(new BuildingManager(*unit));
-			newManager->setShouldBuild(itr->get<1>());
-			newManager->setPostBuild(itr->get<2>());
-			return newManager;
-		}
-	}
-}
+//BuildingManagerPtr checkForBuildings(Unit *unit, managerWatchVector watchVector) {
+//	for (managerWatchVector::const_iterator itr = watchVector.begin(); itr != watchVector.end(); ++itr) {
+//
+//		// Check if the unit is of a type given in the watchVector
+//		if (unit->getType() == (*itr).get<0>()) {
+//			BuildingManagerPtr newManager(new BuildingManager(*unit));
+//			newManager->setShouldBuild(itr->get<1>());
+//			newManager->setPostBuild(itr->get<2>());
+//			return newManager;
+//		}
+//	}
+//}

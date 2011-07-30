@@ -6,8 +6,6 @@
 #include <set>
 
 #include <boost/shared_ptr.hpp>
-#include <boost/tuple/tuple.hpp>
-#include <boost/function.hpp>
 
 // Global Macro
 #ifndef COMPILE_GLOBAL
@@ -35,17 +33,6 @@ class BuildingManager;
 
 typedef boost::shared_ptr<BuildingManager> BuildingManagerPtr;
 typedef std::set<BuildingManagerPtr> BuildingManagerSet;
-
-typedef boost::function<bool (BWAPI::UnitType)> BM_shouldBuildFunc;
-typedef boost::function<void (BWAPI::Unit *)> BM_postBuildFunc;
-
-struct managerWatchTriple {
-	BWAPI::UnitType    watchUnit;
-	BM_shouldBuildFunc shouldBuildCallback;
-	BM_postBuildFunc   postBuildCallback;
-};
-typedef boost::tuple<BWAPI::UnitType, BM_shouldBuildFunc, BM_postBuildFunc> ;
-typedef std::vector<managerWatchTriple> managerWatchVector;
 
 /* globals */
 GLOBAL int g_frame;

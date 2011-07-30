@@ -7,7 +7,7 @@ const int BuildingManager::c_buildDistance = 100;
 
 bool BuildingManager::buildUnit(UnitType *buildType) {
 	if (Broodwar->canMake(&m_building, *buildType) &&
-		(m_shouldBuild ? m_shouldBuild(*buildType) : true)) {
+		m_behaviour->shouldBuild(buildType)) {
 			m_building.train(*buildType);
 			m_trainingUnit = 0;
             return true;
@@ -31,9 +31,7 @@ void BuildingManager::onUnitCreate(Unit* unit) {
 
 void BuildingManager::checkTraining(void) {
 	if (m_trainingUnit && m_trainingTime.isDone()) {
-        if (m_postBuild) {
-            m_postBuild(m_trainingUnit);
-        }
+        m_behaviour->postBuild(m_trainingUnit);
         m_trainingUnit = 0;
 	} else {
 		buildUnit(m_trainingType);
