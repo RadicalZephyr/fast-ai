@@ -25,6 +25,9 @@
     <ClCompile Include="Source\Util\Functions.cpp">
       <Filter>Util</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Cheese\StrategyManager.cpp">
+      <Filter>Cheese</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Cannonball.h" />
@@ -54,6 +57,12 @@
     <ClInclude Include="Source\Util\Functions.h">
       <Filter>Util</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Cheese\StrategyManager.h">
+      <Filter>Cheese</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Cheese\Strategies.h">
+      <Filter>Cheese</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Important">
@@ -67,6 +76,9 @@
     </Filter>
     <Filter Include="Cheese">
       <UniqueIdentifier>{3ca301d6-4a3f-4f59-82c7-2094d257b493}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cheese\Strategies">
+      <UniqueIdentifier>{89a2a272-1985-4d5c-8695-f8519e772600}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
