@@ -4,6 +4,8 @@
 Debug::Debug(void) : debug(false) {
 	// Register with the global debug manager
 	debuggers.insert(this);
+	Signal::onFrame.connect(boost::bind(&Debug::doFrame, this));
+	Signal::onSendText.connect(boost::bind(&Debug::doSendText, this, _1));
 }
 
 Debug::~Debug(void) {

@@ -21,6 +21,9 @@ NexusManager::NexusManager(Unit &theNexus): c_unitTrainTime(theNexus.getType().g
         std::invalid_argument badArg("ERROR: NexusManager: Non-ResourceDepot object passed to constructor");
         throw badArg;
     }
+
+	Signal::onFrame.connect(boost::bind(&NexusManager::onFrame, this));
+	Signal::onFriendlyUnitCreate.connect(boost::bind(&NexusManager::onUnitCreate, this, _1));
 }
 
 void NexusManager::checkTraining() {
