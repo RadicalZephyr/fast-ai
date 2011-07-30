@@ -120,6 +120,7 @@
     <ClInclude Include="Source\Function Objects\DistanceSorter.h" />
     <ClInclude Include="Source\Function Objects\NexusFunc.h" />
     <ClInclude Include="Source\Important\Common.h" />
+    <ClInclude Include="Source\Important\Signals.h" />
     <ClInclude Include="Source\NexusManager.h" />
     <ClInclude Include="Source\Util\Debug.h" />
     <ClInclude Include="Source\Util\Functions.h" />

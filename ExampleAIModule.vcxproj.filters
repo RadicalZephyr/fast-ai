@@ -63,6 +63,9 @@
     <ClInclude Include="Source\Cheese\Strategies.h">
       <Filter>Cheese</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Important\Signals.h">
+      <Filter>Important</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Important">

@@ -40,6 +40,8 @@ void Cannonball::onStart()
 			}
 		}
     }
+
+	Signal::onStart();
 }
 
 void Cannonball::onSendText(std::string text)
@@ -50,6 +52,8 @@ void Cannonball::onSendText(std::string text)
 		(*dbg)->doSendText(text);
 	}
 	Broodwar->printf("onSendText called: '%s'", text.c_str());
+
+	Signal::onSendText(text);
 }
 
 // The actually import callbacks to our AI
@@ -75,6 +79,8 @@ void Cannonball::onFrame()
 			dbg != debuggers.end(); ++dbg) {
 		(*dbg)->doFrame();
 	}
+
+	Signal::onFrame();
 }
 
 // Best place to do stuff with our units because going to be 
@@ -89,6 +95,8 @@ void Cannonball::onUnitCreate(BWAPI::Unit* unit)
 			(*manager)->onUnitCreate(unit);
 		}
     }
+
+	Signal::onUnitCreate(unit);
 }
 
 // Probably mostly for responding to enemy units
@@ -96,12 +104,16 @@ void Cannonball::onUnitDiscover(BWAPI::Unit* unit)
 {
     if (!Broodwar->isReplay() && Broodwar->getFrameCount()>1)
         Broodwar->sendText("A %s [%x] has been discovered at (%d,%d)",unit->getType().getName().c_str(),unit,unit->getPosition().x(),unit->getPosition().y());
+
+	Signal::onUnitDiscover(unit);
 }
 
 void Cannonball::onUnitShow(BWAPI::Unit* unit)
 {
     if (!Broodwar->isReplay() && Broodwar->getFrameCount()>1)
         Broodwar->sendText("A %s [%x] has been spotted at (%d,%d)",unit->getType().getName().c_str(),unit,unit->getPosition().x(),unit->getPosition().y());
+
+	Signal::onUnitShow(unit);
 }
 
 
@@ -110,20 +122,21 @@ void Cannonball::onUnitShow(BWAPI::Unit* unit)
 
 void Cannonball::onEnd(bool isWinner)
 {
-    if (isWinner)
-    {
-        //log win to file
-    }
+	Signal::onEnd(isWinner);
 }
 
 void Cannonball::onReceiveText(BWAPI::Player* player, std::string text)
 {
     Broodwar->printf("%s said '%s'", player->getName().c_str(), text.c_str());
+
+	Signal::onReceiveText(player, text);
 }
 
 void Cannonball::onPlayerLeft(BWAPI::Player* player)
 {
     Broodwar->sendText("%s left the game.",player->getName().c_str());
+
+	Signal::onPlayerLeft(player);
 }
 
 void Cannonball::onNukeDetect(BWAPI::Position target)
@@ -132,24 +145,32 @@ void Cannonball::onNukeDetect(BWAPI::Position target)
         Broodwar->printf("Nuclear Launch Detected at (%d,%d)",target.x(),target.y());
     else
         Broodwar->printf("Nuclear Launch Detected");
+
+	Signal::onNukeDetect(target);
 }
 
 void Cannonball::onUnitEvade(BWAPI::Unit* unit)
 {
     if (!Broodwar->isReplay() && Broodwar->getFrameCount()>1)
         Broodwar->sendText("A %s [%x] was last accessible at (%d,%d)",unit->getType().getName().c_str(),unit,unit->getPosition().x(),unit->getPosition().y());
+
+	Signal::onUnitEvade(unit);
 }
 
 void Cannonball::onUnitHide(BWAPI::Unit* unit)
 {
     if (!Broodwar->isReplay() && Broodwar->getFrameCount()>1)
         Broodwar->sendText("A %s [%x] was last seen at (%d,%d)",unit->getType().getName().c_str(),unit,unit->getPosition().x(),unit->getPosition().y());
+
+	Signal::onUnitHide(unit);
 }
 
 void Cannonball::onUnitDestroy(BWAPI::Unit* unit)
 {
     if (!Broodwar->isReplay() && Broodwar->getFrameCount()>1)
         Broodwar->sendText("A %s [%x] has been destroyed at (%d,%d)",unit->getType().getName().c_str(),unit,unit->getPosition().x(),unit->getPosition().y());
+
+	Signal::onUnitDestroy(unit);
 }
 
 void Cannonball::onUnitMorph(BWAPI::Unit* unit)
@@ -168,15 +189,21 @@ void Cannonball::onUnitMorph(BWAPI::Unit* unit)
             Broodwar->sendText("%.2d:%.2d: %s morphs a %s",minutes,seconds,unit->getPlayer()->getName().c_str(),unit->getType().getName().c_str());
         }
     }
+
+	Signal::onUnitMorph(unit);
 }
 
 void Cannonball::onUnitRenegade(BWAPI::Unit* unit)
 {
     if (!Broodwar->isReplay())
         Broodwar->sendText("A %s [%x] is now owned by %s",unit->getType().getName().c_str(),unit,unit->getPlayer()->getName().c_str());
+
+	Signal::onUnitRenegade(unit);
 }
 
 void Cannonball::onSaveGame(std::string gameName)
 {
     Broodwar->printf("The game was saved to \"%s\".", gameName.c_str());
+
+	Signal::onSaveGame(gameName);
 }
