@@ -1,6 +1,12 @@
 #pragma once
 
+// Known issue with boost signals, generating a spurious warning so we suppress the warning
+#pragma warning( push , 1 )
+#pragma warning( disable : 4512 )
+
 #include <boost/signal.hpp>
+
+#pragma warning( pop )
 
 #include "Important/Common.h"
 
@@ -9,6 +15,7 @@
 //returning true will remove the binding.
 namespace Signal
 {
+
 	//Register a start callback.
 	//Only called once, so no need for return value
 	GLOBAL boost::signal<void ()> onStart;
@@ -73,4 +80,5 @@ namespace Signal
 	//Register a on save game callback.
 	//1 = gamename
 	GLOBAL boost::signal<void (std::string)> onSaveGame;
+
 }

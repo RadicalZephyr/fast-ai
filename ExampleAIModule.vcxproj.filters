@@ -66,6 +66,7 @@
     <ClInclude Include="Source\Important\Signals.h">
       <Filter>Important</Filter>
     </ClInclude>
+    <ClInclude Include="Source\IBuildingManagerBehaviour.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Important">
