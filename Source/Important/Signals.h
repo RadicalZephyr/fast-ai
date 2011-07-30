@@ -8,6 +8,7 @@
 
 #pragma warning( pop )
 
+#include "boost\bind.hpp"
 #include "Important/Common.h"
 
 //These emulate the callbacks by the BWAPI
@@ -61,9 +62,13 @@ namespace Signal
 	//1 = unit
 	GLOBAL boost::signal<void (BWAPI::Unit*)> onUnitHide;
 
-	//Register a unit create callback.
+	//Register a friendly unit create callback.
 	//1 = unit
-	GLOBAL boost::signal<void (BWAPI::Unit*)> onUnitCreate;
+	GLOBAL boost::signal<void (BWAPI::Unit*)> onFriendlyUnitCreate;
+
+	//Register an enemy unit create callback.
+	//1 = unit
+	GLOBAL boost::signal<void (BWAPI::Unit*)> onEnemyUnitCreate;
 
 	//Register a unit destroy callback.
 	//1 = unit

@@ -14,7 +14,10 @@ public:
 												 m_trainingUnit(0),
 												 m_trainingTime(),
 												 m_building(theBuilding),
-												 m_behaviour() {}
+												 m_behaviour() {
+		Signal::onFrame.connect(boost::bind(&BuildingManager::onFrame, this));
+		Signal::onFriendlyUnitCreate.connect(boost::bind(&BuildingManager::onUnitCreate, this, _1));
+	}
 
 	bool buildUnit(BWAPI::UnitType *buildType);
 

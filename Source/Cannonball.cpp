@@ -47,10 +47,6 @@ void Cannonball::onStart()
 void Cannonball::onSendText(std::string text)
 {
     // This is the place to capture user input to do stuff with
-	for (DebugSet::const_iterator dbg = debuggers.begin();
-		dbg != debuggers.end(); ++dbg) {
-		(*dbg)->doSendText(text);
-	}
 	Broodwar->printf("onSendText called: '%s'", text.c_str());
 
 	Signal::onSendText(text);
@@ -65,19 +61,9 @@ void Cannonball::onFrame()
     if (Broodwar->isReplay())
         return;
 
-	if(probes->inLocation()){
+	if(probes->inLocation()) {
 		Broodwar->printf("Happened");
 		probes->nextLocation();
-	}
-
-    for (NexusManagerSet::const_iterator manager = managers.begin();
-        manager != managers.end(); ++manager) {
-        (*manager)->onFrame();
-    }
-
-	for (DebugSet::const_iterator dbg = debuggers.begin();
-			dbg != debuggers.end(); ++dbg) {
-		(*dbg)->doFrame();
 	}
 
 	Signal::onFrame();
@@ -90,13 +76,10 @@ void Cannonball::onUnitCreate(BWAPI::Unit* unit)
     // The unit belongs to us
     if (unit->getPlayer() == Broodwar->self()) {
         //Broodwar->printf("Created a %s", unit->getType().getName().c_str());
-		for (NexusManagerSet::const_iterator manager = managers.begin();
-			manager != managers.end(); manager++) {
-			(*manager)->onUnitCreate(unit);
-		}
-    }
-
-	Signal::onUnitCreate(unit);
+		Signal::onFriendlyUnitCreate(unit);
+    } else {
+		Signal::onEnemyUnitCreate(unit);
+	}
 }
 
 // Probably mostly for responding to enemy units
