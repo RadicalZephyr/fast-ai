@@ -4,8 +4,12 @@
 #include <list>
 #include <vector>
 #include <set>
+#include <map>
 
 #include <boost/shared_ptr.hpp>
+#include <boost/function.hpp>
+
+#include "Signals.h"
 
 // Global Macro
 #ifndef COMPILE_GLOBAL
@@ -17,8 +21,6 @@
 class Debug;
 
 typedef std::set<Debug*> DebugSet;
-
-#include "Signals.h"
 
 typedef std::set<BWAPI::Unit*> UnitSet;
 typedef std::list<BWAPI::Unit*> UnitList;
