@@ -10,13 +10,22 @@ using BWAPI::UnitType;
 
 class BuildingManager : private Debug {
 public:
-    explicit BuildingManager(Unit &theBuilding): m_trainingType(0),
-												 m_trainingUnit(0),
-												 m_trainingTime(),
-												 m_building(theBuilding),
-												 m_behaviour() {
-		Signal::onFrame.connect(boost::bind(&BuildingManager::onFrame, this));
-		Signal::onFriendlyUnitCreate.connect(boost::bind(&BuildingManager::onUnitCreate, this, _1));
+ //   explicit BuildingManager(Unit &theBuilding): m_trainingType(0),
+	//											 m_trainingUnit(0),
+	//											 m_trainingTime(),
+	//											 m_building(theBuilding),
+	//											 m_behaviour() {
+	//	//Signal::onFrame.connect(boost::bind(&BuildingManager::onFrame, this));
+	//	//Signal::onFriendlyUnitCreate.connect(boost::bind(&BuildingManager::onUnitCreate, this, _1));
+	//}
+
+	explicit BuildingManager(Unit &theBuilding, IBM_BehaviourPtr theBehaviour): m_trainingType(0),
+																			    m_trainingUnit(0),
+																			    m_trainingTime(),
+												 							    m_building(theBuilding),
+												 							    m_behaviour(theBehaviour) {
+		Signal::onFrame().connect(boost::bind(&BuildingManager::onFrame, this));
+		Signal::onFriendlyUnitCreate().connect(boost::bind(&BuildingManager::onUnitCreate, this, _1));
 	}
 
 	bool buildUnit(BWAPI::UnitType *buildType);
@@ -27,7 +36,7 @@ public:
 
 	void onFrame(void);
 	void onUnitCreate(Unit* unit);
-    //void onSendText(std::string text);
+
 private:
     virtual void printDebug(void);
     virtual bool isMyUnitSelected(void);
@@ -42,7 +51,7 @@ private:
 
 	Unit &m_building;
 
-	IBuildingManagerBehaviour *m_behaviour;
+	IBM_BehaviourPtr m_behaviour;
 
     // Not implemented to disallow assignment
 	BuildingManager(void);

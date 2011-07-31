@@ -1,6 +1,6 @@
 
 #include "Functions.h"
-#include "BuildingManager.h"
+#include "BuildingManager/BuildingManager.h"
 
 using namespace BWAPI;
 

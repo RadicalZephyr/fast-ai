@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Important/Common.h"
-#include "Function Objects/DistanceSorter.h"
+#include "FunctionObjects/DistanceSorter.h"
 #include "Util/Timed.h"
 
 using namespace BWAPI;
