@@ -36,7 +36,17 @@ class BuildingManager;
 typedef boost::shared_ptr<BuildingManager> BuildingManagerPtr;
 typedef std::set<BuildingManagerPtr> BuildingManagerSet;
 
+class IBuildingManagerBehaviour;
+
+typedef boost::shared_ptr<IBuildingManagerBehaviour> IBM_BehaviourPtr;
+
+
+struct BM_BaseBehaviourFactory;
+
+typedef std::map<BWAPI::UnitType, BM_BaseBehaviourFactory*> BM_factoryMap;
+
 /* globals */
 GLOBAL int g_frame;
 GLOBAL DebugSet debuggers;
 GLOBAL BuildingManagerSet managers;
+GLOBAL BM_factoryMap managerWatchMap;

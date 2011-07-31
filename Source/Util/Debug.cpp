@@ -31,5 +31,6 @@ void Debug::printDebug(void) {
 }
 
 bool Debug::isMyUnitSelected(void) {
+	BWAPI::Broodwar->printf("DBG isMyUnitSelected");
 	return true;
 }

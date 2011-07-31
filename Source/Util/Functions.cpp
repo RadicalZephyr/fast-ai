@@ -24,15 +24,11 @@ TilePosition ReconsiderBuildLocation(Unit * builder, TilePosition original_posit
 	}
 }
 
-//BuildingManagerPtr checkForBuildings(Unit *unit, managerWatchVector watchVector) {
-//	for (managerWatchVector::const_iterator itr = watchVector.begin(); itr != watchVector.end(); ++itr) {
-//
-//		// Check if the unit is of a type given in the watchVector
-//		if (unit->getType() == (*itr).get<0>()) {
-//			BuildingManagerPtr newManager(new BuildingManager(*unit));
-//			newManager->setShouldBuild(itr->get<1>());
-//			newManager->setPostBuild(itr->get<2>());
-//			return newManager;
-//		}
-//	}
-//}
+void checkForBuildings(BWAPI::Unit *unit, BM_factoryMap watchMap) {
+	if (watchMap.find(unit->getType()) != watchMap.end()) {
+		Broodwar->printf("Attempting to create a BuildingManager for a: %s", unit->getType().getName().c_str());
+		BuildingManagerPtr newManager(new BuildingManager(*unit, watchMap[unit->getType()]->Create(unit)));
+		managers.insert(newManager);
+
+	}
+}

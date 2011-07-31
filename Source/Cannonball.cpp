@@ -82,6 +82,7 @@ void Cannonball::onUnitCreate(BWAPI::Unit* unit)
     // The unit belongs to us
     if (unit->getPlayer() == Broodwar->self()) {
         //Broodwar->printf("Created a %s", unit->getType().getName().c_str());
+		checkForBuildings(unit, managerWatchMap);
 		Signal::onFriendlyUnitCreate()(unit);
     } else {
 		Signal::onEnemyUnitCreate()(unit);
