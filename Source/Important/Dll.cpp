@@ -11,8 +11,17 @@
 #include "Common.h"
 
 #include "../Cannonball.h"
+#include "BWAPIadditions/BuildsWhat.h"
 
-namespace BWAPI { Game* Broodwar; }
+namespace BWAPI { 
+	Game* Broodwar; 
+
+	UnitTypeSet const &buildsWhat(UnitType unitType) {
+		static BuildsWhat buildsWhatMap;
+		return buildsWhatMap.lookupBuildsWhat(unitType);
+	}
+}
+
 BOOL APIENTRY DllMain( HANDLE, 
                        DWORD  ul_reason_for_call, 
                        LPVOID
@@ -34,6 +43,10 @@ BOOL APIENTRY DllMain( HANDLE,
 
  extern "C" __declspec(dllexport) BWAPI::AIModule* newAIModule(BWAPI::Game* game)
 {
+  // Explicitly ignoring the return value.  This call is solely to initialize the buildsWhat static
+  //  data structure
+  (void)BWAPI::buildsWhat(BWAPI::UnitTypes::getUnitType("Protoss Nexus"));
   BWAPI::Broodwar=game;
   return new Cannonball();
 }
+

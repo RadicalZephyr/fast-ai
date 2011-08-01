@@ -20,15 +20,21 @@
   #define GLOBAL
 #endif
 
+
+// Typedefs for standard containers for BWAPI Unit's
+//   Note that BWAPI Unit's are ALWAYS pointers (don't make new ones!)
 typedef std::set<BWAPI::Unit*> UnitSet;
 typedef std::list<BWAPI::Unit*> UnitList;
 typedef std::vector<BWAPI::Unit*> UnitVector;
 
 typedef std::set<BWAPI::UnitType> UnitTypeSet;
 
-class Debug;
+// Prototype for function that allows you to find what unit types a unit builds
+// Usage: buildsWhat(UnitType)
+namespace BWAPI {
 
-typedef std::set<Debug*> DebugSet;
+	UnitTypeSet const &buildsWhat(UnitType unitType);
+}
 
 class BuildingManager;
 
@@ -46,6 +52,5 @@ typedef std::map<BWAPI::UnitType, BM_BaseBehaviourFactory*> BM_factoryMap;
 
 /* globals */
 GLOBAL int g_frame;
-GLOBAL DebugSet debuggers;
 GLOBAL BuildingManagerSet managers;
 GLOBAL BM_factoryMap managerWatchMap;
