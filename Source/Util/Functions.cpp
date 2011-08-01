@@ -25,9 +25,9 @@ TilePosition ReconsiderBuildLocation(Unit * builder, TilePosition original_posit
 }
 
 
-void checkForBuildings(BWAPI::Unit *unit, BM_factoryMap watchMap) {
-	BM_factoryMap::iterator itr;
+void checkForBuildings(BWAPI::Unit *unit, BuildingManager_factoryMap watchMap) {
+	BuildingManager_factoryMap::iterator itr;
 	if ((itr = watchMap.find(unit->getType())) != watchMap.end()) {
-		managers.insert(BuildingManagerPtr(new BuildingManager(*unit, itr->second->Create(unit))));
+		g_managers.insert(BuildingManagerPtr(new BuildingManager(*unit, itr->second->Create(unit))));
 	}
 }

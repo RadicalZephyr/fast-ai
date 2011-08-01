@@ -15,12 +15,12 @@ void Cannonball::onStart()
     // Uncomment to enable complete map information
     //Broodwar->enableFlag(Flag::CompleteMapInformation);
 
-	managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Nexus,
-										  static_cast<BM_BaseBehaviourFactory *>(new BM_BehaviourFactory<NexusBehaviour>)));
-	managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Gateway,
-										  static_cast<BM_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
+	g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Nexus,
+										  static_cast<BuildingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<NexusBehaviour>)));
+	g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Gateway,
+										  static_cast<BuildingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
 
-	Signal::onFriendlyUnitCreate().connect(boost::bind(&checkForBuildings, _1, managerWatchMap));
+	Signal::onFriendlyUnitCreate().connect(boost::bind(&checkForBuildings, _1, g_managerWatchMap));
 
 	Signal::onStart()();
 }

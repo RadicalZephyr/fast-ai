@@ -60,7 +60,7 @@ bool NexusBehaviour::removeProbeFromGatherers(BWAPI::Unit *probe) {
 	if (m_minGatherers.erase(probe)) {
 		return true;
 	} else {
-		return m_gasGatherers.erase(probe);
+		return m_gasGatherers.erase(probe) != 0;
 	}
 }
 

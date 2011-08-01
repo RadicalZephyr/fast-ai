@@ -5,7 +5,7 @@
 
 // abstract base class for creating objects to implement behaviour for specific buildings' BuildingManagers
 // Usage: publicly inherit from this base class, and override the virtual functions
-//          Then, in onStart in Cannonball.cpp, add an entry to the managerWatchMap mapping the UnitType
+//          Then, in onStart in Cannonball.cpp, add an entry to the g_managerWatchMap mapping the UnitType
 //          of your specific building to a BM_BehaviourFactory< YourBehaviourClassName > object
 class IBuildingManagerBehaviour
 {
@@ -20,16 +20,20 @@ public:
 
 
 // The abstract base class that allows us to make a map containing templated factory objects
-struct BM_BaseBehaviourFactory {
-	virtual ~BM_BaseBehaviourFactory(void) {}
-	virtual IBM_BehaviourPtr Create(BWAPI::Unit *unit) = 0;
+struct BuildingManager_BaseBehaviourFactory {
+	virtual ~BuildingManager_BaseBehaviourFactory(void) {}
+	virtual IBuildingManager_BehaviourPtr Create(BWAPI::Unit *unit) = 0;
 };
 
+// This is a factory class template.  Intended to be used with the g_managerWatchMap global variable
+// create a new instance of this class, templatized on the Behaviour that you wish to have it create
+// and hand the UnitType and behaviour instance to the g_managerWatchMap
+// Example usages are in Cannonball.cpp
 template<class T>
-struct BM_BehaviourFactory : BM_BaseBehaviourFactory {
+struct BM_BehaviourFactory : BuildingManager_BaseBehaviourFactory {
 
-	virtual IBM_BehaviourPtr Create(BWAPI::Unit *unit) {
+	virtual IBuildingManager_BehaviourPtr Create(BWAPI::Unit *unit) {
 		Broodwar->printf("Creating a behaviour for: %s", unit->getType().getName().c_str());
-		return IBM_BehaviourPtr(static_cast<IBuildingManagerBehaviour *>(new T(*unit)));
+		return IBuildingManager_BehaviourPtr(static_cast<IBuildingManagerBehaviour *>(new T(*unit)));
 	}
 };
