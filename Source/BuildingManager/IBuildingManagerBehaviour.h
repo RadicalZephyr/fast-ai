@@ -14,8 +14,8 @@ public:
 	virtual ~IBuildingManagerBehaviour(void) {}
 
 	virtual void postBuild(BWAPI::Unit *unit) = 0;
-	virtual bool shouldBuild(BWAPI::UnitType *) {return true;}
-	virtual BWAPI::UnitType *setBuildType(void) {return 0;}
+	virtual bool shouldBuild(BWAPI::UnitType ) {return true;}
+	virtual BWAPI::UnitType setBuildType(void) {return 0;}
 };
 
 

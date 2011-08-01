@@ -99,7 +99,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\BuildingManager\BuildingManager.cpp" />
+    <ClCompile Include="Source\BuildingManager\DefaultBehaviour.cpp" />
     <ClCompile Include="Source\BuildingManager\NexusBehaviour.cpp" />
+    <ClCompile Include="Source\BWAPIadditions\BuildsWhat.cpp" />
     <ClCompile Include="Source\Cannonball.cpp" />
     <ClCompile Include="Source\Cheese\ProbeControl.cpp" />
     <ClCompile Include="Source\Cheese\Strategy.cpp" />
@@ -112,8 +114,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\BuildingManager\BuildingManager.h" />
+    <ClInclude Include="Source\BuildingManager\DefaultBehaviour.h" />
     <ClInclude Include="Source\BuildingManager\IBuildingManagerBehaviour.h" />
     <ClInclude Include="Source\BuildingManager\NexusBehaviour.h" />
+    <ClInclude Include="Source\BWAPIadditions\BuildsWhat.h" />
     <ClInclude Include="Source\Cannonball.h" />
     <ClInclude Include="Source\Cheese\Helpers.h" />
     <ClInclude Include="Source\Cheese\ProbeControl.h" />

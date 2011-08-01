@@ -21,16 +21,22 @@
       <Filter>Cheese</Filter>
     </ClCompile>
     <ClCompile Include="Source\BuildingManager\BuildingManager.cpp">
-      <Filter>BuildingManager</Filter>
+      <Filter>Building Manager</Filter>
     </ClCompile>
     <ClCompile Include="Source\BuildingManager\NexusBehaviour.cpp">
-      <Filter>BuildingManager</Filter>
+      <Filter>Building Manager</Filter>
     </ClCompile>
     <ClCompile Include="Source\FunctionObjects\DistanceSorter.cpp">
-      <Filter>FunctionObjects</Filter>
+      <Filter>Function Objects</Filter>
     </ClCompile>
     <ClCompile Include="Source\Important\Signals.cpp">
       <Filter>Important</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BuildingManager\DefaultBehaviour.cpp">
+      <Filter>Building Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BWAPIadditions\BuildsWhat.cpp">
+      <Filter>BWAPI additions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -63,16 +69,22 @@
       <Filter>Important</Filter>
     </ClInclude>
     <ClInclude Include="Source\BuildingManager\BuildingManager.h">
-      <Filter>BuildingManager</Filter>
+      <Filter>Building Manager</Filter>
     </ClInclude>
     <ClInclude Include="Source\BuildingManager\IBuildingManagerBehaviour.h">
-      <Filter>BuildingManager</Filter>
+      <Filter>Building Manager</Filter>
     </ClInclude>
     <ClInclude Include="Source\BuildingManager\NexusBehaviour.h">
-      <Filter>BuildingManager</Filter>
+      <Filter>Building Manager</Filter>
     </ClInclude>
     <ClInclude Include="Source\FunctionObjects\DistanceSorter.h">
-      <Filter>FunctionObjects</Filter>
+      <Filter>Function Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BuildingManager\DefaultBehaviour.h">
+      <Filter>Building Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BWAPIadditions\BuildsWhat.h">
+      <Filter>BWAPI additions</Filter>
     </ClInclude>
     <ClInclude Include="Source\Cheese\Strategies\Base.h">
       <Filter>Cheese\Strategies</Filter>
@@ -94,11 +106,14 @@
     <Filter Include="Cheese\Strategies">
       <UniqueIdentifier>{89a2a272-1985-4d5c-8695-f8519e772600}</UniqueIdentifier>
     </Filter>
-    <Filter Include="BuildingManager">
-      <UniqueIdentifier>{8f7dbef4-6851-422c-b276-ce1ca9371bbe}</UniqueIdentifier>
+    <Filter Include="BWAPI additions">
+      <UniqueIdentifier>{f5c38ea5-a228-4f7f-9031-b9776fa0c0ec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="FunctionObjects">
+    <Filter Include="Function Objects">
       <UniqueIdentifier>{76f61bfa-44f3-4c9f-8f8f-2fb9a4f7c99d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Building Manager">
+      <UniqueIdentifier>{8f7dbef4-6851-422c-b276-ce1ca9371bbe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

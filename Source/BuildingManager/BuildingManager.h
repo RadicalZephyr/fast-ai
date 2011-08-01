@@ -19,11 +19,11 @@ public:
 		Signal::onFriendlyUnitCreate().connect(boost::bind(&BuildingManager::onUnitCreate, this, _1));
 	}
 
-	bool buildUnit(BWAPI::UnitType *buildType);
+	bool buildUnit(BWAPI::UnitType buildType);
 
-	bool setUnitType(UnitType *newType) {m_trainingType = newType;}
+	bool setUnitType(UnitType newType) {m_trainingType = newType;}
 
-	UnitType *getUnitType(void) {return m_trainingType;}
+	UnitType getUnitType(void) {return m_trainingType;}
 
 	void onFrame(void);
 	void onUnitCreate(Unit* unit);
@@ -36,7 +36,7 @@ private:
 
 	const static int c_buildDistance;
 
-	UnitType *m_trainingType;
+	UnitType m_trainingType;
 	Unit *m_trainingUnit;
 	Timed m_trainingTime;
 

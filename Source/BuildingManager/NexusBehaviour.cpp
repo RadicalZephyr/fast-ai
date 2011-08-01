@@ -20,13 +20,13 @@ void NexusBehaviour::postBuild(BWAPI::Unit *unit) {
 	addMiner(unit);
 }
 
-bool NexusBehaviour::shouldBuild(BWAPI::UnitType *) {
+bool NexusBehaviour::shouldBuild(BWAPI::UnitType ) {
 	return m_shouldBuild;
 }
 
-BWAPI::UnitType *NexusBehaviour::setBuildType(void) {
+BWAPI::UnitType NexusBehaviour::setBuildType(void) {
 	static UnitType probe = UnitTypes::getUnitType("Protoss Probe");
-	return &probe;
+	return probe;
 }
 
 //////////////////////////////////////////////////////

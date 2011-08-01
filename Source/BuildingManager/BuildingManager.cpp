@@ -5,10 +5,10 @@ using namespace BWAPI;
 // Constant for how far away units can be from their training building
 const int BuildingManager::c_buildDistance = 100;
 
-bool BuildingManager::buildUnit(UnitType *buildType) {
-	if (Broodwar->canMake(&m_building, *buildType) && m_behaviour &&
+bool BuildingManager::buildUnit(UnitType buildType) {
+	if (Broodwar->canMake(&m_building, buildType) && m_behaviour &&
 		m_behaviour->shouldBuild(buildType)) {
-			m_building.train(*buildType);
+			m_building.train(buildType);
 			m_trainingUnit = 0;
             return true;
     } else {
@@ -48,7 +48,7 @@ void BuildingManager::checkTraining(void) {
 void BuildingManager::printDebug(void) {
     Broodwar->drawTextMap(m_building.getPosition().x()+30, m_building.getPosition().y()+30, 
 							"trainingType: %s\nunitTraining isDone: %s\namountDone: %d",
-							(m_trainingType ? m_trainingType->getName().c_str() : "none"),
+							(m_trainingType ? m_trainingType.getName().c_str() : "none"),
 							(m_trainingTime ? "yes" : "no"), m_trainingTime.amountDone());
 }
 
