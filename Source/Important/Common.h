@@ -37,20 +37,20 @@ namespace BWAPI {
 	UnitTypeSet const &buildsWhat(UnitType unitType);
 }
 
-class BuildingManager;
+class UnitTrainingManager;
 
-typedef boost::shared_ptr<BuildingManager> BuildingManagerPtr;
-typedef std::set<BuildingManagerPtr> BuildingManagerSet;
+typedef boost::shared_ptr<UnitTrainingManager> UnitTrainingManagerPtr;
+typedef std::set<UnitTrainingManagerPtr> UnitTrainingManagerSet;
 
-class IBuildingManagerBehaviour;
+class IUnitTrainingManagerBehaviour;
 
-typedef boost::shared_ptr<IBuildingManagerBehaviour> IBuildingManager_BehaviourPtr;
+typedef boost::shared_ptr<IUnitTrainingManagerBehaviour> IUnitTrainingManager_BehaviourPtr;
 
-struct BuildingManager_BaseBehaviourFactory;
+struct UnitTrainingManager_BaseBehaviourFactory;
 
-typedef std::map<BWAPI::UnitType, BuildingManager_BaseBehaviourFactory*> BuildingManager_factoryMap;
+typedef std::map<BWAPI::UnitType, UnitTrainingManager_BaseBehaviourFactory*> UnitTrainingManager_factoryMap;
 
 /* globals */
 GLOBAL int g_frame;
-GLOBAL BuildingManagerSet g_managers;
-GLOBAL BuildingManager_factoryMap g_managerWatchMap;
+GLOBAL UnitTrainingManagerSet g_managers;
+GLOBAL UnitTrainingManager_factoryMap g_managerWatchMap;

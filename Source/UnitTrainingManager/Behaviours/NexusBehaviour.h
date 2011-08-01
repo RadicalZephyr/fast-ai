@@ -1,11 +1,11 @@
 #pragma once
-#include "Important\Common.h"
-#include "IBuildingManagerBehaviour.h"
-#include "Util\Debug.h"
+#include "Important/Common.h"
+#include "UnitTrainingManager/IUnitTrainingManagerBehaviour.h"
+#include "Util/Debug.h"
 
 using BWAPI::Unit;
 
-class NexusBehaviour : public IBuildingManagerBehaviour, private Debug {
+class NexusBehaviour : public IUnitTrainingManagerBehaviour, private Debug {
 public:
 	NexusBehaviour(Unit &nexus);
 

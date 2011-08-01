@@ -1,17 +1,17 @@
 #pragma once
-#include "Important\Common.h"
-#include <boost\shared_ptr.hpp>
+#include "Important/Common.h"
+#include <boost/shared_ptr.hpp>
 #include <typeinfo>
 
-// abstract base class for creating objects to implement behaviour for specific buildings' BuildingManagers
+// abstract base class for creating objects to implement behaviour for specific buildings' UnitTrainingManagers
 // Usage: publicly inherit from this base class, and override the virtual functions
 //          Then, in onStart in Cannonball.cpp, add an entry to the g_managerWatchMap mapping the UnitType
 //          of your specific building to a BM_BehaviourFactory< YourBehaviourClassName > object
-class IBuildingManagerBehaviour
+class IUnitTrainingManagerBehaviour
 {
 public:
 
-	virtual ~IBuildingManagerBehaviour(void) {}
+	virtual ~IUnitTrainingManagerBehaviour(void) {}
 
 	virtual void postBuild(BWAPI::Unit *unit) = 0;
 	virtual bool shouldBuild(BWAPI::UnitType ) {return true;}
@@ -20,9 +20,9 @@ public:
 
 
 // The abstract base class that allows us to make a map containing templated factory objects
-struct BuildingManager_BaseBehaviourFactory {
-	virtual ~BuildingManager_BaseBehaviourFactory(void) {}
-	virtual IBuildingManager_BehaviourPtr Create(BWAPI::Unit *unit) = 0;
+struct UnitTrainingManager_BaseBehaviourFactory {
+	virtual ~UnitTrainingManager_BaseBehaviourFactory(void) {}
+	virtual IUnitTrainingManager_BehaviourPtr Create(BWAPI::Unit *unit) = 0;
 };
 
 // This is a factory class template.  Intended to be used with the g_managerWatchMap global variable
@@ -30,10 +30,10 @@ struct BuildingManager_BaseBehaviourFactory {
 // and hand the UnitType and behaviour instance to the g_managerWatchMap
 // Example usages are in Cannonball.cpp
 template<class T>
-struct BM_BehaviourFactory : BuildingManager_BaseBehaviourFactory {
+struct BM_BehaviourFactory : UnitTrainingManager_BaseBehaviourFactory {
 
-	virtual IBuildingManager_BehaviourPtr Create(BWAPI::Unit *unit) {
+	virtual IUnitTrainingManager_BehaviourPtr Create(BWAPI::Unit *unit) {
 		Broodwar->printf("Creating a behaviour for: %s", unit->getType().getName().c_str());
-		return IBuildingManager_BehaviourPtr(static_cast<IBuildingManagerBehaviour *>(new T(*unit)));
+		return IUnitTrainingManager_BehaviourPtr(static_cast<IUnitTrainingManagerBehaviour *>(new T(*unit)));
 	}
 };

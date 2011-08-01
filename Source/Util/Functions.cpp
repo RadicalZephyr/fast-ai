@@ -1,6 +1,6 @@
 
 #include "Functions.h"
-#include "BuildingManager/BuildingManager.h"
+#include "UnitTrainingManager/UnitTrainingManager.h"
 
 using namespace BWAPI;
 
@@ -25,9 +25,9 @@ TilePosition ReconsiderBuildLocation(Unit * builder, TilePosition original_posit
 }
 
 
-void checkForBuildings(BWAPI::Unit *unit, BuildingManager_factoryMap watchMap) {
-	BuildingManager_factoryMap::iterator itr;
+void checkForBuildings(BWAPI::Unit *unit, UnitTrainingManager_factoryMap watchMap) {
+	UnitTrainingManager_factoryMap::iterator itr;
 	if ((itr = watchMap.find(unit->getType())) != watchMap.end()) {
-		g_managers.insert(BuildingManagerPtr(new BuildingManager(*unit, itr->second->Create(unit))));
+		g_managers.insert(UnitTrainingManagerPtr(new UnitTrainingManager(*unit, itr->second->Create(unit))));
 	}
 }

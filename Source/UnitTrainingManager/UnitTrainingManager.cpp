@@ -1,11 +1,11 @@
-#include "BuildingManager.h"
+#include "UnitTrainingManager.h"
 
 using namespace BWAPI;
 
 // Constant for how far away units can be from their training building
-const int BuildingManager::c_buildDistance = 100;
+const int UnitTrainingManager::c_buildDistance = 100;
 
-bool BuildingManager::buildUnit(UnitType buildType) {
+bool UnitTrainingManager::buildUnit(UnitType buildType) {
 	if (Broodwar->canMake(&m_building, buildType) && m_behaviour &&
 		m_behaviour->shouldBuild(buildType)) {
 			m_building.train(buildType);
@@ -16,13 +16,13 @@ bool BuildingManager::buildUnit(UnitType buildType) {
     }
 }
 
-void BuildingManager::onFrame(void) {
+void UnitTrainingManager::onFrame(void) {
 	if (m_building.isCompleted()) {
 		checkTraining();
 	}
 }
 
-void BuildingManager::onUnitCreate(Unit* unit) {
+void UnitTrainingManager::onUnitCreate(Unit* unit) {
 	if (m_building.isTraining() && unit && !unit->isCompleted() &&
 		m_building.getPosition().getApproxDistance(unit->getPosition()) < c_buildDistance) {
 		m_trainingUnit = unit;
@@ -30,7 +30,7 @@ void BuildingManager::onUnitCreate(Unit* unit) {
 	}
 }
 
-void BuildingManager::checkTraining(void) {
+void UnitTrainingManager::checkTraining(void) {
 	if (m_trainingType != BWAPI::UnitTypes::None && m_trainingUnit && 
 		m_building.isTraining() && m_trainingTime.isDone()) {
 		if (m_behaviour) {
@@ -46,13 +46,13 @@ void BuildingManager::checkTraining(void) {
 	}
 }
 
-void BuildingManager::printDebug(void) {
+void UnitTrainingManager::printDebug(void) {
     Broodwar->drawTextMap(m_building.getPosition().x()+30, m_building.getPosition().y()+30, 
 							"trainingType: %s\nunitTraining isDone: %s\namountDone: %d",
 							(m_trainingType ? m_trainingType.getName().c_str() : "none"),
 							(m_trainingTime ? "yes" : "no"), m_trainingTime.amountDone());
 }
 
-bool BuildingManager::isMyUnitSelected(void) {
+bool UnitTrainingManager::isMyUnitSelected(void) {
     return m_building.isSelected();
 }

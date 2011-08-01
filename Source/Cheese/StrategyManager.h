@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Important\Common.h"
+#include "Important/Common.h"
 #include "Strategy.h"
 
-#include "boost/bind.hpp"
+#include <boost/bind.hpp>
 
-#include "BuildingManager/NexusBehaviour.h"
+#include "UnitTrainingManager/Behaviours/NexusBehaviour.h"
 #include "ProbeControl.h"
 
 class CheeseStrategyManager : ICheeseStrategyControls

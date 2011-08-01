@@ -49,4 +49,3 @@ BOOL APIENTRY DllMain( HANDLE,
   (void)BWAPI::buildsWhat(BWAPI::UnitTypes::getUnitType("Protoss Nexus"));
   return new Cannonball();
 }
-

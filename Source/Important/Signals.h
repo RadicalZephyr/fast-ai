@@ -9,7 +9,7 @@
 #pragma warning( pop )
 
 #include <BWAPI.h>
-#include "boost\bind.hpp"
+#include <boost/bind.hpp>
 
 //These emulate the callbacks by the BWAPI
 //Use boost::bind to supply the correct function call

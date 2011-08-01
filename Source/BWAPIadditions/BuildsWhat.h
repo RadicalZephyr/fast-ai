@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Important\Common.h"
-#include "boost\unordered_map.hpp"
+#include "Important/Common.h"
+#include <boost/unordered_map.hpp>
 
 typedef boost::unordered_map<std::string, UnitTypeSet> BuildsWhatMap;
 

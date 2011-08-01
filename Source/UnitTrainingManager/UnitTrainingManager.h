@@ -3,20 +3,20 @@
 #include "Important/Common.h"
 #include "Util/Debug.h"
 #include "Util/Timed.h"
-#include "IBuildingManagerBehaviour.h"
+#include "UnitTrainingManager/IUnitTrainingManagerBehaviour.h"
 
 using BWAPI::Unit;
 using BWAPI::UnitType;
 
-class BuildingManager : private Debug {
+class UnitTrainingManager : private Debug {
 public:
-	explicit BuildingManager(Unit &theBuilding, IBuildingManager_BehaviourPtr theBehaviour): m_trainingType(BWAPI::UnitTypes::None),
+	explicit UnitTrainingManager(Unit &theBuilding, IUnitTrainingManager_BehaviourPtr theBehaviour): m_trainingType(BWAPI::UnitTypes::None),
 																			    m_trainingUnit(0),
 																			    m_trainingTime(),
 												 							    m_building(theBuilding),
 												 							    m_behaviour(theBehaviour) {
-		Signal::onFrame().connect(boost::bind(&BuildingManager::onFrame, this));
-		Signal::onFriendlyUnitCreate().connect(boost::bind(&BuildingManager::onUnitCreate, this, _1));
+		Signal::onFrame().connect(boost::bind(&UnitTrainingManager::onFrame, this));
+		Signal::onFriendlyUnitCreate().connect(boost::bind(&UnitTrainingManager::onUnitCreate, this, _1));
 	}
 
 	bool buildUnit(BWAPI::UnitType buildType);
@@ -42,10 +42,10 @@ private:
 
 	Unit &m_building;
 
-	IBuildingManager_BehaviourPtr m_behaviour;
+	IUnitTrainingManager_BehaviourPtr m_behaviour;
 
     // Not implemented to disallow assignment
-	BuildingManager(void);
-	BuildingManager(BuildingManager &);
-	BuildingManager &operator=(const BuildingManager&);
+	UnitTrainingManager(void);
+	UnitTrainingManager(UnitTrainingManager &);
+	UnitTrainingManager &operator=(const UnitTrainingManager&);
 };

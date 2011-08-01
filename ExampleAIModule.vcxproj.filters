@@ -20,23 +20,23 @@
     <ClCompile Include="Source\Cheese\StrategyManager.cpp">
       <Filter>Cheese</Filter>
     </ClCompile>
-    <ClCompile Include="Source\BuildingManager\BuildingManager.cpp">
-      <Filter>Building Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\BuildingManager\NexusBehaviour.cpp">
-      <Filter>Building Manager</Filter>
-    </ClCompile>
     <ClCompile Include="Source\FunctionObjects\DistanceSorter.cpp">
       <Filter>Function Objects</Filter>
     </ClCompile>
     <ClCompile Include="Source\Important\Signals.cpp">
       <Filter>Important</Filter>
     </ClCompile>
-    <ClCompile Include="Source\BuildingManager\DefaultBehaviour.cpp">
-      <Filter>Building Manager</Filter>
-    </ClCompile>
     <ClCompile Include="Source\BWAPIadditions\BuildsWhat.cpp">
       <Filter>BWAPI additions</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UnitTrainingManager\UnitTrainingManager.cpp">
+      <Filter>Unit Training Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UnitTrainingManager\Behaviours\DefaultBehaviour.cpp">
+      <Filter>Unit Training Manager\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UnitTrainingManager\Behaviours\NexusBehaviour.cpp">
+      <Filter>Unit Training Manager\Behaviours</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,20 +68,8 @@
     <ClInclude Include="Source\Important\Signals.h">
       <Filter>Important</Filter>
     </ClInclude>
-    <ClInclude Include="Source\BuildingManager\BuildingManager.h">
-      <Filter>Building Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\BuildingManager\IBuildingManagerBehaviour.h">
-      <Filter>Building Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\BuildingManager\NexusBehaviour.h">
-      <Filter>Building Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Source\FunctionObjects\DistanceSorter.h">
       <Filter>Function Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\BuildingManager\DefaultBehaviour.h">
-      <Filter>Building Manager</Filter>
     </ClInclude>
     <ClInclude Include="Source\BWAPIadditions\BuildsWhat.h">
       <Filter>BWAPI additions</Filter>
@@ -91,6 +79,18 @@
     </ClInclude>
     <ClInclude Include="Source\Cheese\Helpers.h">
       <Filter>Cheese</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UnitTrainingManager\IUnitTrainingManagerBehaviour.h">
+      <Filter>Unit Training Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UnitTrainingManager\UnitTrainingManager.h">
+      <Filter>Unit Training Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UnitTrainingManager\Behaviours\DefaultBehaviour.h">
+      <Filter>Unit Training Manager\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UnitTrainingManager\Behaviours\NexusBehaviour.h">
+      <Filter>Unit Training Manager\Behaviours</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -112,8 +112,11 @@
     <Filter Include="Function Objects">
       <UniqueIdentifier>{76f61bfa-44f3-4c9f-8f8f-2fb9a4f7c99d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Building Manager">
+    <Filter Include="Unit Training Manager">
       <UniqueIdentifier>{8f7dbef4-6851-422c-b276-ce1ca9371bbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Unit Training Manager\Behaviours">
+      <UniqueIdentifier>{78ab5e17-abf2-4abe-8113-030e236fce3c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
