@@ -17,27 +17,28 @@ bool BuildingManager::buildUnit(UnitType buildType) {
 }
 
 void BuildingManager::onFrame(void) {
-	checkTraining();
+	if (m_building.isCompleted()) {
+		checkTraining();
+	}
 }
 
 void BuildingManager::onUnitCreate(Unit* unit) {
 	if (m_building.isTraining() && unit && !unit->isCompleted() &&
 		m_building.getPosition().getApproxDistance(unit->getPosition()) < c_buildDistance) {
-		Broodwar->printf("Inside unitcreate if");
 		m_trainingUnit = unit;
 		m_trainingTime.reset(unit->getType().buildTime());
 	}
 }
 
 void BuildingManager::checkTraining(void) {
-	if (m_building.isTraining() && m_trainingUnit && 
-		m_trainingTime.isDone()) {
+	if (m_trainingType != BWAPI::UnitTypes::None && m_trainingUnit && 
+		m_building.isTraining() && m_trainingTime.isDone()) {
 		if (m_behaviour) {
 			m_behaviour->postBuild(m_trainingUnit);
 		}
         m_trainingUnit = 0;
 	} else if (!m_building.isTraining()) {
-		if (m_trainingType) {
+		if (m_trainingType != BWAPI::UnitTypes::None) {
 			buildUnit(m_trainingType);
 		} else {
 			m_trainingType = m_behaviour->setBuildType();

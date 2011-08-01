@@ -5,7 +5,6 @@ class Debug
 {
 public:
     Debug(void);
-    ~Debug(void);
 
 private:
     void doSendText(std::string text);

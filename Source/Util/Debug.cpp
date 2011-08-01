@@ -2,15 +2,11 @@
 #include "Debug.h"
 
 Debug::Debug(void) : debug(false) {
-	// Register with the global debug manager
-	debuggers.insert(this);
+	// Register the debug funtions with the appropriate signals
 	Signal::onFrame().connect(boost::bind(&Debug::doFrame, this));
 	Signal::onSendText().connect(boost::bind(&Debug::doSendText, this, _1));
 }
 
-Debug::~Debug(void) {
-	debuggers.erase(this);
-}
 
 void Debug::doFrame(void) {
     if (debug) {

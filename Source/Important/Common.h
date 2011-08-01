@@ -28,6 +28,7 @@ typedef std::list<BWAPI::Unit*> UnitList;
 typedef std::vector<BWAPI::Unit*> UnitVector;
 
 typedef std::set<BWAPI::UnitType> UnitTypeSet;
+typedef std::list<BWAPI::UnitType> UnitTypeList;
 
 // Prototype for function that allows you to find what unit types a unit builds
 // Usage: buildsWhat(UnitType)

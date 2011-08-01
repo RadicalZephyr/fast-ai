@@ -16,7 +16,7 @@ NexusBehaviour::NexusBehaviour(BWAPI::Unit &nexus): m_nexus(nexus),
 
 void NexusBehaviour::postBuild(BWAPI::Unit *unit) {
 	// TODO: Add functionality for calling addGasser
-	Broodwar->printf("NB postBuild");
+	//Broodwar->printf("NB postBuild");
 	addMiner(unit);
 }
 
@@ -63,7 +63,7 @@ bool NexusBehaviour::addProbeToGatherers(BWAPI::Unit *probe, UnitSet &gathererSe
 }
 
 bool NexusBehaviour::addMiner(BWAPI::Unit *probe) {
-	Broodwar->printf("NB addMiner");
+	//Broodwar->printf("NB addMiner");
 	return addProbeToGatherers(probe, m_minGatherers, m_minerals);
 }
 

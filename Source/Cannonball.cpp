@@ -4,6 +4,7 @@
 #include "Util\Debug.h"
 #include "Util\Functions.h"
 #include "BuildingManager\NexusBehaviour.h"
+#include "BuildingManager\DefaultBehaviour.h"
 
 using namespace BWAPI;
 
@@ -14,8 +15,10 @@ void Cannonball::onStart()
     // Uncomment to enable complete map information
     //Broodwar->enableFlag(Flag::CompleteMapInformation);
 
-	managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::getUnitType("Protoss Nexus"), 
+	managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Nexus,
 										  static_cast<BM_BaseBehaviourFactory *>(new BM_BehaviourFactory<NexusBehaviour>)));
+	managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Gateway,
+										  static_cast<BM_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
 
 	Signal::onFriendlyUnitCreate().connect(boost::bind(&checkForBuildings, _1, managerWatchMap));
 
@@ -27,6 +30,13 @@ void Cannonball::onSendText(std::string text)
     // This is the place to capture user input to do stuff with
 	Broodwar->printf("onSendText called: '%s'", text.c_str());
 
+	if (UnitTypes::getUnitType(text) != UnitTypes::None) {
+		UnitTypeSet const buildSet = buildsWhat(UnitTypes::getUnitType(text));
+		Broodwar->printf("%s can build:\n", UnitTypes::getUnitType(text).getName().c_str());
+		for (UnitTypeSet::const_iterator itr = buildSet.begin(); itr != buildSet.end(); itr++) {
+			Broodwar->printf("%s", itr->getName().c_str());
+		}
+	}
 	Signal::onSendText()(text);
 }
 

@@ -45,8 +45,8 @@ BOOL APIENTRY DllMain( HANDLE,
 {
   // Explicitly ignoring the return value.  This call is solely to initialize the buildsWhat static
   //  data structure
-  (void)BWAPI::buildsWhat(BWAPI::UnitTypes::getUnitType("Protoss Nexus"));
   BWAPI::Broodwar=game;
+  (void)BWAPI::buildsWhat(BWAPI::UnitTypes::getUnitType("Protoss Nexus"));
   return new Cannonball();
 }
 

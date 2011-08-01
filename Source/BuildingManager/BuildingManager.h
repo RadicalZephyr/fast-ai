@@ -10,7 +10,7 @@ using BWAPI::UnitType;
 
 class BuildingManager : private Debug {
 public:
-	explicit BuildingManager(Unit &theBuilding, IBM_BehaviourPtr theBehaviour): m_trainingType(0),
+	explicit BuildingManager(Unit &theBuilding, IBM_BehaviourPtr theBehaviour): m_trainingType(BWAPI::UnitTypes::None),
 																			    m_trainingUnit(0),
 																			    m_trainingTime(),
 												 							    m_building(theBuilding),
