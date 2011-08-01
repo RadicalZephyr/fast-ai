@@ -56,7 +56,7 @@ bool NexusBehaviour::addProbeToGatherers(BWAPI::Unit *probe, UnitSet &gathererSe
     if (isIn.second) {
         Unit *min = resourceList.front();
         resourceList.pop_front();
-        probe->rightClick(min, true);
+        probe->rightClick(min);
         resourceList.push_back(min);
     }
     return isIn.second;
@@ -82,6 +82,7 @@ void NexusBehaviour::findMinerals(void) {
     for (UnitList::iterator unit = m_minerals.begin(); unit != m_minerals.end(); unit++) {
 		if ((*unit)->getType().isWorker()) {
 			startProbes.push_front(*unit);
+			m_minerals.erase(unit);
 		} else if (!(*unit)->getType().isMineralField()) {
             m_minerals.erase(unit);
         }
@@ -91,6 +92,9 @@ void NexusBehaviour::findMinerals(void) {
     // We are now ready to start adding miners
 	
 	if (!startProbes.empty()) {
-		std::for_each(startProbes.begin(), startProbes.end(), std::bind1st(std::mem_fun(&NexusBehaviour::addMiner), this));
+		//std::for_each(startProbes.begin(), startProbes.end(), std::bind1st(std::mem_fun(&NexusBehaviour::addMiner), this));
+		for (UnitList::iterator probe = startProbes.begin(); probe != startProbes.end(); probe++) {
+			addMiner(*probe);
+		}
 	}
 }

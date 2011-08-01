@@ -20,13 +20,15 @@
   #define GLOBAL
 #endif
 
-class Debug;
-
-typedef std::set<Debug*> DebugSet;
-
 typedef std::set<BWAPI::Unit*> UnitSet;
 typedef std::list<BWAPI::Unit*> UnitList;
 typedef std::vector<BWAPI::Unit*> UnitVector;
+
+typedef std::set<BWAPI::UnitType> UnitTypeSet;
+
+class Debug;
+
+typedef std::set<Debug*> DebugSet;
 
 class NexusManager;
 

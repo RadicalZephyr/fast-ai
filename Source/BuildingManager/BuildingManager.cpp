@@ -30,12 +30,13 @@ void BuildingManager::onUnitCreate(Unit* unit) {
 }
 
 void BuildingManager::checkTraining(void) {
-	if (m_trainingUnit && m_trainingTime.isDone()) {
+	if (m_building.isTraining() && m_trainingUnit && 
+		m_trainingTime.isDone()) {
 		if (m_behaviour) {
 			m_behaviour->postBuild(m_trainingUnit);
 		}
         m_trainingUnit = 0;
-	} else {
+	} else if (!m_building.isTraining()) {
 		if (m_trainingType) {
 			buildUnit(m_trainingType);
 		} else {

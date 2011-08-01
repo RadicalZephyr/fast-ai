@@ -10,6 +10,7 @@
 class IBuildingManagerBehaviour
 {
 public:
+
 	virtual ~IBuildingManagerBehaviour(void) {}
 
 	virtual void postBuild(BWAPI::Unit *unit) = 0;

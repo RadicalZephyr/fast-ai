@@ -31,10 +31,6 @@ void Cannonball::onStart()
 				//probes->addProbe();
 				//first = false;
 			}
-			else
-			{
-				//(*(managers.begin()))->addMiner(*i);
-			}
 		}
     }
 

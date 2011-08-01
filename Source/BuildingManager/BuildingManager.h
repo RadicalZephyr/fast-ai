@@ -10,15 +10,6 @@ using BWAPI::UnitType;
 
 class BuildingManager : private Debug {
 public:
- //   explicit BuildingManager(Unit &theBuilding): m_trainingType(0),
-	//											 m_trainingUnit(0),
-	//											 m_trainingTime(),
-	//											 m_building(theBuilding),
-	//											 m_behaviour() {
-	//	//Signal::onFrame.connect(boost::bind(&BuildingManager::onFrame, this));
-	//	//Signal::onFriendlyUnitCreate.connect(boost::bind(&BuildingManager::onUnitCreate, this, _1));
-	//}
-
 	explicit BuildingManager(Unit &theBuilding, IBM_BehaviourPtr theBehaviour): m_trainingType(0),
 																			    m_trainingUnit(0),
 																			    m_trainingTime(),
