@@ -5,14 +5,13 @@
 
 #include "boost/bind.hpp"
 
+#include "BuildingManager/NexusBehaviour.h"
+#include "ProbeControl.h"
+
 class CheeseStrategyManager : ICheeseStrategyControls
 {
 public:
-	CheeseStrategyManager(ICheeseStrategy* strategy) : m_strategy(strategy)
-	{
-		Signal::onStart().connect(boost::bind(&CheeseStrategyManager::onStart, this));
-		Signal::onFrame().connect(boost::bind(&CheeseStrategyManager::onFrame, this));
-	}
+	CheeseStrategyManager(ICheeseStrategy* strategy);
 
 	// ICheeseStrategyControls
 	virtual void buildInBase(BWAPI::UnitType building);
@@ -23,5 +22,11 @@ private:
 	void onStart();
 	void onFrame();
 
+	void onNewProbe(BWAPI::Unit* unit);
+
 	ICheeseStrategy* m_strategy;
+
+	NexusBehaviour* m_behaviour;
+	ProbeControl* m_scoutProbe;
+	int m_probe;
 };

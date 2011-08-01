@@ -6,7 +6,7 @@
 
 class Cannonball : public BWAPI::AIModule {
 public:
-    Cannonball(void): managers() {};
+    Cannonball(void) {};
 
     virtual void onStart();
     virtual void onEnd(bool isWinner);
@@ -26,6 +26,5 @@ public:
     virtual void onSaveGame(std::string gameName);
 
 private:
-    NexusManagerSet managers;
 	ProbeControl *probes;
 };

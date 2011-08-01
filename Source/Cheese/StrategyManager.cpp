@@ -1,5 +1,13 @@
 #include "StrategyManager.h"
 
+CheeseStrategyManager::CheeseStrategyManager(ICheeseStrategy* strategy) : m_strategy(strategy)
+{
+	SIGNAL_ON_START(CheeseStrategyManager);
+	SIGNAL_ON_FRAME(CheeseStrategyManager);
+
+	strategy->init();
+}
+
 // ICheeseStrategyControls
 void CheeseStrategyManager::buildInBase(BWAPI::UnitType building)
 {
@@ -20,9 +28,22 @@ bool CheeseStrategyManager::moreCheeseProbes()
 void CheeseStrategyManager::onStart()
 {
 
+	if (m_strategy->whichProbe == 0)
+	{
+		m_scoutProbe = new ProbeControl(0);
+	}
 }
 
 void CheeseStrategyManager::onFrame()
 {
 
+}
+
+void CheeseStrategyManager::onNewProbe(BWAPI::Unit* unit)
+{
+	if (!unit->getType().isWorker())
+		return;
+
+	if (m_probe == m_strategy->whichProbe)
+		m_scoutProbe = new ProbeControl(0);
 }

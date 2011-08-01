@@ -91,3 +91,8 @@ namespace Signal
 	boost::signal<void (std::string)> &onSaveGame(void);
 
 }
+
+#define SIGNAL_ON_START(type) Signal::onStart().connect(boost::bind(&##type##::onStart, this))
+#define SIGNAL_OFF_START(type) Signal::onStart().disconnect(boost::bind(&##type##::onStart, this))
+#define SIGNAL_ON_FRAME(type) Signal::onFrame().connect(boost::bind(&##type##::onFrame, this))
+#define SIGNAL_OFF_FRAME(type) Signal::onFrame().disconnect(boost::bind(&##type##::onFrame, this))

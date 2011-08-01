@@ -18,21 +18,6 @@ void Cannonball::onStart()
 										  static_cast<BM_BaseBehaviourFactory *>(new BM_BehaviourFactory<NexusBehaviour>)));
 
 	Signal::onFriendlyUnitCreate().connect(boost::bind(&checkForBuildings, _1, managerWatchMap));
-	
-	bool first = true;
-
-    for(std::set<Unit*>::const_iterator i=Broodwar->self()->getUnits().begin();i!=Broodwar->self()->getUnits().end();i++)
-    {
-        if ((*i)->getType().isWorker())
-        {
-			if(first == true)
-			{
-				//probes = new ProbeControl(*i);
-				//probes->addProbe();
-				//first = false;
-			}
-		}
-    }
 
 	Signal::onStart()();
 }

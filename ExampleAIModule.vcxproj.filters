@@ -74,6 +74,12 @@
     <ClInclude Include="Source\FunctionObjects\DistanceSorter.h">
       <Filter>FunctionObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Cheese\Strategies\Base.h">
+      <Filter>Cheese\Strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Cheese\Helpers.h">
+      <Filter>Cheese</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Important">

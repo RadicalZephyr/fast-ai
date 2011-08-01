@@ -11,7 +11,7 @@ public:
 	virtual bool moreCheeseProbes() = 0;
 };
 
-class ICheeseStrategy
+class ICheeseStrategy abstract
 {
 public: // Intilization section
 
@@ -35,4 +35,6 @@ public: //Usage Section
 	virtual void newProbe(BWAPI::Unit* probe) = 0;
 
 	virtual void setRunning(bool isRunning) = 0;
+private:
+	ICheeseStrategy();
 };

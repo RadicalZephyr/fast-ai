@@ -30,11 +30,6 @@ class Debug;
 
 typedef std::set<Debug*> DebugSet;
 
-class NexusManager;
-
-typedef boost::shared_ptr<NexusManager> NexusManagerPtr;
-typedef std::set<NexusManagerPtr> NexusManagerSet;
-
 class BuildingManager;
 
 typedef boost::shared_ptr<BuildingManager> BuildingManagerPtr;
