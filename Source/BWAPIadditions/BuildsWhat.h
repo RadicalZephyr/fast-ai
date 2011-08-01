@@ -3,7 +3,7 @@
 #include "Important\Common.h"
 #include "boost\unordered_map.hpp"
 
-typedef boost::unordered_map<int, UnitTypeSet> BuildsWhatMap;
+typedef boost::unordered_map<std::string, UnitTypeSet> BuildsWhatMap;
 
 namespace BWAPI {
 
@@ -12,7 +12,7 @@ namespace BWAPI {
 	public:
 		BuildsWhat(void);
 
-		UnitTypeSet const &lookupBuildsWhat(UnitType const &unitType) const {return m_BuildsWhatMap.at(unitType.getID());}
+		UnitTypeSet const &lookupBuildsWhat(UnitType const &unitType) const {return m_BuildsWhatMap.at(unitType.getName());}
 
 	private:
 

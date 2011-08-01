@@ -8,17 +8,25 @@ namespace BWAPI {
 		for (UnitTypeSet::const_iterator type = allTypes.begin();
 				type != allTypes.end(); ++type) {
 
-			int whatBuildsID = type->whatBuilds().first.getID();
-			BuildsWhatMap::iterator itr = m_BuildsWhatMap.find(whatBuildsID);
+			std::string whatBuildsName = type->whatBuilds().first.getName();
+			BuildsWhatMap::iterator itr = m_BuildsWhatMap.find(whatBuildsName);
 
 			if (m_BuildsWhatMap.end() != itr) {
 				// If in map, insert a new value
-				UnitTypeSet buildSet = m_BuildsWhatMap[whatBuildsID];
+				Broodwar->printf("Inserting a new value\n%s builds %s", 
+					type->whatBuilds().first.getName().c_str(),
+					type->getName().c_str());
+				UnitTypeSet buildSet = m_BuildsWhatMap[whatBuildsName];
 				buildSet.insert(*type);
+				m_BuildsWhatMap[whatBuildsName] = buildSet;
 			} else {
+				// Not in map already, assign a new set
+				Broodwar->printf("Assigning a new set for\n%s builds %s", 
+					type->whatBuilds().first.getName().c_str(),
+					type->getName().c_str());
 				UnitTypeSet newSet;
 				newSet.insert(*type);
-				m_BuildsWhatMap[whatBuildsID] = newSet;
+				m_BuildsWhatMap[whatBuildsName] = newSet;
 			}
 		}
 	}
