@@ -78,6 +78,10 @@ namespace Signal
 	//1 = unit
 	boost::signal<void (BWAPI::Unit*)> &onEnemyUnitDestroy(void);
 
+	//Register a neutral unit destroy callback.
+	//1 = unit
+	boost::signal<void (BWAPI::Unit*)> &onNeutralUnitDestroy(void);
+
 	//Register a unit morph callback.
 	//1 = unit
 	boost::signal<void (BWAPI::Unit*)> &onUnitMorph(void);

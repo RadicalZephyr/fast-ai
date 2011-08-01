@@ -143,6 +143,8 @@ void Cannonball::onUnitDestroy(BWAPI::Unit* unit)
 
     if (unit->getPlayer() == Broodwar->self()) {
 		Signal::onFriendlyUnitDestroy()(unit);
+	} else if (unit->getPlayer()->getType() == PlayerTypes::Neutral) {
+		Signal::onNeutralUnitDestroy()(unit);
 	} else {
 		Signal::onEnemyUnitDestroy()(unit);
 	}
