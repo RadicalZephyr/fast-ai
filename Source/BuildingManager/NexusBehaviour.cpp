@@ -12,6 +12,8 @@ NexusBehaviour::NexusBehaviour(BWAPI::Unit &nexus): m_nexus(nexus),
 										  m_gasGatherers(),
 										  m_shouldBuild(true) {
 	findMinerals();
+	Signal::onFriendlyUnitDestroy().connect(boost::bind(&NexusBehaviour::onFriendlyUnitDestroy, this, _1));
+	Signal::onNeutralUnitDestroy().connect(boost::bind(&NexusBehaviour::onNeutralUnitDestroy, this, _1));
 }
 
 void NexusBehaviour::postBuild(BWAPI::Unit *unit) {
@@ -21,13 +23,16 @@ void NexusBehaviour::postBuild(BWAPI::Unit *unit) {
 }
 
 bool NexusBehaviour::shouldBuild(BWAPI::UnitType ) {
-	return m_shouldBuild;
+	return m_shouldBuild && 
+		((m_minerals.size() * 3) > m_minGatherers.size());// &&  // TODO: Uncomment these lines when gas production is implemented
+		//((m_gas.size() * 3) > m_gasGatherers.size());
 }
 
 BWAPI::UnitType NexusBehaviour::setBuildType(void) {
 	static UnitType probe = UnitTypes::getUnitType("Protoss Probe");
 	return probe;
 }
+
 
 //////////////////////////////////////////////////////
 // Private methods
@@ -45,6 +50,18 @@ void NexusBehaviour::printDebug(void) {
 
 bool NexusBehaviour::isMyUnitSelected(void) {
 	return m_nexus.isSelected();
+}
+
+bool NexusBehaviour::removeProbeFromGatherers(BWAPI::Unit *probe) {
+	if (probe == 0) {
+		return false;
+	}
+
+	if (m_minGatherers.erase(probe)) {
+		return true;
+	} else {
+		return m_gasGatherers.erase(probe);
+	}
 }
 
 bool NexusBehaviour::addProbeToGatherers(BWAPI::Unit *probe, UnitSet &gathererSet, UnitList &resourceList) {

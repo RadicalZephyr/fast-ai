@@ -15,6 +15,10 @@ public:
 
 	void setShouldBuild(bool newFlag) {m_shouldBuild = newFlag;}
 
+	void onFriendlyUnitDestroy(BWAPI::Unit *unit) {removeProbeFromGatherers(unit);}
+	void onNeutralUnitDestroy(BWAPI::Unit *unit) {m_gas.remove(unit);
+												m_minerals.remove(unit);}
+
 private:
     virtual void printDebug(void);
     virtual bool isMyUnitSelected(void);
@@ -23,7 +27,9 @@ private:
 
     bool addMiner(Unit *probe);
     bool addGasser(Unit *probe);
+
 	bool addProbeToGatherers(BWAPI::Unit *probe, UnitSet &gathererSet, UnitList &resourceList);
+	bool removeProbeFromGatherers(BWAPI::Unit *probe);
 
 	const static int s_mineralDistance;
 
