@@ -38,6 +38,9 @@
     <ClCompile Include="Source\UnitTrainingManager\Behaviours\NexusBehaviour.cpp">
       <Filter>Unit Training Manager\Behaviours</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Util\BuildingRelativeBuildingPlacer.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Cannonball.h" />
@@ -91,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="Source\UnitTrainingManager\Behaviours\NexusBehaviour.h">
       <Filter>Unit Training Manager\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Util\BuildingRelativeBuildingPlacer.h">
+      <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
