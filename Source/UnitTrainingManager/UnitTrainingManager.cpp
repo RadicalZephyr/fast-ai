@@ -54,8 +54,8 @@ void UnitTrainingManager::checkTraining(void) {
 }
 
 void UnitTrainingManager::printDebug(void) {
-    Broodwar->drawTextMap(m_building.getPosition().x()+50, m_building.getPosition().y()+30, 
-							"\x02trainingType: %s\nunitTraining isDone: %s\namountDone: %d",
+    Broodwar->drawTextMap(m_building.getPosition().x()+55, m_building.getPosition().y()+30, 
+							"\x03trainingType: \x04%s \x03 \nunitTraining isDone: \x04%s \x03 \namountDone: \x04%d",
 							(m_trainingType ? m_trainingType.getName().c_str() : "none"),
 							(m_trainingTime ? "yes" : "no"), m_trainingTime.amountDone());
 }

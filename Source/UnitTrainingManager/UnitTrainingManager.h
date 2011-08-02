@@ -3,7 +3,7 @@
 #include "Important/Common.h"
 #include "Util/Debug.h"
 #include "Util/Timed.h"
-#include "UnitTrainingManager/IUnitTrainingManagerBehaviour.h"
+#include "UnitTrainingManager/Interfaces/IUnitTrainingManagerBehaviour.h"
 
 using BWAPI::Unit;
 using BWAPI::UnitType;
@@ -14,7 +14,8 @@ public:
 																			    m_trainingUnit(0),
 																			    m_trainingTime(),
 												 							    m_building(theBuilding),
-												 							    m_behaviour(theBehaviour) {
+												 							    m_behaviour(theBehaviour),
+																				m_unitDoneSignal() {
 		Signal::onFrame().connect(boost::bind(&UnitTrainingManager::onFrame, this));
 		Signal::onFriendlyUnitCreate().connect(boost::bind(&UnitTrainingManager::onUnitCreate, this, _1));
 	}
@@ -40,9 +41,9 @@ private:
 
 	Unit &m_building;
 
-	boost::signal<void (BWAPI::Unit*)> m_unitDoneSignal;
-
 	IUnitTrainingManager_BehaviourPtr m_behaviour;
+
+	boost::signal<void (BWAPI::Unit*)> m_unitDoneSignal;
 
     // Not implemented to disallow assignment
 	UnitTrainingManager(void);
