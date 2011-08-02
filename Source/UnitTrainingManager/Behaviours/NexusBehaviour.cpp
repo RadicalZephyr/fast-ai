@@ -12,9 +12,16 @@ NexusBehaviour::NexusBehaviour(BWAPI::Unit &nexus): m_nexus(nexus),
 										  m_gasGatherers(),
 										  m_shouldBuild(true) {
 	findMinerals();
+	Signal::onFrame().connect(boost::bind(&NexusBehaviour::onFrame, this));
 	Signal::onFriendlyUnitDestroy().connect(boost::bind(&NexusBehaviour::onFriendlyUnitDestroy, this, _1));
 	Signal::onNeutralUnitDestroy().connect(boost::bind(&NexusBehaviour::onNeutralUnitDestroy, this, _1));
 }
+
+void NexusBehaviour::onFrame(void) {
+	// This is meant to... what?  Call it's delegate/behaviour's methods?
+	// Could have it do two things, try and build a pylon, try and build an extractor
+}
+
 
 void NexusBehaviour::postBuild(BWAPI::Unit *unit) {
 	// TODO: Add functionality for calling addGasser

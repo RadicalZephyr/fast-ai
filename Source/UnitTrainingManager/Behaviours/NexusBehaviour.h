@@ -1,6 +1,6 @@
 #pragma once
 #include "Important/Common.h"
-#include "UnitTrainingManager/IUnitTrainingManagerBehaviour.h"
+#include "UnitTrainingManager/Interfaces/IUnitTrainingManagerBehaviour.h"
 #include "Util/Debug.h"
 
 using BWAPI::Unit;
@@ -14,6 +14,7 @@ public:
 
 	void setShouldBuild(bool newFlag) {m_shouldBuild = newFlag;}
 
+	void onFrame(void);
 	void onFriendlyUnitDestroy(BWAPI::Unit *unit) {removeProbeFromGatherers(unit);}
 	void onNeutralUnitDestroy(BWAPI::Unit *unit) {m_gas.remove(unit);
 												m_minerals.remove(unit);}
