@@ -98,6 +98,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\BaseManager\BaseManager.cpp" />
     <ClCompile Include="Source\BWAPIadditions\BuildsWhat.cpp" />
     <ClCompile Include="Source\Cannonball.cpp" />
     <ClCompile Include="Source\Cheese\ProbeControl.cpp" />
@@ -114,6 +115,8 @@
     <ClCompile Include="Source\Util\Functions.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\BaseManager\BaseManager.h" />
+    <ClInclude Include="Source\BaseManager\INexusBehaviourController.h" />
     <ClInclude Include="Source\BWAPIadditions\BuildsWhat.h" />
     <ClInclude Include="Source\Cannonball.h" />
     <ClInclude Include="Source\Cheese\Helpers.h" />
