@@ -5,16 +5,8 @@ using namespace BWAPI;
 // Constant for how far away units can be from their training building
 const int UnitTrainingManager::c_buildDistance = 100;
 
-bool UnitTrainingManager::buildUnit(UnitType buildType) {
-	if (Broodwar->canMake(&m_building, buildType) && m_behaviour &&
-		m_behaviour->shouldBuild(buildType)) {
-			m_building.train(buildType);
-			m_trainingUnit = 0;
-            return true;
-    } else {
-        return false;
-    }
-}
+
+// Public methods, only meant to be called via the signals the class registers for at construction
 
 void UnitTrainingManager::onFrame(void) {
 	if (m_building.isCompleted()) {
@@ -30,25 +22,40 @@ void UnitTrainingManager::onUnitCreate(Unit* unit) {
 	}
 }
 
+
+// Private methods
+
+bool UnitTrainingManager::buildUnit(void) {
+	if (Broodwar->canMake(&m_building, m_trainingType) && m_behaviour &&
+		checkShouldBuild() != UnitTypes::None) {
+			m_building.train(m_trainingType);
+			m_trainingUnit = 0;
+            return true;
+    } else {
+        return false;
+    }
+}
+
 void UnitTrainingManager::checkTraining(void) {
-	if (m_trainingType != BWAPI::UnitTypes::None && m_trainingUnit && 
+	if (m_trainingType != UnitTypes::None && m_trainingUnit && 
 		m_building.isTraining() && m_trainingTime.isDone()) {
 		if (m_behaviour) {
 			m_behaviour->postBuild(m_trainingUnit);
+			m_unitDoneSignal(m_trainingUnit);
 		}
         m_trainingUnit = 0;
 	} else if (!m_building.isTraining()) {
-		if (m_trainingType != BWAPI::UnitTypes::None) {
-			buildUnit(m_trainingType);
+		if (m_trainingType != UnitTypes::None) {
+			buildUnit();
 		} else {
-			m_trainingType = m_behaviour->setBuildType();
+			checkShouldBuild();
 		}
 	}
 }
 
 void UnitTrainingManager::printDebug(void) {
-    Broodwar->drawTextMap(m_building.getPosition().x()+30, m_building.getPosition().y()+30, 
-							"trainingType: %s\nunitTraining isDone: %s\namountDone: %d",
+    Broodwar->drawTextMap(m_building.getPosition().x()+50, m_building.getPosition().y()+30, 
+							"\x02trainingType: %s\nunitTraining isDone: %s\namountDone: %d",
 							(m_trainingType ? m_trainingType.getName().c_str() : "none"),
 							(m_trainingTime ? "yes" : "no"), m_trainingTime.amountDone());
 }

@@ -19,10 +19,6 @@ public:
 		Signal::onFriendlyUnitCreate().connect(boost::bind(&UnitTrainingManager::onUnitCreate, this, _1));
 	}
 
-	bool buildUnit(BWAPI::UnitType buildType);
-
-	bool setUnitType(UnitType newType) {m_trainingType = newType;}
-
 	UnitType getUnitType(void) {return m_trainingType;}
 
 	void onFrame(void);
@@ -32,7 +28,9 @@ private:
     virtual void printDebug(void);
     virtual bool isMyUnitSelected(void);
 
+	bool buildUnit(void);
     void checkTraining(void);
+	UnitType checkShouldBuild(void) {return m_trainingType = m_behaviour->shouldBuild(m_trainingType);}
 
 	const static int c_buildDistance;
 
@@ -41,6 +39,8 @@ private:
 	Timed m_trainingTime;
 
 	Unit &m_building;
+
+	boost::signal<void (BWAPI::Unit*)> m_unitDoneSignal;
 
 	IUnitTrainingManager_BehaviourPtr m_behaviour;
 

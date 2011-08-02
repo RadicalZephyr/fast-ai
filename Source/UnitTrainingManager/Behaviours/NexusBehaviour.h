@@ -10,8 +10,7 @@ public:
 	NexusBehaviour(Unit &nexus);
 
 	virtual void postBuild(BWAPI::Unit *unit);
-	virtual bool shouldBuild(BWAPI::UnitType type);
-	virtual BWAPI::UnitType setBuildType(void);
+	virtual BWAPI::UnitType shouldBuild(BWAPI::UnitType type);
 
 	void setShouldBuild(bool newFlag) {m_shouldBuild = newFlag;}
 

@@ -12,8 +12,7 @@ public:
 	DefaultBehaviour(BWAPI::Unit &building): m_building(building) {}
 
 	virtual void postBuild(BWAPI::Unit *unit);
-	virtual bool shouldBuild(BWAPI::UnitType type);
-	virtual BWAPI::UnitType setBuildType(void);
+	virtual BWAPI::UnitType shouldBuild(BWAPI::UnitType type);
 
 private:
 	BWAPI::Unit &m_building;
