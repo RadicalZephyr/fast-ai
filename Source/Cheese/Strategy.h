@@ -19,7 +19,7 @@ public: // Intilization section
 
 	// This detrmines which probe will be the probe given to the cheese strategy
 	// 0 means the starting probe, greater values are the probe built to give, max 9;
-	const int whichProbe;
+	int whichProbe;
 
 
 	// For long asynchronous intilization actions
@@ -35,6 +35,7 @@ public: //Usage Section
 	virtual void newProbe(BWAPI::Unit* probe) = 0;
 
 	virtual void setRunning(bool isRunning) = 0;
-private:
 	ICheeseStrategy();
+private:
+	
 };

@@ -13,10 +13,10 @@ public:
 		Vertical = 1,
 		Horizontal = 2,
 
-		Top = 4,
-		Bottom = 8,
-		Left = 16,
-		Right = 32,
+		Top = 4,								//$
+		Bottom = 8,								//$
+		Left = 16,								//$
+		Right = 32,								//$
 
 		TopRight = Top | Right,
 		TopLeft = Top | Left,
@@ -31,11 +31,13 @@ public:
 		Any = 63,
 
 		// This is what side of the relative building to favor the relative lines off of
-		OrthoFavorLeft = 64,
-		OrthoFavorRight = 128,
-		OrthoFavorTop = 256,
-		OrthoFavorBottom = 512,
-		OrthoFavorCenter = 1024,
+		OrthoLineLeft = 64,						//$
+		OrthoLineRight = 128,					//$
+		OrthoLineTop = 256,						//$
+		OrthoLineBottom = 512,					//$
+		OrthoLineCenter = 1024,					//$
+		
+		CenterOnOrthoLine = 2048,				//$
 	};
 
 	class BadSideException : public std::exception
@@ -47,7 +49,6 @@ public:
 	BuildingRelativeBuildingPlacer(BWAPI::UnitType relativeBuildingType, BWAPI::TilePosition relativePosition) : m_relativeType(relativeBuildingType), m_relativePosition(relativePosition) {}
 
 	// orthoDistace is the "leeway" from the "OrthoFavor" part of the enum.
-	// an orthoDistance of -1 means within the borders of the side of the building
 	// an orthoDistance of 0 means "On the line"
 	// any other positive orthDistance is the leeway in the orthogonal direction.
 
@@ -75,7 +76,12 @@ public:
 			return false;
 	}
 
+protected:
+	BWAPI::TilePosition DirectionalPlace(BWAPI::UnitType const& type, Side const& side, int distance, int orthoDistance); //Only supports Top/Left/Right/Bottom
+	BWAPI::TilePosition OrthoAdjust(BWAPI::UnitType const& type, int const& iSide, BWAPI::TilePosition& curPos, int orthoDistance); 
 private:
+	int findCenter(int in);
+
 	BWAPI::UnitType m_relativeType;
 	BWAPI::TilePosition m_relativePosition;
 };
