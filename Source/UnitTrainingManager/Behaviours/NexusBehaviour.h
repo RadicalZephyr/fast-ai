@@ -1,6 +1,6 @@
 #pragma once
 #include "Important/Common.h"
-#include "UnitTrainingManager/Interfaces/IUnitTrainingManagerBehaviour.h"
+#include "UnitTrainingManager/IUnitTrainingManagerBehaviour.h"
 #include "Util/Debug.h"
 
 using BWAPI::Unit;
