@@ -40,8 +40,6 @@
     </ClCompile>
     <ClCompile Include="Source\Util\BuildingRelativeBuildingPlacer.cpp">
       <Filter>Util</Filter>
-    <ClCompile Include="Source\BaseManager\BaseManager.cpp">
-      <Filter>Base Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +83,9 @@
     <ClInclude Include="Source\Cheese\Helpers.h">
       <Filter>Cheese</Filter>
     </ClInclude>
+    <ClInclude Include="Source\UnitTrainingManager\IUnitTrainingManagerBehaviour.h">
+      <Filter>Unit Training Manager</Filter>
+    </ClInclude>
     <ClInclude Include="Source\UnitTrainingManager\UnitTrainingManager.h">
       <Filter>Unit Training Manager</Filter>
     </ClInclude>
@@ -96,14 +97,6 @@
     </ClInclude>
     <ClInclude Include="Source\Util\BuildingRelativeBuildingPlacer.h">
       <Filter>Util</Filter>
-    <ClInclude Include="Source\UnitTrainingManager\IUnitTrainingManagerBehaviour.h">
-      <Filter>Unit Training Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\BaseManager\INexusBehaviourController.h">
-      <Filter>Base Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\BaseManager\BaseManager.h">
-      <Filter>Base Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -130,9 +123,6 @@
     </Filter>
     <Filter Include="Unit Training Manager\Behaviours">
       <UniqueIdentifier>{78ab5e17-abf2-4abe-8113-030e236fce3c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Base Manager">
-      <UniqueIdentifier>{c39aaca0-5202-4c39-85b4-0e7046efac69}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
