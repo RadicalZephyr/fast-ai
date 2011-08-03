@@ -1,9 +1,9 @@
 #include "StrategyManager.h"
+#include "BaseManager/BaseManager.h"
 
 CheeseStrategyManager::CheeseStrategyManager(ICheeseStrategy* strategy) : m_strategy(strategy)
 {
 	SIGNAL_ON_START(CheeseStrategyManager);
-	SIGNAL_ON_FRAME(CheeseStrategyManager);
 
 	strategy->init();
 }
@@ -30,13 +30,10 @@ void CheeseStrategyManager::onStart()
 
 	if (m_strategy->whichProbe == 0)
 	{
-		m_scoutProbe = new ProbeControl(0);
+		BaseManagerSet::iterator first = g_baseManagers.begin();
+		
+		m_scoutProbe = new ProbeControl((*first)->getControllee()->removeProbe());
 	}
-}
-
-void CheeseStrategyManager::onFrame()
-{
-
 }
 
 void CheeseStrategyManager::onNewProbe(BWAPI::Unit* unit)

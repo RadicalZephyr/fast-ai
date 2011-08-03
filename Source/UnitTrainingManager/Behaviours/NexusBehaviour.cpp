@@ -1,5 +1,6 @@
 #include "NexusBehaviour.h"
 #include "FunctionObjects/DistanceSorter.h"
+#include "BaseManager/BaseManager.h"
 
 using namespace BWAPI;
 
@@ -15,6 +16,8 @@ NexusBehaviour::NexusBehaviour(BWAPI::Unit &nexus): m_nexus(nexus),
 	Signal::onFrame().connect(boost::bind(&NexusBehaviour::onFrame, this));
 	Signal::onFriendlyUnitDestroy().connect(boost::bind(&NexusBehaviour::onFriendlyUnitDestroy, this, _1));
 	Signal::onNeutralUnitDestroy().connect(boost::bind(&NexusBehaviour::onNeutralUnitDestroy, this, _1));
+
+	g_baseManagers.insert(BaseManagerPtr(new BaseManager(this)));
 }
 
 void NexusBehaviour::onFrame(void) {
@@ -35,6 +38,16 @@ BWAPI::UnitType NexusBehaviour::shouldBuild(BWAPI::UnitType ) {
 	} else {
 		return UnitTypes::None;
 	}
+}
+
+void NexusBehaviour::addProbe(Unit *unit) {
+	addMiner(unit);
+}
+
+Unit *NexusBehaviour::removeProbe(void) {
+	UnitSet::iterator first = m_minGatherers.begin();
+	m_minGatherers.erase(first);
+	return *first;
 }
 
 

@@ -20,7 +20,6 @@
   #define GLOBAL
 #endif
 
-
 // Typedefs for standard containers for BWAPI Unit's
 //   Note that BWAPI Unit's are ALWAYS pointers (don't make new ones!)
 typedef std::set<BWAPI::Unit*> UnitSet;
@@ -50,7 +49,13 @@ struct UnitTrainingManager_BaseBehaviourFactory;
 
 typedef std::map<BWAPI::UnitType, UnitTrainingManager_BaseBehaviourFactory*> UnitTrainingManager_factoryMap;
 
+class BaseManager;
+
+typedef boost::shared_ptr<BaseManager> BaseManagerPtr;
+typedef std::set<BaseManagerPtr> BaseManagerSet;
+
 /* globals */
 GLOBAL int g_frame;
 GLOBAL UnitTrainingManagerSet g_managers;
 GLOBAL UnitTrainingManager_factoryMap g_managerWatchMap;
+GLOBAL BaseManagerSet g_baseManagers;

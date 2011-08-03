@@ -5,6 +5,7 @@
 #include "Util/Functions.h"
 #include "UnitTrainingManager\Behaviours/NexusBehaviour.h"
 #include "UnitTrainingManager\Behaviours/DefaultBehaviour.h"
+#include "Cheese/StrategyManager.h"
 
 using namespace BWAPI;
 
@@ -19,16 +20,16 @@ void Cannonball::onStart()
 	g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Nexus,
 										  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<NexusBehaviour>)));
 	// Default behaviours
-	g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Gateway,
-										  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
-	g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Carrier,
-										  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
-	g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Reaver,
-										  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
-	g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Stargate,
-										  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
-	g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Robotics_Facility,
-										  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
+	//g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Gateway,
+	//									  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
+	//g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Carrier,
+	//									  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
+	//g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Reaver,
+	//									  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
+	//g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Stargate,
+	//									  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
+	//g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Robotics_Facility,
+	//									  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
 
 
 	// Register to check the watch map every time we create a unit

@@ -11,11 +11,11 @@ using BWAPI::UnitType;
 class UnitTrainingManager : private Debug {
 public:
 	explicit UnitTrainingManager(Unit &theBuilding, IUnitTrainingManager_BehaviourPtr theBehaviour): m_trainingType(BWAPI::UnitTypes::None),
-																			    m_trainingUnit(0),
-																			    m_trainingTime(),
-												 							    m_building(theBuilding),
-												 							    m_behaviour(theBehaviour),
-																				m_unitDoneSignal() {
+																									 m_trainingUnit(0),
+																									 m_trainingTime(),
+												 													 m_building(theBuilding),
+												 													 m_behaviour(theBehaviour),
+																									 m_unitDoneSignal() {
 		Signal::onFrame().connect(boost::bind(&UnitTrainingManager::onFrame, this));
 		Signal::onFriendlyUnitCreate().connect(boost::bind(&UnitTrainingManager::onUnitCreate, this, _1));
 	}
@@ -24,6 +24,7 @@ public:
 
 	void onFrame(void);
 	void onUnitCreate(Unit* unit);
+	IUnitTrainingManager_BehaviourPtr getBehaviour(void) {return m_behaviour;}
 
 private:
     virtual void printDebug(void);

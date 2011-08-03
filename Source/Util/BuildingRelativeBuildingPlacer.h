@@ -79,3 +79,5 @@ private:
 	BWAPI::UnitType m_relativeType;
 	BWAPI::TilePosition m_relativePosition;
 };
+
+typedef BuildingRelativeBuildingPlacer::Side RelativeSide;

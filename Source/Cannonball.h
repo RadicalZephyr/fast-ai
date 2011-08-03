@@ -3,10 +3,13 @@
 #include <BWAPI.h>
 
 #include "Cheese/ProbeControl.h"
+#include "BaseManager/BaseManager.h"
 
 class Cannonball : public BWAPI::AIModule {
 public:
-    Cannonball(void) {};
+    Cannonball(void) :m_probeControl(0),
+					  m_baseManager()/*,
+					  m_strategyMan()*/ {};
 
     virtual void onStart();
     virtual void onEnd(bool isWinner);
@@ -26,5 +29,7 @@ public:
     virtual void onSaveGame(std::string gameName);
 
 private:
-	ProbeControl *probes;
+	ProbeControl *m_probeControl;
+	BaseManager m_baseManager;
+	//StrategyManager m_strategyMan;
 };

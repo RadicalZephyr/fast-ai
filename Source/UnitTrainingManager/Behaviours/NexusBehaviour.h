@@ -19,6 +19,11 @@ public:
 	void onNeutralUnitDestroy(BWAPI::Unit *unit) {m_gas.remove(unit);
 												m_minerals.remove(unit);}
 
+	void addProbe(Unit *unit);
+	Unit *removeProbe(void);
+
+	Unit &getNexus(void) {return m_nexus;}
+
 private:
     virtual void printDebug(void);
     virtual bool isMyUnitSelected(void);

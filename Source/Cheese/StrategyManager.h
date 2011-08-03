@@ -20,7 +20,6 @@ public:
 
 private:
 	void onStart();
-	void onFrame();
 
 	void onNewProbe(BWAPI::Unit* unit);
 

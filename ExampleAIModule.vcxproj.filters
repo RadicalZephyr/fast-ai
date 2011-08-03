@@ -11,9 +11,6 @@
     <ClCompile Include="Source\Cheese\ProbeControl.cpp">
       <Filter>Cheese</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Cheese\Strategy.cpp">
-      <Filter>Cheese</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Util\Functions.cpp">
       <Filter>Util</Filter>
     </ClCompile>
