@@ -45,6 +45,9 @@
     <ClCompile Include="Source\Cheese\Strategies\CannonAwesome.cpp">
       <Filter>Cheese\Strategies</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Util\RelativePosition.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Cannonball.h" />
@@ -113,6 +116,12 @@
       <Filter>Cheese\Strategies</Filter>
     </ClInclude>
     <ClInclude Include="Source\Util\PersistentPrinter.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Util\RelativePosition.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Util\Rounding.h">
       <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>

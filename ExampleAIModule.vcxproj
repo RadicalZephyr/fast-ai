@@ -114,6 +114,7 @@
     <ClCompile Include="Source\Util\BuildingRelativeBuildingPlacer.cpp" />
     <ClCompile Include="Source\Util\Debug.cpp" />
     <ClCompile Include="Source\Util\Functions.cpp" />
+    <ClCompile Include="Source\Util\RelativePosition.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\BaseManager\BaseManager.h" />
@@ -139,6 +140,8 @@
     <ClInclude Include="Source\Util\Debug.h" />
     <ClInclude Include="Source\Util\Functions.h" />
     <ClInclude Include="Source\Util\PersistentPrinter.h" />
+    <ClInclude Include="Source\Util\RelativePosition.h" />
+    <ClInclude Include="Source\Util\Rounding.h" />
     <ClInclude Include="Source\Util\Timed.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
