@@ -33,6 +33,9 @@ namespace CheeseStrategies
 		virtual void start();
 
 		virtual void onFrame();
+
+		void onUnitDiscover(BWAPI::Unit *unit);
+
 	private:
 		BWAPI::Unit* m_probe;
 		int m_buildOrder;
