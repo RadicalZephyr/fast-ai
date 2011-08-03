@@ -28,8 +28,11 @@ public: // Intilization section
 public: //Usage Section
 
 	//// These variables will be set before any of the following functions are called
-	BWAPI::Unit* enemyBase;
-	BWAPI::TilePosition enemyStartLocation;
+	void setEnemyBase(BWAPI::Unit *base) {enemyBase = base;}
+	BWAPI::Unit *getEnemyBase(void) {return enemyBase;}
+
+	void setEnemyStartLocation(BWAPI::TilePosition tile) {enemyStartLocation = tile;}
+	BWAPI::TilePosition getEnemyStartLocation(void) {return enemyStartLocation;}
 
 	// Will be called every time a new probe arrives at the cheese site
 	virtual void newProbe(BWAPI::Unit* probe) = 0;
@@ -37,5 +40,6 @@ public: //Usage Section
 	virtual void setRunning(bool isRunning) = 0;
 	ICheeseStrategy() {}
 private:
-	
+	BWAPI::Unit* enemyBase;
+	BWAPI::TilePosition enemyStartLocation;
 };

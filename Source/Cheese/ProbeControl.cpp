@@ -38,18 +38,22 @@ ProbeControl::ProbeControl(BWAPI::Unit *newProbe, onFindCallbackFunction callbac
 
 void ProbeControl::onFrame()
 {
-	if(256 == m_probe->getPosition().getApproxDistance(m_probe->getTargetPosition())) {
+	if(120 > m_probe->getPosition().getApproxDistance(m_probe->getTargetPosition())) {
 
 		Position nextPlace(*(++m_scoutLocations));
 		nextPlace.makeValid();
 
 		m_probe->move(nextPlace);
 	}
+	if (g_frame % 10 == 0) {
+		Broodwar->setScreenPosition(m_probe->getPosition() - Position(300, 200));
+	}
 }
 
 void ProbeControl::onUnitDiscover(BWAPI::Unit *unit) {
 	if (unit->getType().isResourceDepot() && unit->getPlayer() != Broodwar->self() && 
 		unit->getTilePosition() == m_probe->getTargetPosition()) {
+			Broodwar->printf("PC: onUnitDiscover: found a %s at (%d, %d)", unit->getType().getName().c_str(), unit->getPosition().x(), unit->getPosition().y());
 			m_callback(m_probe, unit);
 			SIGNAL_OFF_FRAME(ProbeControl);
 			Signal::onUnitDiscover().disconnect(boost::bind(&ProbeControl::onUnitDiscover, this, _1));

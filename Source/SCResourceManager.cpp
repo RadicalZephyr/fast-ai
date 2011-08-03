@@ -25,19 +25,15 @@ int SCResourceManager::requestResources(int minerals, int gas)
 //Request the resource manager to allocate the resources required to build the count given of the unit type
 int SCResourceManager::requestResources(BWAPI::UnitType requestedUnit, int count)
 {
-	//make a request and add it to the queue
-	Request newRequest(generateID(), requestedUnit.mineralPrice() * count, requestedUnit.gasPrice() *count);
-	requests.push(newRequest);
-	return newRequest.ID;
+	//call the more general version of request resources
+	return requestResources(requestedUnit.mineralPrice() * count, requestedUnit.gasPrice() * count);
 }
 
 //Request the resource manager to allocate the resources required to build a unit of this type
 int SCResourceManager::requestResources(BWAPI::UnitType requestedUnit)
 {
-	//make a request and add it to the queue
-	Request newRequest(generateID(), requestedUnit.mineralPrice(), requestedUnit.gasPrice());
-	requests.push(newRequest);
-	return newRequest.ID;
+	//call the more general version of request resources
+	return requestResources(requestedUnit, 1);
 }
 
 //Check the 

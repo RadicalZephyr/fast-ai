@@ -1,10 +1,12 @@
 #pragma once
 
+#include "Important/Common.h"
 #include "Cheese/Helpers.h"
+#include "Util/Debug.h"
 
 namespace CheeseStrategies
 {
-	class BaseCheeseStrategy : public ICheeseStrategy
+	class BaseCheeseStrategy : public ICheeseStrategy, private Debug
 	{
 	public: // Intilization section
 
@@ -43,6 +45,11 @@ namespace CheeseStrategies
 				m_isRunning = false;
 			}
 		}
+
+		virtual void printDebug(void) {BWAPI::Broodwar->drawTextScreen(40, 40, "firstRun: %s\nisRunning: %s",
+																(m_firstRun ? "true" : "false"),
+																(m_isRunning ? "true" : "false"));}
+		virtual bool isMyUnitSelected(void) {return true;}
 
 	protected:
 		virtual void start()

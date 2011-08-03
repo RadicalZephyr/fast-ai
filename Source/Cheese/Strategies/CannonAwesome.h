@@ -7,7 +7,7 @@ namespace CheeseStrategies
 	{
 	public: // Intilization section
 
-		CannonAwesome() : BaseCheeseStrategy()
+		CannonAwesome() : BaseCheeseStrategy(), m_buildOrder(0), m_tileList()
 		{
 			whichProbe = 0;
 		}
@@ -23,12 +23,15 @@ namespace CheeseStrategies
 			m_probe = probe;
 		}
 
-
+		virtual void printDebug(void);
+		virtual bool isMyUnitSelected(void) {return (m_probe ? m_probe->isSelected() : false);}
 	protected:
 		virtual void start();
 
-		virtual void onFrame() {}
+		virtual void onFrame();
 	private:
 		BWAPI::Unit* m_probe;
+		int m_buildOrder;
+		std::list<BWAPI::TilePosition> m_tileList;
 	};
 }
