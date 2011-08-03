@@ -4,8 +4,3 @@
 BaseManager::BaseManager(void)
 {
 }
-
-
-BaseManager::~BaseManager(void)
-{
-}

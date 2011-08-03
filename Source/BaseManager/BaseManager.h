@@ -8,7 +8,7 @@ class BaseManager :
 public:
 	BaseManager(void);
 
-	virtual ~BaseManager(void);
+	virtual ~BaseManager(void) {}
 
 };
 
