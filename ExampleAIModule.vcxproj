@@ -109,6 +109,7 @@
     <ClCompile Include="Source\FunctionObjects\DistanceSorter.cpp" />
     <ClCompile Include="Source\Important\Dll.cpp" />
     <ClCompile Include="Source\Important\Signals.cpp" />
+    <ClCompile Include="Source\SCResourceManager.cpp" />
     <ClCompile Include="Source\UnitTrainingManager\Behaviours\DefaultBehaviour.cpp" />
     <ClCompile Include="Source\UnitTrainingManager\Behaviours\NexusBehaviour.cpp" />
     <ClCompile Include="Source\UnitTrainingManager\UnitTrainingManager.cpp" />
@@ -131,6 +132,7 @@
     <ClInclude Include="Source\FunctionObjects\DistanceSorter.h" />
     <ClInclude Include="Source\Important\Common.h" />
     <ClInclude Include="Source\Important\Signals.h" />
+    <ClInclude Include="Source\SCResourceManager.h" />
     <ClInclude Include="Source\UnitTrainingManager\Behaviours\DefaultBehaviour.h" />
     <ClInclude Include="Source\UnitTrainingManager\Behaviours\NexusBehaviour.h" />
     <ClInclude Include="Source\UnitTrainingManager\IUnitTrainingManagerBehaviour.h" />

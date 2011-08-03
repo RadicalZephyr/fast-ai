@@ -41,6 +41,7 @@
     <ClCompile Include="Source\BaseManager\BaseManager.cpp">
       <Filter>Building Manager</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SCResourceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Cannonball.h" />
@@ -104,6 +105,7 @@
     <ClInclude Include="Source\BaseManager\INexusBehaviourController.h">
       <Filter>Building Manager</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SCResourceManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Important">

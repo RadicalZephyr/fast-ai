@@ -6,4 +6,4 @@ class INexusBehaviourController {
 public:
 	virtual ~INexusBehaviourController(void) {}
 
-};
+}
