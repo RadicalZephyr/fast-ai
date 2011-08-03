@@ -43,7 +43,7 @@ Unit* getGasPlacement(Position here)
 
 void CheeseStrategies::CannonAwesome::start()
 {
-	::MessageBoxA(0, "BLARGH", "BLARGH", 0);
+	//::MessageBoxA(0, "BLARGH", "BLARGH", 0);
 	Unit* thisOne = getGasPlacement((Position(this->enemyStartLocation)));
 	//BuildingRelativeBuildingPlacer gas (*thisOne);
 	Position here = (Position(this->enemyStartLocation));

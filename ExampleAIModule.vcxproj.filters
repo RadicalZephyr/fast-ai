@@ -42,6 +42,7 @@
       <Filter>Building Manager</Filter>
     </ClCompile>
     <ClCompile Include="Source\SCResourceManager.cpp" />
+    <ClCompile Include="Source\Cheese\Strategies\CannonAwesome.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Cannonball.h" />
@@ -106,6 +107,7 @@
       <Filter>Building Manager</Filter>
     </ClInclude>
     <ClInclude Include="Source\SCResourceManager.h" />
+    <ClInclude Include="Source\Cheese\Strategies\CannonAwesome.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Important">
