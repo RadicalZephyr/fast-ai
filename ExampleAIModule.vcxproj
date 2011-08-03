@@ -98,10 +98,12 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\Desktop\Placement.cpp" />
     <ClCompile Include="Source\BaseManager\BaseManager.cpp" />
     <ClCompile Include="Source\BWAPIadditions\BuildsWhat.cpp" />
     <ClCompile Include="Source\Cannonball.cpp" />
     <ClCompile Include="Source\Cheese\ProbeControl.cpp" />
+    <ClCompile Include="Source\Cheese\Strategies\CannonAwesome.cpp" />
     <ClCompile Include="Source\Cheese\Strategy.cpp" />
     <ClCompile Include="Source\Cheese\StrategyManager.cpp" />
     <ClCompile Include="Source\FunctionObjects\DistanceSorter.cpp" />
@@ -123,6 +125,7 @@
     <ClInclude Include="Source\Cheese\ProbeControl.h" />
     <ClInclude Include="Source\Cheese\Strategies.h" />
     <ClInclude Include="Source\Cheese\Strategies\Base.h" />
+    <ClInclude Include="Source\Cheese\Strategies\CannonAwesome.h" />
     <ClInclude Include="Source\Cheese\Strategy.h" />
     <ClInclude Include="Source\Cheese\StrategyManager.h" />
     <ClInclude Include="Source\FunctionObjects\DistanceSorter.h" />

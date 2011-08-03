@@ -1,14 +1,18 @@
+#pragma once
+
 #include "Cheese/Helpers.h"
 
 namespace CheeseStrategies
 {
-	class BaseCheeseStrategy abstract
+	class BaseCheeseStrategy : public ICheeseStrategy
 	{
 	public: // Intilization section
 
 		BaseCheeseStrategy()
 		{
 			whichProbe = 0;
+			m_firstRun = true;
+			m_isRunning = false;
 		}
 
 		// For long asynchronous intilization actions
@@ -22,13 +26,13 @@ namespace CheeseStrategies
 			
 		}
 
-		bool m_firstRun = true;
-		bool m_isRunning = false;
+		bool m_firstRun;
+		bool m_isRunning;
 		virtual void setRunning(bool isRunning) {
 			if (isRunning) {
 				m_isRunning = true;
 
-				Signal::onFrame().connect(boost::bind(&BaseCheeseStrategy::nvOnFrame, this))
+				Signal::onFrame().connect(boost::bind(&BaseCheeseStrategy::nvOnFrame, this));
 
 				if (m_firstRun) {
 					m_firstRun = false;

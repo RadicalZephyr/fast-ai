@@ -3,7 +3,7 @@
 #include "Important/Common.h"
 #include "Util/Debug.h"
 #include "Util/Timed.h"
-#include "UnitTrainingManager/Interfaces/IUnitTrainingManagerBehaviour.h"
+#include "UnitTrainingManager/IUnitTrainingManagerBehaviour.h"
 
 using BWAPI::Unit;
 using BWAPI::UnitType;

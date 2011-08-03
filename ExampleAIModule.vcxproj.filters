@@ -41,6 +41,11 @@
     <ClCompile Include="Source\Util\BuildingRelativeBuildingPlacer.cpp">
       <Filter>Util</Filter>
     </ClCompile>
+    <ClCompile Include="Source\BaseManager\BaseManager.cpp" />
+    <ClCompile Include="..\..\..\..\Desktop\Placement.cpp" />
+    <ClCompile Include="Source\Cheese\Strategies\CannonAwesome.cpp">
+      <Filter>Cheese\Strategies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Cannonball.h" />
@@ -97,6 +102,11 @@
     </ClInclude>
     <ClInclude Include="Source\Util\BuildingRelativeBuildingPlacer.h">
       <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BaseManager\BaseManager.h" />
+    <ClInclude Include="Source\BaseManager\INexusBehaviourController.h" />
+    <ClInclude Include="Source\Cheese\Strategies\CannonAwesome.h">
+      <Filter>Cheese\Strategies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
