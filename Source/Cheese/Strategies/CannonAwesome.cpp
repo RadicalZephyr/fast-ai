@@ -47,7 +47,8 @@ Unit* getGasPlacement(Position here)
 void CheeseStrategies::CannonAwesome::onUnitDiscover(BWAPI::Unit *unit) {
 	if (unit->getType().isResourceContainer() && !unit->getType().isMineralField()) {
 		Signal::onUnitDiscover().disconnect(boost::bind(&CheeseStrategies::CannonAwesome::onUnitDiscover, this, _1));
-		m_probe->move(unit->getPosition() + Position(10, 10));
+		
+		m_probe->move(g_position.unitVectorRelativeTo(Position(getEnemyStartLocation()), unit->getPosition()) * 15);
 		Unit* thisOne = getGasPlacement((Position(this->getEnemyStartLocation())));
 
 		//BuildingRelativeBuildingPlacer gas (*thisOne);
@@ -144,38 +145,38 @@ void CheeseStrategies::CannonAwesome::onFrame() {
 		Broodwar->drawCircleMap(Position(*itr).x(), Position(*itr).y(), 25, BWAPI::Colors::Cyan, true);
 	}
 
-	if (m_isRunning && m_probe->isIdle()) {
-		switch (m_buildOrder) {
-		case 0:
-			if (m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Pylon)) {
-				++m_buildOrder;
-				m_tileList.pop_front();
-			}
+	//if (m_isRunning && m_probe->isIdle()) {
+	//	switch (m_buildOrder) {
+	//	case 0:
+	//		if (m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Pylon)) {
+	//			++m_buildOrder;
+	//			m_tileList.pop_front();
+	//		}
 
-			break;
-		case 1:
-			if (m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Forge)) {
-				++m_buildOrder;
-				m_tileList.pop_front();
-			}
-			break;
-		case 2:
-			if (m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Photon_Cannon)) {
-				++m_buildOrder;
-				m_tileList.pop_front();
-			}
-			break;
-		case 3:
-			if (m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Gateway)) {
-				++m_buildOrder;
-				m_tileList.pop_front();
-			}
-			break;
-		default:
-			break;
-		}
+	//		break;
+	//	case 1:
+	//		if (m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Forge)) {
+	//			++m_buildOrder;
+	//			m_tileList.pop_front();
+	//		}
+	//		break;
+	//	case 2:
+	//		if (m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Photon_Cannon)) {
+	//			++m_buildOrder;
+	//			m_tileList.pop_front();
+	//		}
+	//		break;
+	//	case 3:
+	//		if (m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Gateway)) {
+	//			++m_buildOrder;
+	//			m_tileList.pop_front();
+	//		}
+	//		break;
+	//	default:
+	//		break;
+	//	}
 
-	}
+	//}
 }
 
 void CheeseStrategies::CannonAwesome::printDebug(void) {

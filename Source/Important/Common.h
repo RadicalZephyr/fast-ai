@@ -13,6 +13,7 @@
 #include <boost/function.hpp>
 
 #include "Signals.h"
+#include "Util/RelativePosition.h"
 
 // Global Macro
 #ifndef COMPILE_GLOBAL
@@ -60,3 +61,4 @@ GLOBAL int g_frame;
 GLOBAL UnitTrainingManagerSet g_managers;
 GLOBAL UnitTrainingManager_factoryMap g_managerWatchMap;
 GLOBAL BaseManagerSet g_baseManagers;
+GLOBAL RelativePosition g_position;
