@@ -35,7 +35,7 @@ public: //Usage Section
 	virtual void newProbe(BWAPI::Unit* probe) = 0;
 
 	virtual void setRunning(bool isRunning) = 0;
-	ICheeseStrategy();
+	ICheeseStrategy() {}
 private:
 	
 };

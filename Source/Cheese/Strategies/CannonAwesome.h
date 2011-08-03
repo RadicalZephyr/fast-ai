@@ -27,7 +27,7 @@ namespace CheeseStrategies
 	protected:
 		virtual void start();
 
-		virtual void onFrame();
+		virtual void onFrame() {}
 	private:
 		BWAPI::Unit* m_probe;
 	};

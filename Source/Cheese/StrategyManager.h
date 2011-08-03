@@ -20,8 +20,10 @@ public:
 
 private:
 	void onStart();
+	void onFrame();
 
 	void onNewProbe(BWAPI::Unit* unit);
+	void foundEnemy(BWAPI::Unit *probe, BWAPI::Unit *enemyBase);
 
 	ICheeseStrategy* m_strategy;
 

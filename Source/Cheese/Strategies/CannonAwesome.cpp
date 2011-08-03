@@ -43,6 +43,7 @@ Unit* getGasPlacement(Position here)
 
 void CheeseStrategies::CannonAwesome::start()
 {
+	::MessageBoxA(0, "BLARGH", "BLARGH", 0);
 	Unit* thisOne = getGasPlacement((Position(this->enemyStartLocation)));
 	//BuildingRelativeBuildingPlacer gas (*thisOne);
 	Position here = (Position(this->enemyStartLocation));
@@ -71,15 +72,15 @@ void CheeseStrategies::CannonAwesome::start()
 	m_probe->build(Pylon,UnitTypes::Protoss_Pylon);
 	bool built;
 	built = false;
-	while(!built)
-	{
-		built = m_probe->build(Forge,UnitTypes::Protoss_Forge);
-	}
-	built = false;
-	while(!built)
-	{
-		built = m_probe->build(Cannon,UnitTypes::Protoss_Photon_Cannon);
-	}
+	//while(!built)
+	//{
+	//	built = m_probe->build(Forge,UnitTypes::Protoss_Forge);
+	//}
+	//built = false;
+	//while(!built)
+	//{
+	//	built = m_probe->build(Cannon,UnitTypes::Protoss_Photon_Cannon);
+	//}
 }
 
 

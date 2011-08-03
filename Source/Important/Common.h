@@ -1,6 +1,7 @@
 #pragma once
 
 #include <BWAPI.h>
+#include "windows.h"
 
 #include <list>
 #include <vector>

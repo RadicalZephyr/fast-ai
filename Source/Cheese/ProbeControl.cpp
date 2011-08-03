@@ -3,9 +3,11 @@ using namespace BWAPI;
 
 
 //const int NexusManager::s_mineralDistance = 270;
-ProbeControl::ProbeControl(BWAPI::Unit *newProbe) : m_probe(newProbe)
+ProbeControl::ProbeControl(BWAPI::Unit *newProbe, onFindCallbackFunction callback) : m_probe(newProbe),
+													m_callback(callback)
 {
 	SIGNAL_ON_FRAME(ProbeControl);
+	Signal::onUnitDiscover().connect(boost::bind(&ProbeControl::onUnitDiscover, this, _1));
 
 	if (m_probe == 0) {
 		Broodwar->printf("ERROR: ProbeControl: onStart: null pointer, disconnecting");
@@ -36,11 +38,21 @@ ProbeControl::ProbeControl(BWAPI::Unit *newProbe) : m_probe(newProbe)
 
 void ProbeControl::onFrame()
 {
-	if(5 == m_probe->getPosition().getApproxDistance(m_probe->getTargetPosition())) {
+	if(256 == m_probe->getPosition().getApproxDistance(m_probe->getTargetPosition())) {
 
 		Position nextPlace(*(++m_scoutLocations));
 		nextPlace.makeValid();
 
 		m_probe->move(nextPlace);
+	}
+}
+
+void ProbeControl::onUnitDiscover(BWAPI::Unit *unit) {
+	if (unit->getType().isResourceDepot() && unit->getPlayer() != Broodwar->self() && 
+		unit->getTilePosition() == m_probe->getTargetPosition()) {
+			m_callback(m_probe, unit);
+			SIGNAL_OFF_FRAME(ProbeControl);
+			Signal::onUnitDiscover().disconnect(boost::bind(&ProbeControl::onUnitDiscover, this, _1));
+			delete this;
 	}
 }

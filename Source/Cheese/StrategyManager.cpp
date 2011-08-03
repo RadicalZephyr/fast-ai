@@ -4,7 +4,7 @@
 CheeseStrategyManager::CheeseStrategyManager(ICheeseStrategy* strategy) : m_strategy(strategy)
 {
 	SIGNAL_ON_START(CheeseStrategyManager);
-
+	SIGNAL_ON_FRAME(CheeseStrategyManager);
 	strategy->init();
 }
 
@@ -24,16 +24,18 @@ bool CheeseStrategyManager::moreCheeseProbes()
 	return false;
 }
 
+void CheeseStrategyManager::onFrame(void) 
+{
+	if (m_strategy->whichProbe == 0 && m_scoutProbe == 0)
+	{
+		BaseManagerSet::iterator first = g_baseManagers.begin();
+		m_scoutProbe = new ProbeControl((*first)->getControllee()->removeProbe(), boost::bind(&CheeseStrategyManager::foundEnemy, this, _1, _2));
+	}
+}
 
 void CheeseStrategyManager::onStart()
 {
 
-	if (m_strategy->whichProbe == 0)
-	{
-		BaseManagerSet::iterator first = g_baseManagers.begin();
-		
-		m_scoutProbe = new ProbeControl((*first)->getControllee()->removeProbe());
-	}
 }
 
 void CheeseStrategyManager::onNewProbe(BWAPI::Unit* unit)
@@ -42,5 +44,12 @@ void CheeseStrategyManager::onNewProbe(BWAPI::Unit* unit)
 		return;
 
 	if (m_probe == m_strategy->whichProbe)
-		m_scoutProbe = new ProbeControl(0);
+		m_scoutProbe = new ProbeControl(0,0);
+}
+
+void CheeseStrategyManager::foundEnemy(BWAPI::Unit *probe, BWAPI::Unit *enemyBase) {
+	m_strategy->enemyBase = enemyBase;
+	m_strategy->enemyStartLocation = enemyBase->getTilePosition();
+	m_strategy->newProbe(probe);
+	m_strategy->setRunning(true);
 }

@@ -25,7 +25,10 @@ BWAPI::TilePosition BuildingRelativeBuildingPlacer::DirectionalPlace(BWAPI::Unit
 		this->m_relativePosition.x() += distance + this->m_relativeType.tileWidth();
 	}
 	else
+	{
+		::MessageBoxA(0, "Why the fuck would you try to use that side of a building?\nBuildingRelativeBuildingPlacer::DirectionalPlace throwing BadSideException", "EXCEPTION", 0);
 		throw new BadSideException();
+	}
 
 	OrthoAdjust(type, iSide, newPos, orthoDistance);
 	return newPos;
