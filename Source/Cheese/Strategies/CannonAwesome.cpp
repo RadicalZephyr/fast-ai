@@ -50,7 +50,7 @@ void CheeseStrategies::CannonAwesome::start()
 	//BuildingRelativeBuildingPlacer gas (*thisOne);
 	Position here = (Position(this->getEnemyStartLocation()));
 
-	Broodwar->printf("enemy gas: (%d, %d)\nEnemyStartLocation: (%d, %d)",
+	m_printer.printf("enemy gas: (%d, %d)\nEnemyStartLocation: (%d, %d)",
 						thisOne->getPosition().x(), thisOne->getPosition().y(),
 						here.x(), here.y());
 

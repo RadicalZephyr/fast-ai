@@ -138,6 +138,7 @@
     <ClInclude Include="Source\Util\BuildingRelativeBuildingPlacer.h" />
     <ClInclude Include="Source\Util\Debug.h" />
     <ClInclude Include="Source\Util\Functions.h" />
+    <ClInclude Include="Source\Util\PersistentPrinter.h" />
     <ClInclude Include="Source\Util\Timed.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

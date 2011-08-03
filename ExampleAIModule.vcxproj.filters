@@ -112,6 +112,9 @@
     <ClInclude Include="Source\Cheese\Strategies\CannonAwesome.h">
       <Filter>Cheese\Strategies</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Util\PersistentPrinter.h">
+      <Filter>Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Important">
