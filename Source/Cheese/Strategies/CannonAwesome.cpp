@@ -2,7 +2,7 @@
 #include "Base.h"
 #include <BWAPI.h>
 #include <set>
-#include "Util/BuildingRelativeBuildingPlacer.h"
+#include "Util/RelativeSide.h"
 using namespace BWAPI;
 
 Unit* getGasPlacement(Position here)
@@ -48,7 +48,7 @@ void CheeseStrategies::CannonAwesome::onUnitDiscover(BWAPI::Unit *unit) {
 	if (unit->getType().isResourceContainer() && !unit->getType().isMineralField()) {
 		Signal::onUnitDiscover().disconnect(boost::bind(&CheeseStrategies::CannonAwesome::onUnitDiscover, this, _1));
 		
-		m_probe->move(g_position.unitVectorRelativeTo(Position(getEnemyStartLocation()), unit->getPosition()) * 15);
+		//m_probe->move(g_position.unitVectorRelativeTo(Position(getEnemyStartLocation()), unit->getPosition()) * 15);
 		Unit* thisOne = getGasPlacement((Position(this->getEnemyStartLocation())));
 
 		//BuildingRelativeBuildingPlacer gas (*thisOne);
@@ -56,35 +56,26 @@ void CheeseStrategies::CannonAwesome::onUnitDiscover(BWAPI::Unit *unit) {
 
 		TilePosition Pylon, Forge, Cannon, Gateway;
 
+		RelativeSide geyser(thisOne);
+
 		/*  !!!!!!!!!!!!!!!!!!!! ATTENTION : all of these tile positions are NOT doing what you want them to
 		if you look in the top left corner of the map, you
 		will see circles that are located at these calculated positions*/
-		if (thisOne->getPosition().y() - here.y() < 0)
-		{
 
-			Pylon = TilePosition(thisOne->getPosition().x()-1*TILE_SIZE, thisOne->getPosition().y()-2*TILE_SIZE);
-			Forge = TilePosition(thisOne->getPosition().x()+3*TILE_SIZE, thisOne->getPosition().y()-3*TILE_SIZE);
-			Cannon = TilePosition(thisOne->getPosition().x()+1*TILE_SIZE, thisOne->getPosition().y()-2*TILE_SIZE);
-
-		}
 		if (thisOne->getPosition().y() - here.y() > 0)
-		{
-
-			Pylon = TilePosition(thisOne->getPosition().x()+2*TILE_SIZE, thisOne->getPosition().y()+3*TILE_SIZE);
-			Forge = TilePosition(thisOne->getPosition().x()+3*TILE_SIZE, thisOne->getPosition().y()-3*TILE_SIZE);
-			Cannon = TilePosition(thisOne->getPosition().x()+1*TILE_SIZE, thisOne->getPosition().y()-2*TILE_SIZE);
+		{ //Geyser Below
+			Broodwar->printf("Bottom");
+			Pylon = geyser.Place(UnitTypes::Protoss_Pylon, RelativeSide::Bottom | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineLeft, 0, 0);
+			Forge = geyser.Place(UnitTypes::Protoss_Forge, RelativeSide::Bottom | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineRight, 0, 0);
+			Cannon = geyser.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Bottom | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 0, 0);
+			Gateway = geyser.Place(UnitTypes::Protoss_Gateway, RelativeSide::Bottom | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 2, 0);
 		}
-		if (thisOne->getPosition().x() - here.x() < 0)
-		{
-			Pylon = TilePosition(thisOne->getPosition().x()-2*TILE_SIZE, thisOne->getPosition().y()+3*TILE_SIZE);
-			Forge = TilePosition(thisOne->getPosition().x()+3*TILE_SIZE, thisOne->getPosition().y()-3*TILE_SIZE);
-			Cannon = TilePosition(thisOne->getPosition().x()+1*TILE_SIZE, thisOne->getPosition().y()-2*TILE_SIZE);
-		}
-		if (thisOne->getPosition().x() - here.x() > 0)
-		{
-			Pylon = TilePosition(thisOne->getPosition().x()+2*TILE_SIZE, thisOne->getPosition().y()-1*TILE_SIZE);
-			Forge = TilePosition(thisOne->getPosition().x()+3*TILE_SIZE, thisOne->getPosition().y()-3*TILE_SIZE);
-			Cannon = TilePosition(thisOne->getPosition().x()+1*TILE_SIZE, thisOne->getPosition().y()-2*TILE_SIZE);
+		else
+		{ //Geyser Above
+			Pylon = geyser.Place(UnitTypes::Protoss_Pylon, RelativeSide::Top | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineLeft, 0, 0);
+			Forge = geyser.Place(UnitTypes::Protoss_Forge, RelativeSide::Top | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineRight, 0, 0);
+			Cannon = geyser.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Top | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 0, 0);
+			Gateway = geyser.Place(UnitTypes::Protoss_Gateway, RelativeSide::Top | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 2, 0);
 		}
 		/**/
 
@@ -96,20 +87,6 @@ void CheeseStrategies::CannonAwesome::onUnitDiscover(BWAPI::Unit *unit) {
 		m_tileList.push_back(Forge.makeValid());
 		m_tileList.push_back(Cannon.makeValid());
 		m_tileList.push_back(Gateway.makeValid());
-
-		//m_probe->move(BWAPI::Position(Pylon));
-		//m_probe->build(Pylon,UnitTypes::Protoss_Pylon);
-		//bool built;
-		//built = false;
-		//while(!built)
-		//{
-		//	built = m_probe->build(Forge,UnitTypes::Protoss_Forge);
-		//}
-		//built = false;
-		//while(!built)
-		//{
-		//	built = m_probe->build(Cannon,UnitTypes::Protoss_Photon_Cannon);
-		//}
 	}
 }
 
@@ -145,38 +122,38 @@ void CheeseStrategies::CannonAwesome::onFrame() {
 		Broodwar->drawCircleMap(Position(*itr).x(), Position(*itr).y(), 25, BWAPI::Colors::Cyan, true);
 	}
 
-	//if (m_isRunning && m_probe->isIdle()) {
-	//	switch (m_buildOrder) {
-	//	case 0:
-	//		if (m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Pylon)) {
-	//			++m_buildOrder;
-	//			m_tileList.pop_front();
-	//		}
+	if (m_isRunning && m_probe->isIdle()) {
+		switch (m_buildOrder) {
+		case 0:
+			if (m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Pylon)) {
+				++m_buildOrder;
+				m_tileList.pop_front();
+			}
 
-	//		break;
-	//	case 1:
-	//		if (m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Forge)) {
-	//			++m_buildOrder;
-	//			m_tileList.pop_front();
-	//		}
-	//		break;
-	//	case 2:
-	//		if (m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Photon_Cannon)) {
-	//			++m_buildOrder;
-	//			m_tileList.pop_front();
-	//		}
-	//		break;
-	//	case 3:
-	//		if (m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Gateway)) {
-	//			++m_buildOrder;
-	//			m_tileList.pop_front();
-	//		}
-	//		break;
-	//	default:
-	//		break;
-	//	}
+			break;
+		case 1:
+			if (m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Forge)) {
+				++m_buildOrder;
+				m_tileList.pop_front();
+			}
+			break;
+		case 2:
+			if (m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Photon_Cannon)) {
+				++m_buildOrder;
+				m_tileList.pop_front();
+			}
+			break;
+		case 3:
+			if (m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Gateway)) {
+				++m_buildOrder;
+				m_tileList.pop_front();
+			}
+			break;
+		default:
+			break;
+		}
 
-	//}
+	}
 }
 
 void CheeseStrategies::CannonAwesome::printDebug(void) {

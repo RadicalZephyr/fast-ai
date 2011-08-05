@@ -13,6 +13,7 @@ void Cannonball::onStart()
 {
     // Enable some cheat flags
     Broodwar->enableFlag(Flag::UserInput);
+	setDebugSpeed(true);
     // Uncomment to enable complete map information
     //Broodwar->enableFlag(Flag::CompleteMapInformation);
 

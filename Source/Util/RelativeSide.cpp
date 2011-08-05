@@ -1,28 +1,27 @@
-#include "BuildingRelativeBuildingPlacer.h"
+#include "RelativeSide.h"
 
-BWAPI::TilePosition BuildingRelativeBuildingPlacer::Place(BWAPI::UnitType const& type, Side const& side, int distance, int orthoDistance) {
+BWAPI::TilePosition RelativeSide::Place(BWAPI::UnitType const& type, int const& side, int distance, int orthoDistance) {
 	return this->DirectionalPlace(type, side, distance, orthoDistance);
 }
 
-BWAPI::TilePosition BuildingRelativeBuildingPlacer::DirectionalPlace(BWAPI::UnitType const& type, Side const& side, int distance, int orthoDistance) {
-	int iSide = (int)side;
+BWAPI::TilePosition RelativeSide::DirectionalPlace(BWAPI::UnitType const& type, int const& side, int distance, int orthoDistance) {
 	BWAPI::TilePosition newPos(this->m_relativePosition);
 
-	if (iSide & (int)Top)
+	if (side & (int)Top)
 	{
-		this->m_relativePosition.y() += distance + type.tileHeight();
+		newPos.y() -= distance + type.tileHeight();
 	}
-	else if (iSide & (int)Bottom)
+	else if (side & (int)Bottom)
 	{
-		this->m_relativePosition.y() += distance + this->m_relativeType.tileHeight();
+		newPos.y() += distance + this->m_relativeType.tileHeight();
 	}
-	else if (iSide & (int)Left)
+	else if (side & (int)Left)
 	{
-		this->m_relativePosition.x() += distance + type.tileWidth();
+		newPos.x() -= distance + type.tileWidth();
 	}
-	else if (iSide & (int)Right)
+	else if (side & (int)Right)
 	{
-		this->m_relativePosition.x() += distance + this->m_relativeType.tileWidth();
+		newPos.x() += distance + this->m_relativeType.tileWidth();
 	}
 	else
 	{
@@ -30,11 +29,11 @@ BWAPI::TilePosition BuildingRelativeBuildingPlacer::DirectionalPlace(BWAPI::Unit
 		throw new BadSideException();
 	}
 
-	OrthoAdjust(type, iSide, newPos, orthoDistance);
+	OrthoAdjust(type, side, newPos, orthoDistance);
 	return newPos;
 }
 
-int BuildingRelativeBuildingPlacer::findCenter(int in)
+int RelativeSide::findCenter(int in)
 {
 	switch (in)
 		{
@@ -50,7 +49,7 @@ int BuildingRelativeBuildingPlacer::findCenter(int in)
 		}
 }
 
-BWAPI::TilePosition BuildingRelativeBuildingPlacer::OrthoAdjust(BWAPI::UnitType const& type, int const& iSide, BWAPI::TilePosition& curPos, int orthoDistance) {
+BWAPI::TilePosition RelativeSide::OrthoAdjust(BWAPI::UnitType const& type, int const& iSide, BWAPI::TilePosition& curPos, int orthoDistance) {
 
 	int& orthoLine = (iSide & (int)Top) || (iSide & (int)Bottom) ? curPos.x() : curPos.y();
 
@@ -64,5 +63,6 @@ BWAPI::TilePosition BuildingRelativeBuildingPlacer::OrthoAdjust(BWAPI::UnitType 
 	if ((iSide & (int)CenterOnOrthoLine))
 		orthoLine -= findCenter((iSide & (int)Top) || (iSide & (int)Bottom) ? type.tileWidth() : type.tileHeight());
 
+	return curPos;
 }
 

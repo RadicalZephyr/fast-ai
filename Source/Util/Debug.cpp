@@ -30,3 +30,14 @@ bool Debug::isMyUnitSelected(void) {
 	BWAPI::Broodwar->printf("DBG isMyUnitSelected");
 	return true;
 }
+
+
+
+
+void setDebugSpeed(bool goDebugSuperFastCatCatCat)
+{
+	if (goDebugSuperFastCatCatCat)
+		BWAPI::Broodwar->setLocalSpeed(0);
+	else
+		BWAPI::Broodwar->setLocalSpeed(-1);
+}

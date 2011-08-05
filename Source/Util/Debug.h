@@ -15,3 +15,6 @@ private:
 
     bool debug;
 };
+
+
+void setDebugSpeed(bool goDebugSuperFastCatCatCat);

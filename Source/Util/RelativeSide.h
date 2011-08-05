@@ -4,7 +4,7 @@
 
 #include "Important/Common.h"
 
-class BuildingRelativeBuildingPlacer
+class RelativeSide
 {
 public:
 	// Favored order of testing: Top, Bottom, Left, Right
@@ -45,8 +45,8 @@ public:
 
 	};
 
-	BuildingRelativeBuildingPlacer(BWAPI::Unit const& relativeBuilding) : m_relativeType(relativeBuilding.getType()), m_relativePosition(relativeBuilding.getTilePosition()) {}
-	BuildingRelativeBuildingPlacer(BWAPI::UnitType relativeBuildingType, BWAPI::TilePosition relativePosition) : m_relativeType(relativeBuildingType), m_relativePosition(relativePosition) {}
+	RelativeSide(BWAPI::Unit* relativeBuilding) : m_relativeType(relativeBuilding->getType()), m_relativePosition(relativeBuilding->getTilePosition()) {}
+	RelativeSide(BWAPI::UnitType relativeBuildingType, BWAPI::TilePosition relativePosition) : m_relativeType(relativeBuildingType), m_relativePosition(relativePosition) {}
 
 	// orthoDistace is the "leeway" from the "OrthoFavor" part of the enum.
 	// an orthoDistance of 0 means "On the line"
@@ -54,16 +54,16 @@ public:
 
 	// Will always return the posistion, even if it is potentially invalid.
 	// Will throw an exception in extreme circumstances
-	BWAPI::TilePosition Place(BWAPI::UnitType const& type, Side const& side, int distance, int orthoDistance); //Only supports Top/Left/Right/Bottom
+	BWAPI::TilePosition Place(BWAPI::UnitType const& type, int const& side, int distance, int orthoDistance); //Only supports Top/Left/Right/Bottom
 
 	// Will check a location to see if it is a good spot to place it.
-	inline bool Check(BWAPI::UnitType const& type, Side const& side, int distance, int orthoDistance)
+	inline bool Check(BWAPI::UnitType const& type, int const& side, int distance, int orthoDistance)
 	{
 		return Place(type, side, distance, orthoDistance).isValid();
 	}
 
 	// Will check a location to see if it valid before setting outLocation
-	inline bool CheckAndPlace(BWAPI::UnitType const& type, Side const& side, int distance, int orthoDistance, BWAPI::TilePosition& outLocation) { 
+	inline bool CheckAndPlace(BWAPI::UnitType const& type, int const& side, int distance, int orthoDistance, BWAPI::TilePosition& outLocation) { 
 		
 		BWAPI::TilePosition temp = Place(type, side, distance, orthoDistance);
 
@@ -77,7 +77,7 @@ public:
 	}
 
 protected:
-	BWAPI::TilePosition DirectionalPlace(BWAPI::UnitType const& type, Side const& side, int distance, int orthoDistance); //Only supports Top/Left/Right/Bottom
+	BWAPI::TilePosition DirectionalPlace(BWAPI::UnitType const& type, int const& side, int distance, int orthoDistance); //Only supports Top/Left/Right/Bottom
 	BWAPI::TilePosition OrthoAdjust(BWAPI::UnitType const& type, int const& iSide, BWAPI::TilePosition& curPos, int orthoDistance); 
 private:
 	int findCenter(int in);
@@ -85,5 +85,3 @@ private:
 	BWAPI::UnitType m_relativeType;
 	BWAPI::TilePosition m_relativePosition;
 };
-
-typedef BuildingRelativeBuildingPlacer::Side RelativeSide;

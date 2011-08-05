@@ -52,4 +52,5 @@ void CheeseStrategyManager::foundEnemy(BWAPI::Unit *probe, BWAPI::Unit *enemyBas
 	m_strategy->setEnemyStartLocation(enemyBase->getTilePosition());
 	m_strategy->newProbe(probe);
 	m_strategy->setRunning(true);
+	setDebugSpeed(false);
 }

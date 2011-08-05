@@ -35,9 +35,6 @@
     <ClCompile Include="Source\UnitTrainingManager\Behaviours\NexusBehaviour.cpp">
       <Filter>Unit Training Manager\Behaviours</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Util\BuildingRelativeBuildingPlacer.cpp">
-      <Filter>Util</Filter>
-    </ClCompile>
     <ClCompile Include="Source\BaseManager\BaseManager.cpp">
       <Filter>Building Manager</Filter>
     </ClCompile>
@@ -46,6 +43,9 @@
       <Filter>Cheese\Strategies</Filter>
     </ClCompile>
     <ClCompile Include="Source\Util\RelativePosition.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Util\RelativeSide.cpp">
       <Filter>Util</Filter>
     </ClCompile>
   </ItemGroup>
@@ -102,9 +102,6 @@
     <ClInclude Include="Source\UnitTrainingManager\Behaviours\NexusBehaviour.h">
       <Filter>Unit Training Manager\Behaviours</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Util\BuildingRelativeBuildingPlacer.h">
-      <Filter>Util</Filter>
-    </ClInclude>
     <ClInclude Include="Source\BaseManager\BaseManager.h">
       <Filter>Building Manager</Filter>
     </ClInclude>
@@ -122,6 +119,9 @@
       <Filter>Util</Filter>
     </ClInclude>
     <ClInclude Include="Source\Util\Rounding.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Util\RelativeSide.h">
       <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>
