@@ -45,16 +45,16 @@ void Cannonball::onStart()
 void Cannonball::onSendText(std::string text)
 {
     // This is the place to capture user input to do stuff with
-	Broodwar->printf("onSendText called: '%s'", text.c_str());
+	//Broodwar->printf("onSendText called: '%s'", text.c_str());
 
 	if (UnitTypes::getUnitType(text) != UnitTypes::None) {
 		UnitTypeSet const buildSet = buildsWhat(UnitTypes::getUnitType(text));
-		Broodwar->printf("%s can build:\n", UnitTypes::getUnitType(text).getName().c_str());
+		//Broodwar->printf("%s can build:\n", UnitTypes::getUnitType(text).getName().c_str());
 		for (UnitTypeSet::const_iterator itr = buildSet.begin(); itr != buildSet.end(); itr++) {
 			Broodwar->printf("%s", itr->getName().c_str());
 		}
 	}
-	Signal::onSendText()(text);
+	//Signal::onSendText()(text);
 }
 
 // The actually import callbacks to our AI
@@ -197,7 +197,7 @@ void Cannonball::onUnitRenegade(BWAPI::Unit* unit)
 
 void Cannonball::onSaveGame(std::string gameName)
 {
-    Broodwar->printf("The game was saved to \"%s\".", gameName.c_str());
+    //Broodwar->printf("The game was saved to \"%s\".", gameName.c_str());
 
 	Signal::onSaveGame()(gameName);
 }

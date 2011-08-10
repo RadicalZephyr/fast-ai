@@ -8,7 +8,7 @@ bool BaseManager::constructBuilding(BWAPI::UnitType type) {
 	m_buildQueue.push(type);
 	if (m_probe == NULL)
 	{
-		setDebugSpeed(false);
+		//setDebugSpeed(false);
 		m_lastTilePos = BWAPI::Broodwar->self()->getStartLocation();
 		m_probe = m_controllee->removeProbe();
 		m_probe->move(Position(Broodwar->self()->getStartLocation()));
@@ -20,8 +20,12 @@ void BaseManager::onFrame(void) {
 	if (!m_buildQueue.empty() && m_probe && !m_probe->isConstructing()) {
 		doBuildCheck();
 
-	} else if (m_buildQueue.empty() && m_probe && !m_probe->isConstructing() && BWAPI::Broodwar->self()->minerals() > 600) {
-		m_buildQueue.push(BWAPI::UnitTypes::Protoss_Gateway);
+	} else if (m_buildQueue.empty() && m_probe && !m_probe->isConstructing() && Broodwar->self()->minerals() > 600) {
+		if (Broodwar->self()->supplyTotal() == Broodwar->self()->supplyUsed()) {
+			m_buildQueue.push(BWAPI::UnitTypes::Protoss_Pylon);
+		} else {
+			m_buildQueue.push(BWAPI::UnitTypes::Protoss_Gateway);
+		}
 	}/*else if (m_probe && !m_probe->isConstructing()) {
 		m_controllee->addProbe(m_probe);
 		m_probe = 0;

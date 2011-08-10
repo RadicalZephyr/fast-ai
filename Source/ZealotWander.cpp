@@ -2,18 +2,23 @@
 #include <random>
 
 void ZealotWander::onFrame(void) {
+	static int timeout = 0;
 	if (!m_unit->isVisible() && m_unit->getHitPoints() < 0) {
-		BWAPI::Broodwar->printf("Deleting zealot wanderer");
+		//BWAPI::Broodwar->printf("Deleting zealot wanderer");
 		delete this;
 		return;
 	}
-	
-	if (m_attacking && !m_unit->isIdle()) {
-		return;
-	} else if (m_unit->isIdle()) {
-		m_attacking = false;
-	}
+	if (timeout++ < 3000) {
 
+		if (m_attacking && !m_unit->isIdle()) {
+			return;
+		} else if (m_unit->isIdle()) {
+			m_attacking = false;
+			timeout = 0;
+		}
+	} else {
+		timeout = 0;
+	}
 	BWAPI::Unit *enemy = nearestEnemy();
 	if (enemy) {
 		m_unit->attack(enemy->getPosition());

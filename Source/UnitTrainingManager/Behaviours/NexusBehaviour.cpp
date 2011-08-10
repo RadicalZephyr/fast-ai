@@ -36,7 +36,7 @@ void NexusBehaviour::postBuild(BWAPI::Unit *unit) {
 }
 
 BWAPI::UnitType NexusBehaviour::shouldBuild(BWAPI::UnitType ) {
-	if (m_shouldBuild && ((m_minerals.size() * 2.5f) > m_minGatherers.size()) && (Broodwar->self()->supplyUsed() > 20 || Broodwar->self()->supplyUsed() < 14 || Broodwar->self()->minerals() >= 200)) {// &&  // TODO: Uncomment these lines when gas production is implemented
+	if (m_shouldBuild && ((m_minerals.size() * 2.5f) > m_minGatherers.size()) && (Broodwar->self()->supplyUsed() > 17 || Broodwar->self()->supplyUsed() < 14 || Broodwar->self()->minerals() >= 200)) {// &&  // TODO: Uncomment these lines when gas production is implemented
 		return UnitTypes::Protoss_Probe;									 //((m_gas.size() * 3) > m_gasGatherers.size());
 	} else {
 		return UnitTypes::None;
@@ -44,7 +44,11 @@ BWAPI::UnitType NexusBehaviour::shouldBuild(BWAPI::UnitType ) {
 }
 
 void NexusBehaviour::addProbe(Unit *unit) {
-	addMiner(unit);
+	if (Broodwar->self()->minerals() > 100 && Broodwar->self()->gas() < 50 && m_gasGatherers.size() < 3) {
+		addGasser(unit);
+	} else {
+		addMiner(unit);
+	}
 }
 
 Unit *NexusBehaviour::removeProbe(void) {
@@ -84,7 +88,7 @@ bool NexusBehaviour::removeProbeFromGatherers(BWAPI::Unit *probe) {
 	}
 }
 
-bool NexusBehaviour::addProbeToGatherers(BWAPI::Unit *probe, UnitSet &gathererSet, UnitList &resourceList) {
+bool NexusBehaviour::addProbeToGatherers(BWAPI::Unit *probe, UnitSet &gathererSet, UnitList &resourceList, bool shiftClick) {
 	if (probe == 0) {
 		return false;
 	}
@@ -93,19 +97,26 @@ bool NexusBehaviour::addProbeToGatherers(BWAPI::Unit *probe, UnitSet &gathererSe
     if (isIn.second) {
         Unit *min = resourceList.front();
         resourceList.pop_front();
-        probe->rightClick(min);
+        probe->rightClick(min, shiftClick);
         resourceList.push_back(min);
     }
     return isIn.second;
 }
 
 bool NexusBehaviour::addMiner(BWAPI::Unit *probe) {
-	//Broodwar->printf("NB addMiner");
 	return addProbeToGatherers(probe, m_minGatherers, m_minerals);
 }
 
 bool NexusBehaviour::addGasser(BWAPI::Unit *probe) {
-	return addProbeToGatherers(probe, m_gasGatherers, m_gas);
+
+	if (m_gas.front()->getType() == UnitTypes::Resource_Vespene_Geyser) {
+		probe->build(m_gas.front()->getTilePosition(), UnitTypes::Protoss_Assimilator);
+		return addProbeToGatherers(probe, m_minGatherers, m_minerals, true);
+	} else if (m_gas.front()->isBeingConstructed()) {
+		return false;
+	} else {
+		return addProbeToGatherers(probe, m_gasGatherers, m_gas);
+	}
 }
 
 void NexusBehaviour::findMinerals(void) {
@@ -120,9 +131,15 @@ void NexusBehaviour::findMinerals(void) {
 		if ((*unit)->getType().isWorker()) {
 			startProbes.push_front(*unit);
 			m_minerals.erase(unit);
+		} else if ((*unit)->getType() == UnitTypes::Resource_Vespene_Geyser) {
+			m_minerals.erase(unit);
+			m_gas.push_front(*unit);
 		} else if (!(*unit)->getType().isMineralField()) {
             m_minerals.erase(unit);
         }
+		else if ((*unit)->getType() == UnitTypes::Resource_Vespene_Geyser) {
+			m_gas.push_front(*unit);
+		}
     }
 
     m_minerals.sort(DistanceSorter(m_nexus));

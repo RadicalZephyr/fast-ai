@@ -11,7 +11,7 @@ ProbeControl::ProbeControl(BWAPI::Unit *newProbe, onFindCallbackFunction callbac
 	Signal::onUnitDiscover().connect(boost::bind(&ProbeControl::onUnitDiscover, this, _1));
 
 	if (m_probe == 0) {
-		Broodwar->printf("ERROR: ProbeControl: onStart: null pointer, disconnecting");
+		//Broodwar->printf("ERROR: ProbeControl: onStart: null pointer, disconnecting");
 		SIGNAL_OFF_FRAME(ProbeControl);
 		return;
 	}
@@ -59,7 +59,7 @@ void ProbeControl::onFrame()
 void ProbeControl::onUnitDiscover(BWAPI::Unit *unit) {
 	if (unit->getType().isResourceDepot() && unit->getPlayer() != Broodwar->self() && 
 		unit->getTilePosition() == m_probe->getTargetPosition()) {
-			Broodwar->printf("PC: onUnitDiscover: found a %s at (%d, %d)", unit->getType().getName().c_str(), unit->getPosition().x(), unit->getPosition().y());
+			//Broodwar->printf("PC: onUnitDiscover: found a %s at (%d, %d)", unit->getType().getName().c_str(), unit->getPosition().x(), unit->getPosition().y());
 			m_probe->stop();
 			m_callback(m_probe, unit);
 			SIGNAL_OFF_FRAME(ProbeControl);

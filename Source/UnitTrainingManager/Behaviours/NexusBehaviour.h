@@ -33,7 +33,7 @@ private:
     bool addMiner(Unit *probe);
     bool addGasser(Unit *probe);
 
-	bool addProbeToGatherers(BWAPI::Unit *probe, UnitSet &gathererSet, UnitList &resourceList);
+	bool addProbeToGatherers(BWAPI::Unit *probe, UnitSet &gathererSet, UnitList &resourceList, bool shiftClick = false);
 	bool removeProbeFromGatherers(BWAPI::Unit *probe);
 
 	const static int s_mineralDistance;
