@@ -13,6 +13,7 @@ namespace CheeseStrategies
 		BaseCheeseStrategy()
 		{
 			whichProbe = 0;
+			buildProbesTo = -1;
 			m_firstRun = true;
 			m_isRunning = false;
 		}

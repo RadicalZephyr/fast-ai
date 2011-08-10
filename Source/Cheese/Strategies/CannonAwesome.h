@@ -14,6 +14,10 @@ namespace CheeseStrategies
 						  m_printer(400, 20)
 		{
 			whichProbe = 0;
+			if (BWAPI::Broodwar->getStartLocations().size() == 4)
+				buildProbesTo = 7;
+			else
+				buildProbesTo = 6;
 		}
 
 		// For long asynchronous intilization actions

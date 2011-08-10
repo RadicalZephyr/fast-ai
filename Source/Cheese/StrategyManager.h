@@ -16,7 +16,9 @@ public:
 	// ICheeseStrategyControls
 	virtual void buildInBase(BWAPI::UnitType building);
 	virtual bool moreGas();
+	virtual bool moreMinerals();
 	virtual bool moreCheeseProbes();
+	virtual void resumeEcon();
 
 private:
 	void onStart();
@@ -27,7 +29,7 @@ private:
 
 	ICheeseStrategy* m_strategy;
 
-	NexusBehaviour* m_behaviour;
+	BaseManagerPtr m_base;
 	ProbeControl* m_scoutProbe;
 	int m_probe;
 };

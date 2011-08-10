@@ -4,20 +4,20 @@
 using namespace BWAPI;
 
 bool BaseManager::constructBuilding(BWAPI::UnitType type) {
-	if (m_lastBuilding = 0) {
+	if (m_lastBuilding == 0) {
 		// Create a first building in the area
 		m_probe = m_controllee->removeProbe();
 		RelativeSide placer(&m_controllee->getNexus());
 		TilePosition tile = placer.Place(type, RelativeSide::Left, 2, 0).makeValid();
 
 		if (Broodwar->canBuildHere(m_probe, tile, type, true)) {
-			m_probe->build(tile, type);
+			return m_probe->build(tile, type);
 		}
 
 	} else {
 		m_probe;
 	}
-
+	return false;
 }
 
 void BaseManager::onFrame(void) {

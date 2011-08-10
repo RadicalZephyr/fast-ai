@@ -22,12 +22,6 @@ ProbeControl::ProbeControl(BWAPI::Unit *newProbe, onFindCallbackFunction callbac
 	
 	startLocations.erase(myPlace);
 
-	//Position newPlace(*m_tiles.begin());
-	//for(m_startLocations = m_tiles.begin(); m_startLocations != m_tiles.end(); m_startLocations++){
-	//	if((*m_startLocations) == myPlace)
-	//		m_tiles.erase(m_startLocations);
-	//}
-
 	m_scoutLocations = startLocations.cbegin();
 
 	Position nextPlace(*m_scoutLocations);
@@ -54,6 +48,7 @@ void ProbeControl::onUnitDiscover(BWAPI::Unit *unit) {
 	if (unit->getType().isResourceDepot() && unit->getPlayer() != Broodwar->self() && 
 		unit->getTilePosition() == m_probe->getTargetPosition()) {
 			Broodwar->printf("PC: onUnitDiscover: found a %s at (%d, %d)", unit->getType().getName().c_str(), unit->getPosition().x(), unit->getPosition().y());
+			m_probe->stop();
 			m_callback(m_probe, unit);
 			SIGNAL_OFF_FRAME(ProbeControl);
 			Signal::onUnitDiscover().disconnect(boost::bind(&ProbeControl::onUnitDiscover, this, _1));
