@@ -49,7 +49,9 @@ void CheeseStrategies::CannonAwesome::onUnitDiscover(BWAPI::Unit *unit) {
 		Signal::onUnitDiscover().disconnect(boost::bind(&CheeseStrategies::CannonAwesome::onUnitDiscover, this, _1));
 		
 		//m_probe->move(g_position.unitVectorRelativeTo(Position(getEnemyStartLocation()), unit->getPosition()) * 15);
-		Unit* thisOne = getGasPlacement((Position(this->getEnemyStartLocation())));
+		Unit* thisOne = unit; // getGasPlacement((Position(this->getEnemyStartLocation())));
+
+		m_geyserTile = thisOne->getTilePosition();
 
 		//BuildingRelativeBuildingPlacer gas (*thisOne);
 		Position here = (Position(this->getEnemyStartLocation()));
@@ -58,17 +60,14 @@ void CheeseStrategies::CannonAwesome::onUnitDiscover(BWAPI::Unit *unit) {
 
 		RelativeSide geyser(thisOne);
 
-		/*  !!!!!!!!!!!!!!!!!!!! ATTENTION : all of these tile positions are NOT doing what you want them to
-		if you look in the top left corner of the map, you
-		will see circles that are located at these calculated positions*/
-
 		if (thisOne->getPosition().y() - here.y() > 0)
 		{ //Geyser Below
-			Broodwar->printf("Bottom");
 			Pylon = geyser.Place(UnitTypes::Protoss_Pylon, RelativeSide::Bottom | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineLeft, 0, 0);
 			Forge = geyser.Place(UnitTypes::Protoss_Forge, RelativeSide::Bottom | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineRight, 0, 0);
 			Cannon = geyser.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Bottom | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 0, 0);
 			Gateway = geyser.Place(UnitTypes::Protoss_Gateway, RelativeSide::Bottom | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 2, 0);
+			if (!Gateway.isValid())
+				Gateway = geyser.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Bottom | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 2, 0);
 		}
 		else
 		{ //Geyser Above
@@ -76,6 +75,8 @@ void CheeseStrategies::CannonAwesome::onUnitDiscover(BWAPI::Unit *unit) {
 			Forge = geyser.Place(UnitTypes::Protoss_Forge, RelativeSide::Top | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineRight, 0, 0);
 			Cannon = geyser.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Top | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 0, 0);
 			Gateway = geyser.Place(UnitTypes::Protoss_Gateway, RelativeSide::Top | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 2, 0);
+			if (!Gateway.isValid())
+				Gateway = geyser.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Top | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 2, 0);
 		}
 		/**/
 
@@ -87,6 +88,8 @@ void CheeseStrategies::CannonAwesome::onUnitDiscover(BWAPI::Unit *unit) {
 		m_tileList.push_back(Forge.makeValid());
 		m_tileList.push_back(Cannon.makeValid());
 		m_tileList.push_back(Gateway.makeValid());
+
+		m_probe->move(BWAPI::Position(Cannon));
 	}
 }
 
@@ -95,25 +98,17 @@ void CheeseStrategies::CannonAwesome::start()
 	// that is, walking in a circle around their startLocation
 	Signal::onUnitDiscover().connect(boost::bind(&CheeseStrategies::CannonAwesome::onUnitDiscover, this, _1));
 
+	BWAPI::Position basePos = this->getEnemyBase()->getPosition();
+	BWAPI::Position probePos = this->getEnemyBase()->getPosition();
+
+	m_probe->move(BWAPI::Position(basePos.x() + (-1 * (basePos.x() - probePos.x())), basePos.y() + (-1 * (basePos.y() - probePos.y()))));
+
 	UnitSet nearProbe = m_probe->getUnitsInRadius(270);
 	for (UnitSet::iterator itr = nearProbe.begin(); itr != nearProbe.end(); ++itr) {
 		if ((*itr)->getType().isResourceContainer() && !(*itr)->getType().isMineralField())  {
 			Signal::onUnitDiscover()(*itr);
 		}
 	}
-
-	Position newPos(getEnemyStartLocation());
-	newPos += Position(20, 20);
-	m_probe->move(newPos);
-
-	newPos += Position(-40, 20);
-	m_probe->move(newPos, true);
-
-	newPos += Position(0, -40);
-	m_probe->move(newPos, true);
-
-	newPos += Position(40, 0);
-	m_probe->move(newPos, true);
 }
 
 
@@ -123,28 +118,47 @@ void CheeseStrategies::CannonAwesome::onFrame() {
 	}
 
 	if (m_isRunning && m_probe->isIdle()) {
+
+		m_probe->stop();
+
 		switch (m_buildOrder) {
 		case 0:
-			if (m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Pylon)) {
+			if (BWAPI::Broodwar->canBuildHere(m_probe, m_tileList.front(), BWAPI::UnitTypes::Protoss_Pylon)
+				&& m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Pylon)) {
 				++m_buildOrder;
 				m_tileList.pop_front();
 			}
-
 			break;
 		case 1:
-			if (m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Forge)) {
+			if (BWAPI::Broodwar->canBuildHere(m_probe, m_tileList.front(), BWAPI::UnitTypes::Protoss_Forge)
+				&& m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Forge)) {
 				++m_buildOrder;
 				m_tileList.pop_front();
+			}
+			else if (BWAPI::Broodwar->canBuildHere(m_probe, m_tileList.front(), BWAPI::UnitTypes::Protoss_Assimilator)
+				&& m_probe->build(m_geyserTile, BWAPI::UnitTypes::Protoss_Assimilator))
+			{
+
 			}
 			break;
 		case 2:
-			if (m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Photon_Cannon)) {
+			controls->resumeEcon();
+			if (BWAPI::Broodwar->canBuildHere(m_probe, m_tileList.front(), BWAPI::UnitTypes::Protoss_Photon_Cannon)
+				&& m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Photon_Cannon)) {
 				++m_buildOrder;
 				m_tileList.pop_front();
 			}
+			else if (BWAPI::Broodwar->canBuildHere(m_probe, m_tileList.front(), BWAPI::UnitTypes::Protoss_Assimilator)
+				&& m_probe->build(m_geyserTile, BWAPI::UnitTypes::Protoss_Assimilator))
+			{
+
+			}
 			break;
 		case 3:
-			if (m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Gateway)) {
+			m_probe->move(Position(m_tileList.front()));
+			controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+			if (BWAPI::Broodwar->canBuildHere(m_probe, m_tileList.front(), BWAPI::UnitTypes::Protoss_Gateway)
+				&& m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Gateway)) {
 				++m_buildOrder;
 				m_tileList.pop_front();
 			}

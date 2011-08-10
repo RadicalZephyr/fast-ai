@@ -52,7 +52,7 @@ void CheeseStrategyManager::onFrame(void)
 
 void CheeseStrategyManager::onStart()
 {
-
+	//Signal::onFriendlyUnitCreate().connect(boost::bind(&CheeseStrategyManager::onNewProbe, this, _1));
 }
 
 void CheeseStrategyManager::onNewProbe(BWAPI::Unit* unit)
@@ -72,6 +72,8 @@ void CheeseStrategyManager::onNewProbe(BWAPI::Unit* unit)
 void CheeseStrategyManager::foundEnemy(BWAPI::Unit *probe, BWAPI::Unit *enemyBase) {
 	BaseManagerSet::iterator first = g_baseManagers.begin();
 	m_base = (*first);
+
+	m_strategy->controls = this;
 
 	m_strategy->setEnemyBase(enemyBase);
 	m_strategy->setEnemyStartLocation(enemyBase->getTilePosition());

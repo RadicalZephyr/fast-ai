@@ -87,16 +87,16 @@ void Cannonball::onUnitCreate(BWAPI::Unit* unit)
 // Probably mostly for responding to enemy units
 void Cannonball::onUnitDiscover(BWAPI::Unit* unit)
 {
-    if (!Broodwar->isReplay() && Broodwar->getFrameCount()>1)
-        Broodwar->sendText("A %s [%x] has been discovered at (%d,%d)",unit->getType().getName().c_str(),unit,unit->getPosition().x(),unit->getPosition().y());
+    //if (!Broodwar->isReplay() && Broodwar->getFrameCount()>1)
+    //    Broodwar->sendText("A %s [%x] has been discovered at (%d,%d)",unit->getType().getName().c_str(),unit,unit->getPosition().x(),unit->getPosition().y());
 
 	Signal::onUnitDiscover()(unit);
 }
 
 void Cannonball::onUnitShow(BWAPI::Unit* unit)
 {
-    if (!Broodwar->isReplay() && Broodwar->getFrameCount()>1)
-        Broodwar->sendText("A %s [%x] has been spotted at (%d,%d)",unit->getType().getName().c_str(),unit,unit->getPosition().x(),unit->getPosition().y());
+    //if (!Broodwar->isReplay() && Broodwar->getFrameCount()>1)
+    //    Broodwar->sendText("A %s [%x] has been spotted at (%d,%d)",unit->getType().getName().c_str(),unit,unit->getPosition().x(),unit->getPosition().y());
 
 	Signal::onUnitShow()(unit);
 }
@@ -112,48 +112,48 @@ void Cannonball::onEnd(bool isWinner)
 
 void Cannonball::onReceiveText(BWAPI::Player* player, std::string text)
 {
-    Broodwar->printf("%s said '%s'", player->getName().c_str(), text.c_str());
+    //Broodwar->printf("%s said '%s'", player->getName().c_str(), text.c_str());
 
 	Signal::onReceiveText()(player, text);
 }
 
 void Cannonball::onPlayerLeft(BWAPI::Player* player)
 {
-    Broodwar->sendText("%s left the game.",player->getName().c_str());
+    //Broodwar->sendText("%s left the game.",player->getName().c_str());
 
 	Signal::onPlayerLeft()(player);
 }
 
 void Cannonball::onNukeDetect(BWAPI::Position target)
 {
-    if (target!=Positions::Unknown)
-        Broodwar->printf("Nuclear Launch Detected at (%d,%d)",target.x(),target.y());
-    else
-        Broodwar->printf("Nuclear Launch Detected");
+    //if (target!=Positions::Unknown)
+    //    Broodwar->printf("Nuclear Launch Detected at (%d,%d)",target.x(),target.y());
+    //else
+    //    Broodwar->printf("Nuclear Launch Detected");
 
 	Signal::onNukeDetect()(target);
 }
 
 void Cannonball::onUnitEvade(BWAPI::Unit* unit)
 {
-    if (!Broodwar->isReplay() && Broodwar->getFrameCount()>1)
-        Broodwar->sendText("A %s [%x] was last accessible at (%d,%d)",unit->getType().getName().c_str(),unit,unit->getPosition().x(),unit->getPosition().y());
+    //if (!Broodwar->isReplay() && Broodwar->getFrameCount()>1)
+    //    Broodwar->sendText("A %s [%x] was last accessible at (%d,%d)",unit->getType().getName().c_str(),unit,unit->getPosition().x(),unit->getPosition().y());
 
 	Signal::onUnitEvade()(unit);
 }
 
 void Cannonball::onUnitHide(BWAPI::Unit* unit)
 {
-    if (!Broodwar->isReplay() && Broodwar->getFrameCount()>1)
-        Broodwar->sendText("A %s [%x] was last seen at (%d,%d)",unit->getType().getName().c_str(),unit,unit->getPosition().x(),unit->getPosition().y());
+    //if (!Broodwar->isReplay() && Broodwar->getFrameCount()>1)
+    //    Broodwar->sendText("A %s [%x] was last seen at (%d,%d)",unit->getType().getName().c_str(),unit,unit->getPosition().x(),unit->getPosition().y());
 
 	Signal::onUnitHide()(unit);
 }
 
 void Cannonball::onUnitDestroy(BWAPI::Unit* unit)
 {
-    if (!Broodwar->isReplay() && Broodwar->getFrameCount()>1)
-        Broodwar->sendText("A %s [%x] has been destroyed at (%d,%d)",unit->getType().getName().c_str(),unit,unit->getPosition().x(),unit->getPosition().y());
+    //if (!Broodwar->isReplay() && Broodwar->getFrameCount()>1)
+    //    Broodwar->sendText("A %s [%x] has been destroyed at (%d,%d)",unit->getType().getName().c_str(),unit,unit->getPosition().x(),unit->getPosition().y());
 
     if (unit->getPlayer() == Broodwar->self()) {
 		Signal::onFriendlyUnitDestroy()(unit);
@@ -186,8 +186,8 @@ void Cannonball::onUnitMorph(BWAPI::Unit* unit)
 
 void Cannonball::onUnitRenegade(BWAPI::Unit* unit)
 {
-    if (!Broodwar->isReplay())
-        Broodwar->sendText("A %s [%x] is now owned by %s",unit->getType().getName().c_str(),unit,unit->getPlayer()->getName().c_str());
+    //if (!Broodwar->isReplay())
+    //    Broodwar->sendText("A %s [%x] is now owned by %s",unit->getType().getName().c_str(),unit,unit->getPlayer()->getName().c_str());
 
 	Signal::onUnitRenegade()(unit);
 }

@@ -43,6 +43,10 @@ class UnitTrainingManager;
 typedef boost::shared_ptr<UnitTrainingManager> UnitTrainingManagerPtr;
 typedef std::set<UnitTrainingManagerPtr> UnitTrainingManagerSet;
 
+class IUnitManagerBehaviour;
+
+typedef boost::shared_ptr<IUnitManagerBehaviour> IUnitManager_BehaviourPtr;
+
 class IUnitTrainingManagerBehaviour;
 
 typedef boost::shared_ptr<IUnitTrainingManagerBehaviour> IUnitTrainingManager_BehaviourPtr;

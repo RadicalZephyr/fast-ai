@@ -42,6 +42,7 @@ namespace CheeseStrategies
 
 	private:
 		BWAPI::Unit* m_probe;
+		BWAPI::TilePosition m_geyserTile;
 		int m_buildOrder;
 		std::list<BWAPI::TilePosition> m_tileList;
 		PersistentPrinter m_printer;

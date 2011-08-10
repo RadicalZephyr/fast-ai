@@ -40,6 +40,8 @@ public: //Usage Section
 	void setEnemyStartLocation(BWAPI::TilePosition tile) {enemyStartLocation = tile;}
 	BWAPI::TilePosition getEnemyStartLocation(void) {return enemyStartLocation;}
 
+	ICheeseStrategyControls* controls;
+
 	// Will be called every time a new probe arrives at the cheese site
 	virtual void newProbe(BWAPI::Unit* probe) = 0;
 
