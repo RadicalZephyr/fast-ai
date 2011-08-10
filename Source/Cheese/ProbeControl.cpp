@@ -45,9 +45,11 @@ void ProbeControl::onFrame()
 	if (g_frame % 10 == 0) {
 		Broodwar->setScreenPosition(m_probe->getPosition() - Position(300, 200));
 	}
+	if (timeout++ > 1600)
 	if (timeout++ > 2000)
 	{
 		m_callback(m_probe, 0);
+
 		SIGNAL_OFF_FRAME(ProbeControl);
 		Signal::onUnitDiscover().disconnect(boost::bind(&ProbeControl::onUnitDiscover, this, _1));
 		delete this;

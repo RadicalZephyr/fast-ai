@@ -10,7 +10,9 @@ class GatewayBehaviour :
 {
 public:
 	GatewayBehaviour(BWAPI::Unit *building): m_building(building),
-											 m_buildType(BWAPI::UnitTypes::Protoss_Zealot) {}
+											 m_buildType(BWAPI::UnitTypes::Protoss_Zealot) {
+		g_gateways.insert(GatewayBehaviourPtr(this));
+	}
 
 	virtual void postBuild(BWAPI::Unit *unit);
 	virtual BWAPI::UnitType shouldBuild(BWAPI::UnitType type);

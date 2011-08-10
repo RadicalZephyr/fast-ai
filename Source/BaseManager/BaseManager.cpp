@@ -20,12 +20,13 @@ void BaseManager::onFrame(void) {
 	if (!m_buildQueue.empty() && m_probe && !m_probe->isConstructing()) {
 		doBuildCheck();
 
-	} /*else if (m_probe && !m_probe->isConstructing()) {
+	} else if (m_buildQueue.empty() && m_probe && !m_probe->isConstructing() && BWAPI::Broodwar->self()->minerals() > 600) {
+		m_buildQueue.push(BWAPI::UnitTypes::Protoss_Gateway);
+	}/*else if (m_probe && !m_probe->isConstructing()) {
 		m_controllee->addProbe(m_probe);
 		m_probe = 0;
 	}*/
 }
-
 
 void BaseManager::onUnitCreate(BWAPI::Unit *unit) {
 	if (unit->getTilePosition().getDistance(m_lastTilePos) < 1.0 && m_buildQueue.front() == unit->getType()) {

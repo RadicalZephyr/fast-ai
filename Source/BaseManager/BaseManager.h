@@ -48,6 +48,7 @@ private:
 	boost::signals::connection m_unitCreateConnection;
 
 	std::queue<BWAPI::UnitType> m_buildQueue;
+
 	UnitVector m_lastBuildings;
 };
 
