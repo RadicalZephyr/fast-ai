@@ -17,7 +17,7 @@ public:
 	virtual void postBuild(BWAPI::Unit *unit) {m_unitDoneSignal(unit);}
 	virtual BWAPI::UnitType shouldBuild(BWAPI::UnitType ) {return BWAPI::UnitTypes::None;}
 
-	connection_t connect(signal_t::slot_type slot) {return m_unitDoneSignal.connect(slot);}
+	signal_t &onUnitDoneSignal(void) {return m_unitDoneSignal;}
 
 private:
 	signal_t m_unitDoneSignal;
