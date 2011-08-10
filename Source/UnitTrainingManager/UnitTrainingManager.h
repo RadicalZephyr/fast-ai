@@ -10,6 +10,9 @@ using BWAPI::UnitType;
 
 class UnitTrainingManager : private Debug {
 public:
+	typedef boost::signal<void (BWAPI::Unit*)> signal_t;
+	typedef boost::signals::connection connection_t;
+
 	explicit UnitTrainingManager(Unit &theBuilding, IUnitTrainingManager_BehaviourPtr theBehaviour): m_trainingType(BWAPI::UnitTypes::None),
 																									 m_trainingUnit(0),
 																									 m_trainingTime(),
@@ -24,6 +27,7 @@ public:
 
 	void onFrame(void);
 	void onUnitCreate(Unit* unit);
+	connection_t connect(const signal_t::slot_type &slot) {return m_unitDoneSignal.connect(slot);}
 	IUnitTrainingManager_BehaviourPtr getBehaviour(void) {return m_behaviour;}
 
 private:
@@ -44,7 +48,7 @@ private:
 
 	IUnitTrainingManager_BehaviourPtr m_behaviour;
 
-	boost::signal<void (BWAPI::Unit*)> m_unitDoneSignal;
+	signal_t m_unitDoneSignal;
 
     // Not implemented to disallow assignment
 	UnitTrainingManager(void);
