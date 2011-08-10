@@ -29,9 +29,11 @@ void BaseManager::onUnitCreate(BWAPI::Unit *unit) {
 
 bool BaseManager::doBuildCheck(void) {
 	UnitType type = m_buildQueue.front();
+	if (m_probe == 0)
+		m_probe = m_controllee->removeProbe();
+
 	if (m_lastBuilding == 0) {
 		// Create a first building in the area
-		m_probe = m_controllee->removeProbe();
 		return m_probe->build(m_lastTilePos = getRandomBuildPos(m_controllee->getNexus(), type), type);
 	} else {
 		return m_probe->build(m_lastTilePos = getRandomBuildPos(m_controllee->getNexus(), type), type);
@@ -42,8 +44,9 @@ bool BaseManager::doBuildCheck(void) {
 TilePosition BaseManager::getRandomBuildPos(BWAPI::Unit *refUnit, BWAPI::UnitType type) {
 	RelativeSide placer(refUnit);
 	TilePosition newPos;
+	int i = 0;
 
-	while (true) {
+	while (i < 5) {
 		switch (std::rand() % 4) {
 		case 0:
 			if (placer.CheckAndPlace(type, RelativeSide::Top | RelativeSide::OrthoLineCenter | RelativeSide::CenterOnOrthoLine, std::rand() % 3, 0, newPos))
