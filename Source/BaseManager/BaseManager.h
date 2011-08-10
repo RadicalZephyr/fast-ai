@@ -12,14 +12,16 @@ class BaseManager :
 public:
 	explicit BaseManager(void): m_controllee(0),
 								m_lastBuilding(0),
-								m_connection(),
+								m_frameConnection(),
+								m_unitCreateConnection(),
 								m_buildQueue() {
-		m_connection = Signal::onFrame().connect(boost::bind(&BaseManager::onFrame, this));
+		m_frameConnection = Signal::onFrame().connect(boost::bind(&BaseManager::onFrame, this));
+		m_unitCreateConnection = Signal::onFriendlyUnitCreate().connect(boost::bind(&BaseManager::onUnitCreate, this, _1));
 	}
 
 	explicit BaseManager(NexusBehaviour *nexusBehaviour): m_controllee(nexusBehaviour),
 														  m_lastBuilding(0) {
-		m_connection.disconnect();
+		m_frameConnection.disconnect();
 	}
 
 	virtual ~BaseManager(void) {}
@@ -28,19 +30,25 @@ public:
 	void setControllee(NexusBehaviour *controllee) {m_controllee = controllee;}
 	NexusBehaviour *getControllee(void) {return m_controllee;}
 
-	bool constructBuilding(BWAPI::UnitType type, bool inQueue = false);
+	bool constructBuilding(BWAPI::UnitType type);
 
 	void onFrame(void);
+	void onUnitCreate(BWAPI::Unit *unit);
 
 private:
 	
+	bool doBuildCheck(void);
+	BWAPI::TilePosition getRandomBuildPos(BWAPI::Unit *refUnit, BWAPI::UnitType type);
+
 	NexusBehaviour *m_controllee;
 
 	BWAPI::Unit *m_probe;
 
 	BWAPI::Unit *m_lastBuilding;
+	BWAPI::TilePosition m_lastTilePos;
 
-	boost::signals::connection m_connection;
+	boost::signals::connection m_frameConnection;
+	boost::signals::connection m_unitCreateConnection;
 
 	std::queue<BWAPI::UnitType> m_buildQueue;
 };
