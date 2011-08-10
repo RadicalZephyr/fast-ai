@@ -1,5 +1,6 @@
 #pragma once
 
+#include <BWAPI.h>
 #include <queue>
 #include "INexusBehaviourController.h"
 #include "UnitTrainingManager/Behaviours/NexusBehaviour.h"
@@ -10,21 +11,18 @@ class BaseManager :
 	public INexusBehaviourController {
 
 public:
-	explicit BaseManager(void): m_controllee(0),
-								m_lastBuilding(0),
-								m_frameConnection(),
-								m_unitCreateConnection(),
-								m_buildQueue() {
+
+	explicit BaseManager(NexusBehaviour *nexusBehaviour): m_controllee(nexusBehaviour),
+														  m_lastBuildings(),
+														  m_buildQueue() {
 		m_frameConnection = Signal::onFrame().connect(boost::bind(&BaseManager::onFrame, this));
 		m_unitCreateConnection = Signal::onFriendlyUnitCreate().connect(boost::bind(&BaseManager::onUnitCreate, this, _1));
 	}
 
-	explicit BaseManager(NexusBehaviour *nexusBehaviour): m_controllee(nexusBehaviour),
-														  m_lastBuilding(0) {
+	virtual ~BaseManager(void) {
 		m_frameConnection.disconnect();
+		m_unitCreateConnection.disconnect();
 	}
-
-	virtual ~BaseManager(void) {}
 
 	bool hasLocation(void) {return m_controllee != 0;}
 	void setControllee(NexusBehaviour *controllee) {m_controllee = controllee;}
@@ -38,19 +36,19 @@ public:
 private:
 	
 	bool doBuildCheck(void);
-	BWAPI::TilePosition getRandomBuildPos(BWAPI::Unit *refUnit, BWAPI::UnitType type);
+	BWAPI::TilePosition getRandomBuildPos(BWAPI::UnitType type);
 
 	NexusBehaviour *m_controllee;
 
 	BWAPI::Unit *m_probe;
 
-	BWAPI::Unit *m_lastBuilding;
 	BWAPI::TilePosition m_lastTilePos;
 
 	boost::signals::connection m_frameConnection;
 	boost::signals::connection m_unitCreateConnection;
 
 	std::queue<BWAPI::UnitType> m_buildQueue;
+	UnitVector m_lastBuildings;
 };
 
 // Need to add a signal to the nexus behaviour so that the base manager can subscribe to it to cause maynard'ing

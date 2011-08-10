@@ -47,5 +47,6 @@ namespace CheeseStrategies
 
 		void onBuildEnd( BWAPI::Unit* probe );
 		void attemptEarlyRecover(BuildOrderElement* orderElement, BWAPI::Unit* builderProbe);
+		void recoverEcon();
 	};
 }

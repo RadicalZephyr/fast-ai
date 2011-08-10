@@ -2,7 +2,7 @@
 #include <random>
 
 void ZealotWander::onFrame(void) {
-	if (!m_unit->getHitPoints() < 1) {
+	if (!m_unit->isVisible() && m_unit->getHitPoints() < 0) {
 		BWAPI::Broodwar->printf("Deleting zealot wanderer");
 		delete this;
 		return;
@@ -16,7 +16,7 @@ void ZealotWander::onFrame(void) {
 
 	BWAPI::Unit *enemy = nearestEnemy();
 	if (enemy) {
-		m_unit->attack(enemy);
+		m_unit->attack(enemy->getPosition());
 		m_attacking = true;
 	} else if (m_unit->isIdle()) {
 		m_visitedPositions.insert(m_unit->getPosition());
@@ -37,6 +37,5 @@ BWAPI::Position ZealotWander::newDestination(void) {
 
 BWAPI::Unit *ZealotWander::nearestEnemy(void) {
 	UnitSet units = BWAPI::Broodwar->enemy()->getUnits();
-	BWAPI::Broodwar->printf("number of enemy units: %d", units.size());
-	return 0;
+	return *units.begin();
 }

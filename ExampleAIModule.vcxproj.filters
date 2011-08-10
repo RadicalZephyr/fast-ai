@@ -36,7 +36,7 @@
       <Filter>Unit Training Manager\Behaviours</Filter>
     </ClCompile>
     <ClCompile Include="Source\BaseManager\BaseManager.cpp">
-      <Filter>Building Manager</Filter>
+      <Filter>Base Manager</Filter>
     </ClCompile>
     <ClCompile Include="Source\SCResourceManager.cpp" />
     <ClCompile Include="Source\Cheese\Strategies\CannonAwesome.cpp">
@@ -51,8 +51,10 @@
     <ClCompile Include="Source\Util\BuildOrder.cpp">
       <Filter>Util</Filter>
     </ClCompile>
-    <ClCompile Include="Source\UnitTrainingManager\Behaviours\GatewayBehaviour.cpp" />
     <ClCompile Include="Source\ZealotWander.cpp" />
+    <ClCompile Include="Source\UnitTrainingManager\Behaviours\GatewayBehaviour.cpp">
+      <Filter>Unit Training Manager\Behaviours</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Cannonball.h" />
@@ -108,10 +110,10 @@
       <Filter>Unit Training Manager\Behaviours</Filter>
     </ClInclude>
     <ClInclude Include="Source\BaseManager\BaseManager.h">
-      <Filter>Building Manager</Filter>
+      <Filter>Base Manager</Filter>
     </ClInclude>
     <ClInclude Include="Source\BaseManager\INexusBehaviourController.h">
-      <Filter>Building Manager</Filter>
+      <Filter>Base Manager</Filter>
     </ClInclude>
     <ClInclude Include="Source\SCResourceManager.h" />
     <ClInclude Include="Source\Cheese\Strategies\CannonAwesome.h">
@@ -132,10 +134,22 @@
     <ClInclude Include="Source\Util\BuildOrder.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="Source\UnitManager\IUnitManagerBehavior.h" />
-    <ClInclude Include="Source\UnitManager\UnitManager.h" />
-    <ClInclude Include="Source\UnitTrainingManager\Behaviours\GatewayBehaviour.h" />
+    <ClInclude Include="Source\UnitManager\UnitManager.h">
+      <Filter>Unit Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UnitManager\IUnitManagerBehavior.h">
+      <Filter>Unit Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UnitTrainingManager\Behaviours\GatewayBehaviour.h">
+      <Filter>Unit Training Manager\Behaviours</Filter>
+    </ClInclude>
     <ClInclude Include="Source\ZealotWander.h" />
+    <ClInclude Include="Source\UnitManager\UnitManager.h">
+      <Filter>Unit Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UnitManager\IUnitManagerBehavior.h">
+      <Filter>Unit Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Important">
@@ -162,7 +176,10 @@
     <Filter Include="Unit Training Manager\Behaviours">
       <UniqueIdentifier>{78ab5e17-abf2-4abe-8113-030e236fce3c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Building Manager">
+    <Filter Include="Unit Manager">
+      <UniqueIdentifier>{14263966-def6-4032-a832-54fc4e18ceba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base Manager">
       <UniqueIdentifier>{28a4af45-8b37-4557-8475-1b27ec1d164c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

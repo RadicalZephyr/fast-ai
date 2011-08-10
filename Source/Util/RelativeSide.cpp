@@ -25,7 +25,7 @@ BWAPI::TilePosition RelativeSide::DirectionalPlace(BWAPI::UnitType const& type, 
 	}
 	else
 	{
-		//::MessageBoxA(0, "Why the fuck would you try to use that side of a building?\nBuildingRelativeBuildingPlacer::DirectionalPlace throwing BadSideException", "EXCEPTION", 0);
+		::MessageBoxA(0, "Why the fuck would you try to use that side of a building?\nBuildingRelativeBuildingPlacer::DirectionalPlace throwing BadSideException", "EXCEPTION", 0);
 		throw new BadSideException();
 	}
 

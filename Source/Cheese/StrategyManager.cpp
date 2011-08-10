@@ -1,7 +1,7 @@
 #include "StrategyManager.h"
 #include "BaseManager/BaseManager.h"
 
-CheeseStrategyManager::CheeseStrategyManager(ICheeseStrategy* strategy) : m_strategy(strategy)
+CheeseStrategyManager::CheeseStrategyManager(ICheeseStrategy* strategy) : m_strategy(strategy), m_probe(4)
 {
 	SIGNAL_ON_START(CheeseStrategyManager);
 	SIGNAL_ON_FRAME(CheeseStrategyManager);
@@ -31,7 +31,7 @@ bool CheeseStrategyManager::moreCheeseProbes()
 
 void CheeseStrategyManager::resumeEcon()
 {
-	m_base -> getControllee() -> setShouldBuild(true);
+	m_base->getControllee()->setShouldBuild(true);
 }
 
 void CheeseStrategyManager::onFrame(void) 
@@ -42,10 +42,14 @@ void CheeseStrategyManager::onFrame(void)
 		if (m_strategy -> whichProbe == 0)
 		{
 			m_scoutProbe = new ProbeControl((*first) -> getControllee() -> removeProbe(), boost::bind(&CheeseStrategyManager::foundEnemy, this, _1, _2));
+			(*first)->getControllee()->onUnitDoneSignal().connect(boost::bind(&CheeseStrategyManager::onNewProbe, this, _1));
+			m_base = (*first);
 		}
 		else
 		{
-			//(*first)->getControllee()->
+			(*first)->getControllee()->onUnitDoneSignal().connect(boost::bind(&CheeseStrategyManager::onNewProbe, this, _1));
+			m_base = (*first);
+			m_scoutProbe = (ProbeControl*) 0xBADBEAF0;
 		}
 	}
 }
@@ -57,27 +61,28 @@ void CheeseStrategyManager::onStart()
 
 void CheeseStrategyManager::onNewProbe(BWAPI::Unit* unit)
 {
-	if (!unit -> getType() . isWorker())
+	if (!unit->getType().isWorker())
 		return;
 
 	if (m_probe++ == m_strategy -> whichProbe)
-		m_scoutProbe = new ProbeControl(0,0);
-
-	if (m_strategy -> buildProbesTo != -1 && m_probe >= m_strategy -> buildProbesTo)
 	{
-		m_base -> getControllee() -> setShouldBuild(false);
+		m_scoutProbe = new ProbeControl(0,0);
+	}
+
+	if (m_strategy->buildProbesTo != -1 && m_probe >= m_strategy -> buildProbesTo)
+	{
+		m_base->getControllee()->setShouldBuild(false);
+		m_base->getControllee()->onUnitDoneSignal().disconnect(boost::bind(&CheeseStrategyManager::onNewProbe, this, _1));
 	}
 }
 
 void CheeseStrategyManager::foundEnemy(BWAPI::Unit *probe, BWAPI::Unit *enemyBase) {
-	BaseManagerSet::iterator first = g_baseManagers . begin();
-	m_base = (*first);
 
 	m_strategy -> controls = this;
 
 	m_strategy -> setEnemyBase(enemyBase);
-	m_strategy -> setEnemyStartLocation(enemyBase -> getTilePosition());
+	m_strategy -> setEnemyStartLocation(enemyBase ? enemyBase -> getTilePosition() : TilePosition(0,0));
 	m_strategy -> newProbe(probe);
 	m_strategy -> setRunning(true);
-	setDebugSpeed(false);
+	//setDebugSpeed(false);
 }

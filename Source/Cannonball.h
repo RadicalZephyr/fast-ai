@@ -9,8 +9,7 @@
 
 class Cannonball : public BWAPI::AIModule {
 public:
-    Cannonball(void) :m_baseManager(),
-					  m_strategyMan(new CheeseStrategies::CannonAwesome()) {};
+    Cannonball(void) : m_strategyMan(new CheeseStrategies::CannonAwesome()) {};
 
     virtual void onStart();
     virtual void onEnd(bool isWinner);
@@ -30,6 +29,5 @@ public:
     virtual void onSaveGame(std::string gameName);
 
 private:
-	BaseManager m_baseManager;
 	CheeseStrategyManager m_strategyMan;
 };

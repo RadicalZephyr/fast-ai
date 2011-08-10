@@ -4,7 +4,8 @@ using namespace BWAPI;
 
 //const int NexusManager::s_mineralDistance = 270;
 ProbeControl::ProbeControl(BWAPI::Unit *newProbe, onFindCallbackFunction callback) : m_probe(newProbe),
-													m_callback(callback)
+													m_callback(callback),
+													timeout(0)
 {
 	SIGNAL_ON_FRAME(ProbeControl);
 	Signal::onUnitDiscover().connect(boost::bind(&ProbeControl::onUnitDiscover, this, _1));
@@ -37,10 +38,16 @@ void ProbeControl::onFrame()
 		Position nextPlace(*(++m_scoutLocations));
 		nextPlace.makeValid();
 
+		timeout = 0;
+
 		m_probe->move(nextPlace);
 	}
 	if (g_frame % 10 == 0) {
 		Broodwar->setScreenPosition(m_probe->getPosition() - Position(300, 200));
+	}
+	if (timeout++ > 1600)
+	{
+		m_callback(m_probe, 0);
 	}
 }
 

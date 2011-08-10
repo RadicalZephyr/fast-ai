@@ -48,6 +48,8 @@ public:
 	void start(BWAPI::Unit* probe);
 	BWAPI::Unit* stop();
 
+	BWAPI::Position idlePosition;
+
 private:
 	void onFrame();
 

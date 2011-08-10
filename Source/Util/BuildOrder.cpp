@@ -26,40 +26,64 @@ BWAPI::Unit * BuildOrder::stop()
 
 void BuildOrder::onFrame()
 {
-	if (m_probe -> getHitPoints() <= 0)
-		m_onEnd(m_probe);
-
-	if (m_probe -> isIdle())
+	try
 	{
-		while (!m_buildQueue . front() . position . isValid())
-		{ m_buildQueue . pop(); }
-
-		if (BWAPI::Broodwar -> canBuildHere(m_probe , m_buildQueue . front() . position ,  m_buildQueue . front() . type)
-		&& m_probe -> build(m_buildQueue . front() . position , m_buildQueue . front() . type)) 
+		if (m_probe -> getHitPoints() <= 0)
 		{
-			m_currentBuildOrder = & m_buildQueue . front();
-			m_currentBuildOrder -> onStart(m_currentBuildOrder , m_probe);
-			m_buildQueue . pop();
-			clearOptionals();
+			SIGNAL_OFF_FRAME(BuildOrder);
+			m_onEnd(m_probe);
 		}
-		else
+
+		if (m_probe -> isIdle())
 		{
-			for (std::list<BuildOrderElement>::iterator it = m_optionals . begin() ; it != m_optionals . end() ; it ++)
+			while (!m_buildQueue . front() . position . isValid())
+			{ m_buildQueue . pop(); }
+
+			if (!m_buildQueue . empty()
+			&& BWAPI::Broodwar -> canBuildHere(m_probe , m_buildQueue . front() . position ,  m_buildQueue . front() . type)
+			&& m_probe -> build(m_buildQueue . front() . position , m_buildQueue . front() . type)) 
 			{
-				if (BWAPI::Broodwar -> canBuildHere(m_probe , (*it) . position ,  (*it) . type)
-				&& m_probe -> build((*it) . position , (*it) . type)) 
+				m_currentBuildOrder = & m_buildQueue . front();
+				m_currentBuildOrder -> onStart(m_currentBuildOrder , m_probe);
+				m_buildQueue . pop();
+
+				m_probe->move(idlePosition, true);
+
+				clearOptionals();
+
+				if (m_buildQueue . empty())
 				{
-					m_currentBuildOrder = & (*it);
-					m_currentBuildOrder -> onStart(m_currentBuildOrder , m_probe);
-					m_optionals . erase(it);
-					break;
+					m_onEnd(m_probe);
+				}
+			}
+			else
+			{
+				for (std::list<BuildOrderElement>::iterator it = m_optionals . begin() ; it != m_optionals . end() ; it ++)
+				{
+					if (BWAPI::Broodwar -> canBuildHere(m_probe , (*it) . position ,  (*it) . type)
+					&& m_probe -> build((*it) . position , (*it) . type)) 
+					{
+						m_currentBuildOrder = & (*it);
+						m_currentBuildOrder -> onStart(m_currentBuildOrder , m_probe);
+						m_optionals . erase(it);
+
+						m_probe->move(idlePosition, true);
+
+						break;
+					}
 				}
 			}
 		}
+
+		if (m_probe->isAttacking() || m_probe ->getOrderTarget() || !m_probe ->isMoving() && !m_probe ->isConstructing() && !m_probe -> isUnderAttack())
+		{
+			m_probe -> stop();
+		}
 	}
-	else if (m_probe -> isAttacking())
+	catch (void* e)
 	{
-		m_probe -> stop();
+		SIGNAL_OFF_FRAME(BuildOrder);
+		m_onEnd(m_probe);
 	}
 }
 

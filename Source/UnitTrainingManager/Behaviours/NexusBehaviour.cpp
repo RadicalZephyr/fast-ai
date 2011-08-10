@@ -29,11 +29,14 @@ void NexusBehaviour::onFrame(void) {
 void NexusBehaviour::postBuild(BWAPI::Unit *unit) {
 	// TODO: Add functionality for calling addGasser
 	//Broodwar->printf("NB postBuild");
+
+	IUnitTrainingManagerBehaviour::postBuild(unit);
+
 	addMiner(unit);
 }
 
 BWAPI::UnitType NexusBehaviour::shouldBuild(BWAPI::UnitType ) {
-	if (m_shouldBuild && ((m_minerals.size() * 2.5f) > m_minGatherers.size())) {// &&  // TODO: Uncomment these lines when gas production is implemented
+	if (m_shouldBuild && ((m_minerals.size() * 2.5f) > m_minGatherers.size()) && (Broodwar->self()->supplyUsed() > 20 || Broodwar->self()->supplyUsed() < 14 || Broodwar->self()->minerals() >= 200)) {// &&  // TODO: Uncomment these lines when gas production is implemented
 		return UnitTypes::Protoss_Probe;									 //((m_gas.size() * 3) > m_gasGatherers.size());
 	} else {
 		return UnitTypes::None;

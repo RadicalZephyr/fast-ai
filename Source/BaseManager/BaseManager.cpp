@@ -6,6 +6,13 @@ using namespace BWAPI;
 
 bool BaseManager::constructBuilding(BWAPI::UnitType type) {
 	m_buildQueue.push(type);
+	if (m_probe == NULL)
+	{
+		setDebugSpeed(false);
+		m_lastTilePos = BWAPI::Broodwar->self()->getStartLocation();
+		m_probe = m_controllee->removeProbe();
+		m_probe->move(Position(Broodwar->self()->getStartLocation()));
+	}
 	return true;
 }
 
@@ -21,42 +28,45 @@ void BaseManager::onFrame(void) {
 
 
 void BaseManager::onUnitCreate(BWAPI::Unit *unit) {
-	if (unit->getPosition() == m_lastTilePos) {
+	if (unit->getTilePosition().getDistance(m_lastTilePos) < 1.0 && m_buildQueue.front() == unit->getType()) {
 		m_buildQueue.pop();
-		m_lastBuilding = unit;
+		m_lastBuildings.push_back(unit);
 	}
 }
 
 bool BaseManager::doBuildCheck(void) {
 	UnitType type = m_buildQueue.front();
 
-	if (m_lastBuilding == 0) {
-		// Create a first building in the area
-		return m_probe->build(m_lastTilePos = getRandomBuildPos(m_controllee->getNexus(), type), type);
-	} else {
-		return m_probe->build(m_lastTilePos = getRandomBuildPos(m_lastBuilding, type), type);
-	}
-	return false;
+	return m_probe->build(m_lastTilePos = getRandomBuildPos(type), type);
 }
 
-TilePosition BaseManager::getRandomBuildPos(BWAPI::Unit *refUnit, BWAPI::UnitType type) {
-	RelativeSide placer(refUnit);
+TilePosition BaseManager::getRandomBuildPos(BWAPI::UnitType type) {
 	TilePosition newPos;
+	RelativeSide* placer;
+
+	if (m_lastBuildings.empty()) {
+		// Create a first building in the area
+		placer = new RelativeSide(m_controllee->getNexus());
+	} else {
+		Unit* last = m_lastBuildings[std::rand() % m_lastBuildings.size()];
+		placer = new RelativeSide(last);
+	}
+
 	int i = 0;
 
-	while (i < 5) {
+	while (i++ < 5) {
 		switch (std::rand() % 4) {
 		case 0:
-			if (placer.CheckAndPlace(type, RelativeSide::Top | RelativeSide::OrthoLineCenter | RelativeSide::CenterOnOrthoLine, std::rand() % 3, 0, newPos))
+			if (placer->CheckAndPlace(type, RelativeSide::Top | RelativeSide::OrthoLineCenter | RelativeSide::CenterOnOrthoLine, std::rand() % 3, 0, newPos))
 				break;
 		case 1:
-			if (placer.CheckAndPlace(type, RelativeSide::Left | RelativeSide::OrthoLineCenter | RelativeSide::CenterOnOrthoLine, std::rand() % 3, 0, newPos))
+			if (placer->CheckAndPlace(type, RelativeSide::Left | RelativeSide::OrthoLineCenter | RelativeSide::CenterOnOrthoLine, std::rand() % 3, 0, newPos))
 				break;
 		case 2:
-			if (placer.CheckAndPlace(type, RelativeSide::Left | RelativeSide::OrthoLineCenter | RelativeSide::CenterOnOrthoLine, std::rand() % 3, 0, newPos))
+			if (placer->CheckAndPlace(type, RelativeSide::Bottom | RelativeSide::OrthoLineCenter | RelativeSide::CenterOnOrthoLine, std::rand() % 3, 0, newPos))
 				break;
 		case 3:
-			if (placer.CheckAndPlace(type, RelativeSide::Left | RelativeSide::OrthoLineCenter | RelativeSide::CenterOnOrthoLine, std::rand() % 3, 0, newPos))
+			if (placer->CheckAndPlace(type, RelativeSide::Right | RelativeSide::OrthoLineCenter | RelativeSide::CenterOnOrthoLine, std::rand() % 3, 0, newPos))
 				break;
 			continue;
 		default:
@@ -64,6 +74,8 @@ TilePosition BaseManager::getRandomBuildPos(BWAPI::Unit *refUnit, BWAPI::UnitTyp
 		}
 		break;
 	}
-	Broodwar->printf("randomPos: (%d, %d)", newPos.x(), newPos.y());
+
+	delete placer;
+
 	return newPos;
 }

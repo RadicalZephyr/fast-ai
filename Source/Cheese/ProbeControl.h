@@ -23,4 +23,6 @@ private:
 
 	std::set<TilePosition>::const_iterator m_scoutLocations;
 	ProbeControl& operator= (const ProbeControl&);
+
+	int timeout;
 };

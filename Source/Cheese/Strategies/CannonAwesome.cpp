@@ -3,6 +3,7 @@
 #include <BWAPI.h>
 #include <set>
 #include "Util/RelativeSide.h"
+#include "BaseManager\BaseManager.h"
 using namespace BWAPI;
 
 
@@ -46,6 +47,8 @@ Unit* getGasPlacement(Position here)
 	//}
 }
 
+#define TRY_CANNON_PLACE if(Cannon.isValid()) m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Photon_Cannon, Cannon, true, boost::bind(&CannonAwesome::attemptEarlyRecover, this, _1, _2)))
+
 void CheeseStrategies::CannonAwesome::onUnitDiscover(BWAPI::Unit *unit) {
 	if (unit->getType().isResourceContainer() && !unit->getType().isMineralField()) {
 		Signal::onUnitDiscover().disconnect(boost::bind(&CheeseStrategies::CannonAwesome::onUnitDiscover, this, _1));
@@ -88,23 +91,106 @@ void CheeseStrategies::CannonAwesome::onUnitDiscover(BWAPI::Unit *unit) {
 			thisOne->getPosition().x(), thisOne->getPosition().y(),
 			here.x(), here.y(), Pylon.x(), Pylon.y(), Forge.x(), Forge.y(), Cannon.x(), Cannon.y(), Gateway.x(), Gateway.y());
 
-		m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Pylon, Pylon));
-		m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Forge, Forge));
-		m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Assimilator, geyserTile, true));
-		m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Photon_Cannon, Cannon));
-		if (Gateway.isValid())
-			m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Gateway, Gateway));
-		else if (CannonForGateway.isValid())
-			m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Photon_Cannon, CannonForGateway));
+		RelativeSide pylon(UnitTypes::Protoss_Pylon, Pylon);
+
+		if (!Cannon.isValid())
+		{
+			this->recoverEcon();
+			BaseManagerSet::iterator Grr = g_baseManagers . begin();
+			(*Grr)->getControllee()->addProbe(m_probe);
+
+			return;
+		}
 
 		m_probe->move(BWAPI::Position(Cannon));
+		m_buildOrder->idlePosition = BWAPI::Position(Cannon);
+
+		m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Pylon, Pylon, false, boost::bind(&CannonAwesome::attemptEarlyRecover, this, _1, _2)));
+		m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Forge, Forge, false, boost::bind(&CannonAwesome::attemptEarlyRecover, this, _1, _2)));
+		m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Photon_Cannon, Cannon, false, boost::bind(&CannonAwesome::attemptEarlyRecover, this, _1, _2)));
+		m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Assimilator, geyserTile, true, boost::bind(&CannonAwesome::recoverEcon, this)));
+		if (Gateway.isValid())
+			m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Gateway, Gateway, false, boost::bind(&CannonAwesome::recoverEcon, this)));
+		else if (CannonForGateway.isValid())
+			m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Photon_Cannon, CannonForGateway, false, boost::bind(&CannonAwesome::recoverEcon, this)));
+		
+		Cannon = pylon.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Top | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineLeft, 0, 0); TRY_CANNON_PLACE;
+		Cannon = pylon.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Left | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 0, 0); TRY_CANNON_PLACE;
+		Cannon = pylon.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Bottom | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineLeft, 0, 0); TRY_CANNON_PLACE;
+
+		RelativeSide forge(UnitTypes::Protoss_Forge, Forge);
+
+		Pylon = forge.Place(UnitTypes::Protoss_Pylon, RelativeSide::Right | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineLeft, 0, 0);
+
+		if (Pylon.isValid())
+		{
+			m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Pylon, Pylon, false, boost::bind(&CannonAwesome::recoverEcon, this)));
+
+			pylon = RelativeSide(UnitTypes::Protoss_Pylon, Pylon);
+
+			Cannon = pylon.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Top | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineRight, 0, 0); TRY_CANNON_PLACE;
+			Cannon = pylon.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Right | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 0, 0); TRY_CANNON_PLACE;
+			Cannon = pylon.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Bottom | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineRight, 0, 0); TRY_CANNON_PLACE;
+		}
+
+		m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Nexus, getEnemyBase()->getTilePosition(), false, boost::bind(&CannonAwesome::recoverEcon, this)));
+
+		RelativeSide nexus(UnitTypes::Protoss_Nexus, getEnemyBase()->getTilePosition());
+
+		UnitSet set = Broodwar->getUnitsInRadius(Position(getEnemyBase()->getTilePosition()), 270);
+
+		Unit* mineral = NULL;
+
+		for (UnitSet::iterator unit = set.begin(); unit != set.end(); unit++) {
+			if ((*unit)->getType().isMineralField()) {
+				mineral = (*unit);
+				break;
+			}
+		}
+
+		if (mineral != NULL)
+		{
+			if (mineral->getTilePosition().x() < getEnemyBase()->getTilePosition().x())
+			{ // RIGHT
+				Pylon = nexus.Place(UnitTypes::Protoss_Pylon, RelativeSide::Right | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 0, 0);
+
+				if (Pylon.isValid())
+				{
+					m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Pylon, Pylon, false, boost::bind(&CannonAwesome::recoverEcon, this)));
+
+					pylon = RelativeSide(UnitTypes::Protoss_Pylon, Pylon);
+
+					Cannon = pylon.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Top | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 0, 0); TRY_CANNON_PLACE;
+					Cannon = pylon.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Right | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 0, 0); TRY_CANNON_PLACE;
+					Cannon = pylon.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Bottom | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 0, 0); TRY_CANNON_PLACE;
+				}
+			}
+			else
+			{
+				Pylon = nexus.Place(UnitTypes::Protoss_Pylon, RelativeSide::Left | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 0, 0);
+
+				if (Pylon.isValid())
+				{
+					m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Pylon, Pylon, false, boost::bind(&CannonAwesome::recoverEcon, this)));
+
+					pylon = RelativeSide(UnitTypes::Protoss_Pylon, Pylon);
+
+					Cannon = pylon.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Top | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 0, 0); TRY_CANNON_PLACE;
+					Cannon = pylon.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Left | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 0, 0); TRY_CANNON_PLACE;
+					Cannon = pylon.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Bottom | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 0, 0); TRY_CANNON_PLACE;
+				}
+			}
+		}
 
 		m_buildOrder->start(m_probe);
 	}
 }
 
 void CheeseStrategies::CannonAwesome::start()
-{   // I don't think that this method is going to be good for anything, except trying to find the geyser manually
+{   
+	if (getEnemyBase() == 0)
+		recoverEcon();
+	// I don't think that this method is going to be good for anything, except trying to find the geyser manually
 	// that is, walking in a circle around their startLocation
 	Signal::onUnitDiscover().connect(boost::bind(&CheeseStrategies::CannonAwesome::onUnitDiscover, this, _1));
 
@@ -127,20 +213,62 @@ void CheeseStrategies::CannonAwesome::onFrame() {
 }
 
 void CheeseStrategies::CannonAwesome::printDebug(void) {
-	BWAPI::Broodwar->drawTextMap(m_probe->getPosition().x()+10, m_probe->getPosition().y(), 
-		"Build step: %d\n", m_buildOrder);
 
 	BaseCheeseStrategy::printDebug();
 }
 
 void CheeseStrategies::CannonAwesome::onBuildEnd(BWAPI::Unit* probe)
 {
-	controls->resumeEcon();
+	recoverEcon();
 	m_probe = probe;
 }
 
 void CheeseStrategies::CannonAwesome::attemptEarlyRecover(BuildOrderElement* orderElement, BWAPI::Unit* builderProbe)
 {
-	if (BWAPI::Broodwar->self()->minerals() >= 400)
-		controls->resumeEcon();
+	if (BWAPI::Broodwar->self()->minerals() >= 500)
+		recoverEcon();
+}
+
+void CheeseStrategies::CannonAwesome::recoverEcon()
+{
+	controls->resumeEcon();
+	static bool added;
+	if (!added)
+	{
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Gateway);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Forge);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Photon_Cannon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Gateway);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Photon_Cannon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Photon_Cannon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Gateway);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Photon_Cannon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Photon_Cannon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Gateway);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Photon_Cannon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Photon_Cannon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Gateway);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Photon_Cannon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Photon_Cannon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Gateway);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Photon_Cannon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Photon_Cannon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		added = true;
+	}
 }
