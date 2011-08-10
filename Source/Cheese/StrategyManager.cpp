@@ -36,10 +36,17 @@ void CheeseStrategyManager::resumeEcon()
 
 void CheeseStrategyManager::onFrame(void) 
 {
-	if (m_scoutProbe == 0 && m_strategy->whichProbe == 0)
+	if (m_scoutProbe == 0)
 	{
 		BaseManagerSet::iterator first = g_baseManagers.begin();
-		m_scoutProbe = new ProbeControl((*first)->getControllee()->removeProbe(), boost::bind(&CheeseStrategyManager::foundEnemy, this, _1, _2));
+		if (m_strategy->whichProbe == 0)
+		{
+			m_scoutProbe = new ProbeControl((*first)->getControllee()->removeProbe(), boost::bind(&CheeseStrategyManager::foundEnemy, this, _1, _2));
+		}
+		else
+		{
+			//(*first)->
+		}
 	}
 }
 

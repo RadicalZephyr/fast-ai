@@ -7,7 +7,7 @@ using BWAPI::Unit;
 
 class NexusBehaviour : public IUnitTrainingManagerBehaviour, private Debug {
 public:
-	NexusBehaviour(Unit &nexus);
+	NexusBehaviour(Unit *nexus);
 
 	virtual void postBuild(BWAPI::Unit *unit);
 	virtual BWAPI::UnitType shouldBuild(BWAPI::UnitType type);
@@ -22,7 +22,7 @@ public:
 	void addProbe(Unit *unit);
 	Unit *removeProbe(void);
 
-	Unit &getNexus(void) {return m_nexus;}
+	Unit *getNexus(void) {return m_nexus;}
 
 private:
     virtual void printDebug(void);
@@ -38,7 +38,7 @@ private:
 
 	const static int s_mineralDistance;
 
-	Unit &m_nexus;
+	Unit *m_nexus;
 
 	UnitList m_gas;
 	UnitList m_minerals;

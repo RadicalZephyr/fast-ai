@@ -9,13 +9,13 @@ class DefaultBehaviour :
 	public IUnitTrainingManagerBehaviour
 {
 public:
-	DefaultBehaviour(BWAPI::Unit &building): m_building(building) {}
+	DefaultBehaviour(BWAPI::Unit *building): m_building(building) {}
 
 	virtual void postBuild(BWAPI::Unit *unit);
 	virtual BWAPI::UnitType shouldBuild(BWAPI::UnitType type);
 
 private:
-	BWAPI::Unit &m_building;
+	BWAPI::Unit *m_building;
 	UnitTypeList m_canBuildList;
 
 	// Unimplemented to prevent assignment/copying

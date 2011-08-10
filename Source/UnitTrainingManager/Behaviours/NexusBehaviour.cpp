@@ -6,7 +6,7 @@ using namespace BWAPI;
 
 const int NexusBehaviour::s_mineralDistance = 270;
 
-NexusBehaviour::NexusBehaviour(BWAPI::Unit &nexus): m_nexus(nexus),
+NexusBehaviour::NexusBehaviour(BWAPI::Unit *nexus): m_nexus(nexus),
 										  m_gas(),
 										  m_minerals(),
 										  m_minGatherers(),
@@ -66,7 +66,7 @@ void NexusBehaviour::printDebug(void) {
 }
 
 bool NexusBehaviour::isMyUnitSelected(void) {
-	return m_nexus.isSelected();
+	return m_nexus->isSelected();
 }
 
 bool NexusBehaviour::removeProbeFromGatherers(BWAPI::Unit *probe) {
@@ -106,7 +106,7 @@ bool NexusBehaviour::addGasser(BWAPI::Unit *probe) {
 }
 
 void NexusBehaviour::findMinerals(void) {
-    UnitSet& aroundNexus = Broodwar->getUnitsInRadius(m_nexus.getPosition(), s_mineralDistance);
+    UnitSet& aroundNexus = Broodwar->getUnitsInRadius(m_nexus->getPosition(), s_mineralDistance);
     
     m_minerals.assign(aroundNexus.begin(), aroundNexus.end());
 

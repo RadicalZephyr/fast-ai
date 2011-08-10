@@ -33,6 +33,6 @@ struct BM_BehaviourFactory : UnitTrainingManager_BaseBehaviourFactory {
 
 	virtual IUnitTrainingManager_BehaviourPtr Create(BWAPI::Unit *unit) {
 		Broodwar->printf("Creating a behaviour for: %s", unit->getType().getName().c_str());
-		return IUnitTrainingManager_BehaviourPtr(static_cast<IUnitTrainingManagerBehaviour *>(new T(*unit)));
+		return IUnitTrainingManager_BehaviourPtr(static_cast<IUnitTrainingManagerBehaviour *>(new T(unit)));
 	}
 };

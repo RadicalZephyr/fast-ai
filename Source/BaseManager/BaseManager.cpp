@@ -7,7 +7,7 @@ bool BaseManager::constructBuilding(BWAPI::UnitType type, bool inQueue) {
 	if (m_lastBuilding == 0) {
 		// Create a first building in the area
 		m_probe = m_controllee->removeProbe();
-		RelativeSide placer(&m_controllee->getNexus());
+		RelativeSide placer(m_controllee->getNexus());
 		TilePosition tile = placer.Place(type, RelativeSide::Left, 2, 0).makeValid();
 
 		if (Broodwar->canBuildHere(m_probe, tile, type, true)) {
