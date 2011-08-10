@@ -135,7 +135,7 @@ void CheeseStrategies::CannonAwesome::onFrame() {
 				++m_buildOrder;
 				m_tileList.pop_front();
 			}
-			else if (BWAPI::Broodwar->canBuildHere(m_probe, m_tileList.front(), BWAPI::UnitTypes::Protoss_Assimilator)
+			else if (BWAPI::Broodwar->canBuildHere(m_probe, m_geyserTile, BWAPI::UnitTypes::Protoss_Assimilator)
 				&& m_probe->build(m_geyserTile, BWAPI::UnitTypes::Protoss_Assimilator))
 			{
 
@@ -148,7 +148,7 @@ void CheeseStrategies::CannonAwesome::onFrame() {
 				++m_buildOrder;
 				m_tileList.pop_front();
 			}
-			else if (BWAPI::Broodwar->canBuildHere(m_probe, m_tileList.front(), BWAPI::UnitTypes::Protoss_Assimilator)
+			else if (BWAPI::Broodwar->canBuildHere(m_probe, m_geyserTile, BWAPI::UnitTypes::Protoss_Assimilator)
 				&& m_probe->build(m_geyserTile, BWAPI::UnitTypes::Protoss_Assimilator))
 			{
 

@@ -6,6 +6,7 @@
 #include "UnitTrainingManager\Behaviours/NexusBehaviour.h"
 #include "UnitTrainingManager\Behaviours/DefaultBehaviour.h"
 #include "Cheese/StrategyManager.h"
+#include "UnitTrainingManager/Behaviours/GatewayBehaviour.h"
 
 using namespace BWAPI;
 
@@ -20,9 +21,11 @@ void Cannonball::onStart()
 	// Creation of the g_managerWatchMap.  Nexii get a specialized behaviour, all other buildings get the default (PRODUCE SOMETHING!!)
 	g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Nexus,
 										  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<NexusBehaviour>)));
-	// Default behaviours
+	// Gateways produce zealots, and then make a class to cause the zealots to wander the map
 	g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Gateway,
-										  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
+										  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<GatewayBehaviour>)));
+	
+	// Default behaviours
 	g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Carrier,
 										  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
 	g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Reaver,

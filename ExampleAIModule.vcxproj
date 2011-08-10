@@ -109,6 +109,7 @@
     <ClCompile Include="Source\Important\Signals.cpp" />
     <ClCompile Include="Source\SCResourceManager.cpp" />
     <ClCompile Include="Source\UnitTrainingManager\Behaviours\DefaultBehaviour.cpp" />
+    <ClCompile Include="Source\UnitTrainingManager\Behaviours\GatewayBehaviour.cpp" />
     <ClCompile Include="Source\UnitTrainingManager\Behaviours\NexusBehaviour.cpp" />
     <ClCompile Include="Source\UnitTrainingManager\UnitTrainingManager.cpp" />
     <ClCompile Include="Source\Util\BuildOrder.cpp" />
@@ -116,6 +117,7 @@
     <ClCompile Include="Source\Util\Debug.cpp" />
     <ClCompile Include="Source\Util\Functions.cpp" />
     <ClCompile Include="Source\Util\RelativePosition.cpp" />
+    <ClCompile Include="Source\ZealotWander.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\BaseManager\BaseManager.h" />
@@ -136,6 +138,7 @@
     <ClInclude Include="Source\UnitManager\IUnitManagerBehavior.h" />
     <ClInclude Include="Source\UnitManager\UnitManager.h" />
     <ClInclude Include="Source\UnitTrainingManager\Behaviours\DefaultBehaviour.h" />
+    <ClInclude Include="Source\UnitTrainingManager\Behaviours\GatewayBehaviour.h" />
     <ClInclude Include="Source\UnitTrainingManager\Behaviours\NexusBehaviour.h" />
     <ClInclude Include="Source\UnitTrainingManager\IUnitTrainingManagerBehaviour.h" />
     <ClInclude Include="Source\UnitTrainingManager\UnitTrainingManager.h" />
@@ -147,6 +150,7 @@
     <ClInclude Include="Source\Util\RelativePosition.h" />
     <ClInclude Include="Source\Util\Rounding.h" />
     <ClInclude Include="Source\Util\Timed.h" />
+    <ClInclude Include="Source\ZealotWander.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

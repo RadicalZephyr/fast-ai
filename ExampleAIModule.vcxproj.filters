@@ -51,6 +51,8 @@
     <ClCompile Include="Source\Util\BuildOrder.cpp">
       <Filter>Util</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UnitTrainingManager\Behaviours\GatewayBehaviour.cpp" />
+    <ClCompile Include="Source\ZealotWander.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Cannonball.h" />
@@ -130,6 +132,10 @@
     <ClInclude Include="Source\Util\BuildOrder.h">
       <Filter>Util</Filter>
     </ClInclude>
+    <ClInclude Include="Source\UnitManager\IUnitManagerBehavior.h" />
+    <ClInclude Include="Source\UnitManager\UnitManager.h" />
+    <ClInclude Include="Source\UnitTrainingManager\Behaviours\GatewayBehaviour.h" />
+    <ClInclude Include="Source\ZealotWander.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Important">
