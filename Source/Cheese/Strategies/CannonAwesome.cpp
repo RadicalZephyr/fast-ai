@@ -189,7 +189,12 @@ void CheeseStrategies::CannonAwesome::onUnitDiscover(BWAPI::Unit *unit) {
 void CheeseStrategies::CannonAwesome::start()
 {   
 	if (getEnemyBase() == 0)
+	{
+		BaseManagerSet::iterator first = g_baseManagers . begin();
+		(*first)->getControllee()->addProbe(m_probe);
 		recoverEcon();
+		return;
+	}
 	// I don't think that this method is going to be good for anything, except trying to find the geyser manually
 	// that is, walking in a circle around their startLocation
 	Signal::onUnitDiscover().connect(boost::bind(&CheeseStrategies::CannonAwesome::onUnitDiscover, this, _1));
