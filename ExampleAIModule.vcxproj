@@ -111,6 +111,7 @@
     <ClCompile Include="Source\UnitTrainingManager\Behaviours\DefaultBehaviour.cpp" />
     <ClCompile Include="Source\UnitTrainingManager\Behaviours\NexusBehaviour.cpp" />
     <ClCompile Include="Source\UnitTrainingManager\UnitTrainingManager.cpp" />
+    <ClCompile Include="Source\Util\BuildOrder.cpp" />
     <ClCompile Include="Source\Util\RelativeSide.cpp" />
     <ClCompile Include="Source\Util\Debug.cpp" />
     <ClCompile Include="Source\Util\Functions.cpp" />
@@ -132,10 +133,13 @@
     <ClInclude Include="Source\Important\Common.h" />
     <ClInclude Include="Source\Important\Signals.h" />
     <ClInclude Include="Source\SCResourceManager.h" />
+    <ClInclude Include="Source\UnitManager\IUnitManagerBehavior.h" />
+    <ClInclude Include="Source\UnitManager\UnitManager.h" />
     <ClInclude Include="Source\UnitTrainingManager\Behaviours\DefaultBehaviour.h" />
     <ClInclude Include="Source\UnitTrainingManager\Behaviours\NexusBehaviour.h" />
     <ClInclude Include="Source\UnitTrainingManager\IUnitTrainingManagerBehaviour.h" />
     <ClInclude Include="Source\UnitTrainingManager\UnitTrainingManager.h" />
+    <ClInclude Include="Source\Util\BuildOrder.h" />
     <ClInclude Include="Source\Util\RelativeSide.h" />
     <ClInclude Include="Source\Util\Debug.h" />
     <ClInclude Include="Source\Util\Functions.h" />

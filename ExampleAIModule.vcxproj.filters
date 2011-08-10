@@ -48,6 +48,9 @@
     <ClCompile Include="Source\Util\RelativeSide.cpp">
       <Filter>Util</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Util\BuildOrder.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Cannonball.h" />
@@ -122,6 +125,9 @@
       <Filter>Util</Filter>
     </ClInclude>
     <ClInclude Include="Source\Util\RelativeSide.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Util\BuildOrder.h">
       <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>
