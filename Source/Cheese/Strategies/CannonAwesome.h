@@ -1,6 +1,7 @@
 #include "Cheese/Helpers.h"
 #include "Base.h"
 #include "Util/PersistentPrinter.h"
+#include "Util/BuildOrder.h"
 
 namespace CheeseStrategies
 {
@@ -9,8 +10,7 @@ namespace CheeseStrategies
 	public: // Intilization section
 
 		CannonAwesome() : BaseCheeseStrategy(), 
-						  m_buildOrder(0), 
-						  m_tileList(),
+						  m_buildOrder(0),
 						  m_printer(400, 20)
 		{
 			whichProbe = 0;
@@ -42,9 +42,10 @@ namespace CheeseStrategies
 
 	private:
 		BWAPI::Unit* m_probe;
-		BWAPI::TilePosition m_geyserTile;
-		int m_buildOrder;
-		std::list<BWAPI::TilePosition> m_tileList;
+		BuildOrder* m_buildOrder;
 		PersistentPrinter m_printer;
+
+		void onBuildEnd( BWAPI::Unit* probe );
+		void attemptEarlyRecover(BuildOrderElement* orderElement, BWAPI::Unit* builderProbe);
 	};
 }

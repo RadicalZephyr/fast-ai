@@ -5,6 +5,8 @@
 #include "Util/RelativeSide.h"
 using namespace BWAPI;
 
+
+
 Unit* getGasPlacement(Position here)
 {
 	Position posMody, posModx;
@@ -51,14 +53,16 @@ void CheeseStrategies::CannonAwesome::onUnitDiscover(BWAPI::Unit *unit) {
 		//m_probe->move(g_position.unitVectorRelativeTo(Position(getEnemyStartLocation()), unit->getPosition()) * 15);
 		Unit* thisOne = unit; // getGasPlacement((Position(this->getEnemyStartLocation())));
 
-		m_geyserTile = thisOne->getTilePosition();
+		TilePosition geyserTile = thisOne->getTilePosition();
 
 		//BuildingRelativeBuildingPlacer gas (*thisOne);
 		Position here = (Position(this->getEnemyStartLocation()));
 
-		TilePosition Pylon, Forge, Cannon, Gateway;
+		TilePosition Pylon, Forge, Cannon, Gateway, CannonForGateway;
 
 		RelativeSide geyser(thisOne);
+
+		m_buildOrder = new BuildOrder(boost::bind(&CheeseStrategies::CannonAwesome::onBuildEnd, this, _1));
 
 		if (thisOne->getPosition().y() - here.y() > 0)
 		{ //Geyser Below
@@ -67,7 +71,7 @@ void CheeseStrategies::CannonAwesome::onUnitDiscover(BWAPI::Unit *unit) {
 			Cannon = geyser.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Bottom | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 0, 0);
 			Gateway = geyser.Place(UnitTypes::Protoss_Gateway, RelativeSide::Bottom | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 2, 0);
 			if (!Gateway.isValid())
-				Gateway = geyser.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Bottom | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 2, 0);
+				CannonForGateway = geyser.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Bottom | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 2, 0);
 		}
 		else
 		{ //Geyser Above
@@ -76,7 +80,7 @@ void CheeseStrategies::CannonAwesome::onUnitDiscover(BWAPI::Unit *unit) {
 			Cannon = geyser.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Top | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 0, 0);
 			Gateway = geyser.Place(UnitTypes::Protoss_Gateway, RelativeSide::Top | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 2, 0);
 			if (!Gateway.isValid())
-				Gateway = geyser.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Top | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 2, 0);
+				CannonForGateway = geyser.Place(UnitTypes::Protoss_Photon_Cannon, RelativeSide::Top | RelativeSide::CenterOnOrthoLine | RelativeSide::OrthoLineCenter, 2, 0);
 		}
 		/**/
 
@@ -84,12 +88,18 @@ void CheeseStrategies::CannonAwesome::onUnitDiscover(BWAPI::Unit *unit) {
 			thisOne->getPosition().x(), thisOne->getPosition().y(),
 			here.x(), here.y(), Pylon.x(), Pylon.y(), Forge.x(), Forge.y(), Cannon.x(), Cannon.y(), Gateway.x(), Gateway.y());
 
-		m_tileList.push_back(Pylon.makeValid());
-		m_tileList.push_back(Forge.makeValid());
-		m_tileList.push_back(Cannon.makeValid());
-		m_tileList.push_back(Gateway.makeValid());
+		m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Pylon, Pylon));
+		m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Forge, Forge));
+		m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Assimilator, geyserTile, true));
+		m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Photon_Cannon, Cannon));
+		if (Gateway.isValid())
+			m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Gateway, Gateway));
+		else if (CannonForGateway.isValid())
+			m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Photon_Cannon, CannonForGateway));
 
 		m_probe->move(BWAPI::Position(Cannon));
+
+		m_buildOrder->start(m_probe);
 	}
 }
 
@@ -113,70 +123,24 @@ void CheeseStrategies::CannonAwesome::start()
 
 
 void CheeseStrategies::CannonAwesome::onFrame() {
-	for (std::list<BWAPI::TilePosition>::iterator itr = m_tileList.begin(); itr != m_tileList.end(); ++itr) {
-		Broodwar->drawCircleMap(Position(*itr).x(), Position(*itr).y(), 25, BWAPI::Colors::Cyan, true);
-	}
 
-	if (m_isRunning && m_probe->isIdle()) {
-
-		m_probe->stop();
-
-		switch (m_buildOrder) {
-		case 0:
-			if (BWAPI::Broodwar->canBuildHere(m_probe, m_tileList.front(), BWAPI::UnitTypes::Protoss_Pylon)
-				&& m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Pylon)) {
-				++m_buildOrder;
-				m_tileList.pop_front();
-			}
-			break;
-		case 1:
-			if (BWAPI::Broodwar->canBuildHere(m_probe, m_tileList.front(), BWAPI::UnitTypes::Protoss_Forge)
-				&& m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Forge)) {
-				++m_buildOrder;
-				m_tileList.pop_front();
-			}
-			else if (BWAPI::Broodwar->canBuildHere(m_probe, m_geyserTile, BWAPI::UnitTypes::Protoss_Assimilator)
-				&& m_probe->build(m_geyserTile, BWAPI::UnitTypes::Protoss_Assimilator))
-			{
-
-			}
-			break;
-		case 2:
-			controls->resumeEcon();
-			if (BWAPI::Broodwar->canBuildHere(m_probe, m_tileList.front(), BWAPI::UnitTypes::Protoss_Photon_Cannon)
-				&& m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Photon_Cannon)) {
-				++m_buildOrder;
-				m_tileList.pop_front();
-			}
-			else if (BWAPI::Broodwar->canBuildHere(m_probe, m_geyserTile, BWAPI::UnitTypes::Protoss_Assimilator)
-				&& m_probe->build(m_geyserTile, BWAPI::UnitTypes::Protoss_Assimilator))
-			{
-
-			}
-			break;
-		case 3:
-			m_probe->move(Position(m_tileList.front()));
-			controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
-			if (BWAPI::Broodwar->canBuildHere(m_probe, m_tileList.front(), BWAPI::UnitTypes::Protoss_Gateway)
-				&& m_probe->build(m_tileList.front(), BWAPI::UnitTypes::Protoss_Gateway)) {
-				++m_buildOrder;
-				m_tileList.pop_front();
-			}
-			break;
-		default:
-			break;
-		}
-
-	}
 }
 
 void CheeseStrategies::CannonAwesome::printDebug(void) {
 	BWAPI::Broodwar->drawTextMap(m_probe->getPosition().x()+10, m_probe->getPosition().y(), 
 		"Build step: %d\n", m_buildOrder);
 
-	for (std::list<BWAPI::TilePosition>::iterator itr = m_tileList.begin(); 
-		itr != m_tileList.end(); ++itr) {
-			BWAPI::Broodwar->drawCircleMap(itr->x(), itr->y(), 15, BWAPI::Colors::Cyan, true);
-	}
 	BaseCheeseStrategy::printDebug();
+}
+
+void CheeseStrategies::CannonAwesome::onBuildEnd(BWAPI::Unit* probe)
+{
+	controls->resumeEcon();
+	m_probe = probe;
+}
+
+void CheeseStrategies::CannonAwesome::attemptEarlyRecover(BuildOrderElement* orderElement, BWAPI::Unit* builderProbe)
+{
+	if (BWAPI::Broodwar->self()->minerals() >= 400)
+		controls->resumeEcon();
 }
