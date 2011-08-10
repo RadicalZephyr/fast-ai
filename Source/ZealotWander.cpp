@@ -5,12 +5,11 @@ void ZealotWander::onFrame(void) {
 	if (!m_unit->isVisible()) {
 		BWAPI::Broodwar->printf("Deleting zealot wanderer");
 		delete this;
-	} else if (m_unit->isAttacking()) {
+	} else if (m_unit->isAttacking() || m_unit->isStartingAttack()) {
 		;
-	} else if (!m_unit->isMoving()) {
-		m_unit->attack(newDestination());
-	} else {
+	} else if (m_unit->isIdle()) {
 		m_visitedPositions.insert(m_unit->getPosition());
+		m_unit->attack(newDestination());
 	}
 }
 

@@ -13,10 +13,10 @@ void BaseManager::onFrame(void) {
 	if (!m_buildQueue.empty() && m_probe && !m_probe->isConstructing()) {
 		doBuildCheck();
 
-	} else if (m_probe && !m_probe->isConstructing()) {
+	} /*else if (m_probe && !m_probe->isConstructing()) {
 		m_controllee->addProbe(m_probe);
 		m_probe = 0;
-	}
+	}*/
 }
 
 
@@ -29,14 +29,12 @@ void BaseManager::onUnitCreate(BWAPI::Unit *unit) {
 
 bool BaseManager::doBuildCheck(void) {
 	UnitType type = m_buildQueue.front();
-	if (m_probe == 0)
-		m_probe = m_controllee->removeProbe();
 
 	if (m_lastBuilding == 0) {
 		// Create a first building in the area
 		return m_probe->build(m_lastTilePos = getRandomBuildPos(m_controllee->getNexus(), type), type);
 	} else {
-		return m_probe->build(m_lastTilePos = getRandomBuildPos(m_controllee->getNexus(), type), type);
+		return m_probe->build(m_lastTilePos = getRandomBuildPos(m_lastBuilding, type), type);
 	}
 	return false;
 }
@@ -66,6 +64,6 @@ TilePosition BaseManager::getRandomBuildPos(BWAPI::Unit *refUnit, BWAPI::UnitTyp
 		}
 		break;
 	}
-
+	Broodwar->printf("randomPos: (%d, %d)", newPos.x(), newPos.y());
 	return newPos;
 }
