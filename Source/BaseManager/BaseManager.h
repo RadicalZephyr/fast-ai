@@ -1,20 +1,25 @@
 #pragma once
 
+#include <queue>
 #include "INexusBehaviourController.h"
 #include "UnitTrainingManager/Behaviours/NexusBehaviour.h"
+
+class RelativePosition;
 
 class BaseManager :
 	public INexusBehaviourController {
 
 public:
 	explicit BaseManager(void): m_controllee(0),
-								m_lastBuilding(0) {
-		Signal::onFrame().connect(boost::bind(&BaseManager::onFrame, this));
+								m_lastBuilding(0),
+								m_connection(),
+								m_buildQueue() {
+		m_connection = Signal::onFrame().connect(boost::bind(&BaseManager::onFrame, this));
 	}
 
 	explicit BaseManager(NexusBehaviour *nexusBehaviour): m_controllee(nexusBehaviour),
 														  m_lastBuilding(0) {
-		Signal::onFrame().connect(boost::bind(&BaseManager::onFrame, this));
+		m_connection.disconnect();
 	}
 
 	virtual ~BaseManager(void) {}
@@ -23,7 +28,7 @@ public:
 	void setControllee(NexusBehaviour *controllee) {m_controllee = controllee;}
 	NexusBehaviour *getControllee(void) {return m_controllee;}
 
-	bool constructBuilding(BWAPI::UnitType type);
+	bool constructBuilding(BWAPI::UnitType type, bool inQueue = false);
 
 	void onFrame(void);
 
@@ -35,6 +40,9 @@ private:
 
 	BWAPI::Unit *m_lastBuilding;
 
+	boost::signals::connection m_connection;
+
+	std::queue<BWAPI::UnitType> m_buildQueue;
 };
 
 // Need to add a signal to the nexus behaviour so that the base manager can subscribe to it to cause maynard'ing
