@@ -9,14 +9,19 @@
 class IUnitTrainingManagerBehaviour
 {
 public:
+	typedef boost::signal<void (BWAPI::Unit*)> signal_t;
+	typedef boost::signals::connection connection_t;
 
 	virtual ~IUnitTrainingManagerBehaviour(void) {}
 
-	virtual void postBuild(BWAPI::Unit *unit) = 0;
+	virtual void postBuild(BWAPI::Unit *unit) {m_unitDoneSignal(unit);}
 	virtual BWAPI::UnitType shouldBuild(BWAPI::UnitType ) {return BWAPI::UnitTypes::None;}
 
-};
+	connection_t connect(signal_t::slot_type slot) {return m_unitDoneSignal.connect(slot);}
 
+private:
+	signal_t m_unitDoneSignal;
+};
 
 // The abstract base class that allows us to make a map containing templated factory objects
 struct UnitTrainingManager_BaseBehaviourFactory {

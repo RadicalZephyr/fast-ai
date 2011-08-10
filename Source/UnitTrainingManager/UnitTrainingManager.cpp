@@ -41,7 +41,6 @@ void UnitTrainingManager::checkTraining(void) {
 		m_building.isTraining() && m_trainingTime.isDone()) {
 		if (m_behaviour) {
 			m_behaviour->postBuild(m_trainingUnit);
-			m_unitDoneSignal(m_trainingUnit);
 		}
         m_trainingUnit = 0;
 	} else if (!m_building.isTraining()) {
