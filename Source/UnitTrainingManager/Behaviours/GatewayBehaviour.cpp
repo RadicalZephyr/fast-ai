@@ -1,12 +1,9 @@
 #include "GatewayBehaviour.h"
 #include "ZealotWander.h"
-#include "ZealotGroup.h"
 
 void GatewayBehaviour::postBuild(BWAPI::Unit *unit) {
 	IUnitTrainingManagerBehaviour::postBuild(unit);
-	ZealotWanderPtr newZealot(new ZealotWander(unit));
-	g_zealotControl().add(newZealot);
-	newZealot->setSelf(newZealot);
+	new ZealotWander(unit);
 }
 
 BWAPI::UnitType GatewayBehaviour::shouldBuild(BWAPI::UnitType ) {

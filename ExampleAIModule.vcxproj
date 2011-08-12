@@ -94,7 +94,7 @@
       <AdditionalLibraryDirectories>$(BWAPI_ROOT)\lib;$(BOOST_ROOT)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(SolutionDir)\Release\Cannonball.dll $(ChaosDir)\..\bwapi-data\AI </Command>
+      <Command>copy "$(SolutionDir)\Release\Cannonball.dll" "$(ChaosDir)\..\bwapi-data\AI"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
