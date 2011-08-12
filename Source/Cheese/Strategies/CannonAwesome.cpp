@@ -230,7 +230,7 @@ void CheeseStrategies::CannonAwesome::onBuildEnd(BWAPI::Unit* probe)
 
 void CheeseStrategies::CannonAwesome::attemptEarlyRecover(BuildOrderElement* orderElement, BWAPI::Unit* builderProbe)
 {
-	if (BWAPI::Broodwar->self()->minerals() >= 500)
+	if (g_resourceManager.minerals() >= 500)
 		recoverEcon();
 }
 

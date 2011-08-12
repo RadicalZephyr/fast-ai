@@ -7,7 +7,7 @@ void GatewayBehaviour::postBuild(BWAPI::Unit *unit) {
 }
 
 BWAPI::UnitType GatewayBehaviour::shouldBuild(BWAPI::UnitType ) {
-	if (BWAPI::Broodwar->self()->minerals() > 600 && BWAPI::Broodwar->canMake(0, BWAPI::UnitTypes::Protoss_Dragoon)) {
+	if (g_resourceManager.minerals() > 600 && BWAPI::Broodwar->canMake(0, BWAPI::UnitTypes::Protoss_Dragoon)) {
 		return BWAPI::UnitTypes::Protoss_Dragoon;
 	}
 

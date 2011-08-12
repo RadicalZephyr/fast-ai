@@ -20,7 +20,7 @@ void BaseManager::onFrame(void) {
 	if (!m_buildQueue.empty() && m_probe && !m_probe->isConstructing()) {
 		doBuildCheck();
 
-	} else if (m_buildQueue.empty() && m_probe && !m_probe->isConstructing() && Broodwar->self()->minerals() > 600) {
+	} else if (m_buildQueue.empty() && m_probe && !m_probe->isConstructing() && g_resourceManager.minerals() > 200) {
 		if (Broodwar->self()->supplyTotal() == Broodwar->self()->supplyUsed()) {
 			m_buildQueue.push(BWAPI::UnitTypes::Protoss_Pylon);
 		} else {

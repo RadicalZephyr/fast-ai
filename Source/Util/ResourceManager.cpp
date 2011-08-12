@@ -1,20 +1,20 @@
-#include "SCResourceManager.h"
+#include "ResourceManager.h"
 #include "Important/Common.h"
 using namespace BWAPI;
 
-SCResourceManager::SCResourceManager(void)
+ResourceManager::ResourceManager(void)
 {
 	generateIDCount = 0;
-	Signal::onFrame().connect(boost::bind(&SCResourceManager::checkResources ,this));
+	Signal::onFrame().connect(boost::bind(&ResourceManager::checkResources ,this));
 }
 
 
-SCResourceManager::~SCResourceManager(void)
+ResourceManager::~ResourceManager(void)
 {
 }
 
 //Request the resource manager to allocate the given resources
-int SCResourceManager::requestResources(int minerals, int gas)
+int ResourceManager::requestResources(int minerals, int gas)
 {
 	//make a request and add it to the queue
 	Request newRequest(generateID(), minerals, gas);
@@ -23,21 +23,21 @@ int SCResourceManager::requestResources(int minerals, int gas)
 }
 
 //Request the resource manager to allocate the resources required to build the count given of the unit type
-int SCResourceManager::requestResources(BWAPI::UnitType requestedUnit, int count)
+int ResourceManager::requestResources(BWAPI::UnitType requestedUnit, int count)
 {
 	//call the more general version of request resources
 	return requestResources(requestedUnit.mineralPrice() * count, requestedUnit.gasPrice() * count);
 }
 
 //Request the resource manager to allocate the resources required to build a unit of this type
-int SCResourceManager::requestResources(BWAPI::UnitType requestedUnit)
+int ResourceManager::requestResources(BWAPI::UnitType requestedUnit)
 {
 	//call the more general version of request resources
 	return requestResources(requestedUnit, 1);
 }
 
 //Check the 
-void SCResourceManager::checkResources()
+void ResourceManager::checkResources()
 {
 	//approve from the top down, things on the queue wich can be afforded
 	int totalMinerals = Broodwar -> self() -> minerals();
@@ -47,8 +47,9 @@ void SCResourceManager::checkResources()
 	bool done = false;
 	while (!done)
 	{
-		if (requests.empty())
-			done = true;
+		if (requests.empty()) {
+			break;
+		}
 
 		if ((requests.front().mineralCost <= totalMinerals) && (requests.front().gasCost <= totalGas))
 		{
@@ -63,14 +64,14 @@ void SCResourceManager::checkResources()
 }
 
 //Generate an ID for a request, increment the value so future ID's are Unique
-int SCResourceManager::generateID()
+int ResourceManager::generateID()
 {
 	generateIDCount++;
 	return generateIDCount;
 }
 
 //check if a request has been approved
-bool SCResourceManager::checkReady(int ID)
+bool ResourceManager::checkReady(int ID)
 {
 	for (int i = 0; i < approved.size(); i++)
 	{
@@ -82,7 +83,7 @@ bool SCResourceManager::checkReady(int ID)
 	return false;
 }
 
-void SCResourceManager::resourcesUsed(int ID)
+void ResourceManager::resourcesUsed(int ID)
 {
 	for (int i = 0; i < approved.size(); i++)
 	{

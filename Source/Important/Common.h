@@ -14,6 +14,7 @@
 
 #include "Signals.h"
 #include "Util/RelativePosition.h"
+#include "Util/ResourceManager.h"
 
 // Global Macro
 #ifndef COMPILE_GLOBAL
@@ -64,6 +65,9 @@ class GatewayBehaviour;
 
 typedef boost::shared_ptr<GatewayBehaviour> GatewayBehaviourPtr;
 typedef std::set<GatewayBehaviourPtr> GatewayBehaviourSet;
+
+class ResourceManager;
+
 /* globals */
 GLOBAL int g_frame;
 GLOBAL UnitTrainingManagerSet g_managers;
@@ -71,3 +75,4 @@ GLOBAL UnitTrainingManager_factoryMap g_managerWatchMap;
 GLOBAL BaseManagerSet g_baseManagers;
 GLOBAL RelativePosition g_position;
 GLOBAL GatewayBehaviourSet g_gateways;
+GLOBAL ResourceManager g_resourceManager;

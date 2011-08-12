@@ -56,7 +56,7 @@
     <ClCompile Include="Source\UnitManager\Movement\ZealotWander.cpp">
       <Filter>Unit Manager\Movement</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Util\SCResourceManager.cpp">
+    <ClCompile Include="Source\Util\ResourceManager.cpp">
       <Filter>Util</Filter>
     </ClCompile>
   </ItemGroup>
@@ -155,7 +155,7 @@
     <ClInclude Include="Source\UnitManager\Movement\ZealotWander.h">
       <Filter>Unit Manager\Movement</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Util\SCResourceManager.h">
+    <ClInclude Include="Source\Util\ResourceManager.h">
       <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>
