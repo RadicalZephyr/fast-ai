@@ -1,5 +1,5 @@
 #include "GatewayBehaviour.h"
-#include "ZealotWander.h"
+#include "UnitManager/Movement/ZealotWander.h"
 
 void GatewayBehaviour::postBuild(BWAPI::Unit *unit) {
 	IUnitTrainingManagerBehaviour::postBuild(unit);

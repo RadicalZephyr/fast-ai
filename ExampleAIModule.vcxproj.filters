@@ -38,7 +38,6 @@
     <ClCompile Include="Source\BaseManager\BaseManager.cpp">
       <Filter>Base Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SCResourceManager.cpp" />
     <ClCompile Include="Source\Cheese\Strategies\CannonAwesome.cpp">
       <Filter>Cheese\Strategies</Filter>
     </ClCompile>
@@ -51,9 +50,14 @@
     <ClCompile Include="Source\Util\BuildOrder.cpp">
       <Filter>Util</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ZealotWander.cpp" />
     <ClCompile Include="Source\UnitTrainingManager\Behaviours\GatewayBehaviour.cpp">
       <Filter>Unit Training Manager\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UnitManager\Movement\ZealotWander.cpp">
+      <Filter>Unit Manager\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Util\SCResourceManager.cpp">
+      <Filter>Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -115,7 +119,6 @@
     <ClInclude Include="Source\BaseManager\INexusBehaviourController.h">
       <Filter>Base Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SCResourceManager.h" />
     <ClInclude Include="Source\Cheese\Strategies\CannonAwesome.h">
       <Filter>Cheese\Strategies</Filter>
     </ClInclude>
@@ -143,12 +146,17 @@
     <ClInclude Include="Source\UnitTrainingManager\Behaviours\GatewayBehaviour.h">
       <Filter>Unit Training Manager\Behaviours</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ZealotWander.h" />
     <ClInclude Include="Source\UnitManager\UnitManager.h">
       <Filter>Unit Manager</Filter>
     </ClInclude>
     <ClInclude Include="Source\UnitManager\IUnitManagerBehavior.h">
       <Filter>Unit Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UnitManager\Movement\ZealotWander.h">
+      <Filter>Unit Manager\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Util\SCResourceManager.h">
+      <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +189,9 @@
     </Filter>
     <Filter Include="Base Manager">
       <UniqueIdentifier>{28a4af45-8b37-4557-8475-1b27ec1d164c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Unit Manager\Movement">
+      <UniqueIdentifier>{a539a7bb-2d91-4f2f-aaaa-04ab3ac7798b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

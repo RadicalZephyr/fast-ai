@@ -107,7 +107,7 @@
     <ClCompile Include="Source\FunctionObjects\DistanceSorter.cpp" />
     <ClCompile Include="Source\Important\Dll.cpp" />
     <ClCompile Include="Source\Important\Signals.cpp" />
-    <ClCompile Include="Source\SCResourceManager.cpp" />
+    <ClCompile Include="Source\UnitManager\Movement\ZealotWander.cpp" />
     <ClCompile Include="Source\UnitTrainingManager\Behaviours\DefaultBehaviour.cpp" />
     <ClCompile Include="Source\UnitTrainingManager\Behaviours\GatewayBehaviour.cpp" />
     <ClCompile Include="Source\UnitTrainingManager\Behaviours\NexusBehaviour.cpp" />
@@ -117,7 +117,7 @@
     <ClCompile Include="Source\Util\Debug.cpp" />
     <ClCompile Include="Source\Util\Functions.cpp" />
     <ClCompile Include="Source\Util\RelativePosition.cpp" />
-    <ClCompile Include="Source\ZealotWander.cpp" />
+    <ClCompile Include="Source\Util\SCResourceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\BaseManager\BaseManager.h" />
@@ -134,8 +134,8 @@
     <ClInclude Include="Source\FunctionObjects\DistanceSorter.h" />
     <ClInclude Include="Source\Important\Common.h" />
     <ClInclude Include="Source\Important\Signals.h" />
-    <ClInclude Include="Source\SCResourceManager.h" />
     <ClInclude Include="Source\UnitManager\IUnitManagerBehavior.h" />
+    <ClInclude Include="Source\UnitManager\Movement\ZealotWander.h" />
     <ClInclude Include="Source\UnitManager\UnitManager.h" />
     <ClInclude Include="Source\UnitTrainingManager\Behaviours\DefaultBehaviour.h" />
     <ClInclude Include="Source\UnitTrainingManager\Behaviours\GatewayBehaviour.h" />
@@ -149,8 +149,8 @@
     <ClInclude Include="Source\Util\PersistentPrinter.h" />
     <ClInclude Include="Source\Util\RelativePosition.h" />
     <ClInclude Include="Source\Util\Rounding.h" />
+    <ClInclude Include="Source\Util\SCResourceManager.h" />
     <ClInclude Include="Source\Util\Timed.h" />
-    <ClInclude Include="Source\ZealotWander.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
