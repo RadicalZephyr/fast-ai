@@ -125,7 +125,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\BaseManager\BaseManager.h" />
-    <ClInclude Include="Source\BaseManager\INexusBehaviourController.h" />
     <ClInclude Include="Source\BWAPIadditions\BuildsWhat.h" />
     <ClInclude Include="Source\Cannonball.h" />
     <ClInclude Include="Source\Cheese\Helpers.h" />

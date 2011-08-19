@@ -15,10 +15,11 @@ void UnitTrainingManager::onFrame(void) {
 }
 
 void UnitTrainingManager::onUnitCreate(Unit* unit) {
-	if (m_building.isTraining() && unit && !unit->isCompleted() &&
+	if (m_building.isTraining() && unit && !unit->isCompleted() && unit->getType() == m_lastType &&
 		m_building.getPosition().getApproxDistance(unit->getPosition()) < c_buildDistance) {
 		m_trainingUnit = unit;
 		m_trainingTime.reset(unit->getType().buildTime());
+    m_unitConnection.block();
 	}
 }
 
@@ -30,9 +31,11 @@ bool UnitTrainingManager::buildUnit(void) {
 		checkShouldBuild() != UnitTypes::None) {
 			m_building.train(m_trainingType);
 			m_trainingUnit = 0;
-            return true;
+      m_lastType = m_trainingType;
+      m_unitConnection.unblock();
+      return true;
     } else {
-        return false;
+      return false;
     }
 }
 

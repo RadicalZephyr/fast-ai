@@ -40,6 +40,21 @@ void Cannonball::onStart()
 	Signal::onFriendlyUnitCreate().connect(boost::bind(&checkForBuildings, _1, g_managerWatchMap));
 
 	Signal::onStart()();
+
+  std::set<BWAPI::TilePosition> startLocs = Broodwar->getStartLocations();
+
+  //char buff[2048];
+  //int point = 0;
+  //point += sprintf(buff, "Num locations: %d\n", startLocs.size());
+
+  //for (std::set<BWAPI::TilePosition>::iterator itr = startLocs.begin();
+  //      itr != startLocs.end(); ++itr) {
+  //        point += sprintf(buff+point, "x: %d, y: %d\n", itr->x(), itr->y());
+
+  //}
+  //PersistentPrinter *printer = new PersistentPrinter;
+
+  //printer->printf("%s", buff);
 }
 
 void Cannonball::onSendText(std::string text)
@@ -60,6 +75,7 @@ void Cannonball::onSendText(std::string text)
 // The actually import callbacks to our AI
 void Cannonball::onFrame()
 {
+
 	/* Global Update TODO: Move somewhere more general */
 	g_frame = Broodwar->getFrameCount();
 
