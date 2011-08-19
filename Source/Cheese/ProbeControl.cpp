@@ -19,7 +19,6 @@ ProbeControl::ProbeControl(BWAPI::Unit *newProbe, onFindCallbackFunction callbac
 	std::set<TilePosition> & startLocations = Broodwar->getStartLocations();
 
 	TilePosition myPlace = Broodwar->self()->getStartLocation();
-	myPlace.makeValid();
 	
 	startLocations.erase(myPlace);
 
@@ -28,24 +27,39 @@ ProbeControl::ProbeControl(BWAPI::Unit *newProbe, onFindCallbackFunction callbac
 	Position nextPlace(*m_scoutLocations);
 	nextPlace.makeValid();
 
-	m_probe->move(nextPlace);
+	if(m_probe->getPosition().hasPath(nextPlace)) { 
+		m_probe->move(nextPlace);
+	}
+	else {
+		Broodwar->printf("No path to start location available");
+		m_callback(m_probe, 0);
+		SIGNAL_OFF_FRAME(ProbeControl);
+		Signal::onUnitDiscover().disconnect(boost::bind(&ProbeControl::onUnitDiscover, this, _1));
+		delete this;
+	}
 }
 
 void ProbeControl::onFrame()
 {
-	if(120 > m_probe->getPosition().getApproxDistance(m_probe->getTargetPosition())) {
+	if (m_probe->getPosition().getDistance(Position(*m_scoutLocations)) == 0) {
+		Broodwar->printf("Distance to start location is 0");
 
 		Position nextPlace(*(++m_scoutLocations));
 		nextPlace.makeValid();
-
 		timeout = 0;
 
-		m_probe->move(nextPlace);
+		if(m_probe->getPosition().hasPath(nextPlace)) { 
+			m_probe->move(nextPlace);
+		}
+		else {
+			Broodwar->printf("No path to start location available");
+			m_callback(m_probe, 0);
+			SIGNAL_OFF_FRAME(ProbeControl);
+			Signal::onUnitDiscover().disconnect(boost::bind(&ProbeControl::onUnitDiscover, this, _1));
+			delete this;
+		}
 	}
-	if (g_frame % 10 == 0) {
-		Broodwar->setScreenPosition(m_probe->getPosition() - Position(300, 200));
-	}
-	if (timeout++ > 1600)
+
 	if (timeout++ > 2000)
 	{
 		m_callback(m_probe, 0);
