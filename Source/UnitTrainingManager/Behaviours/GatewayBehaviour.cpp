@@ -1,9 +1,17 @@
 #include "GatewayBehaviour.h"
 #include "UnitManager/Movement/ZealotWander.h"
+#include "UnitManager/Movement/UnitGrouping.h"
 
 void GatewayBehaviour::postBuild(BWAPI::Unit *unit) {
 	IUnitTrainingManagerBehaviour::postBuild(unit);
-	new ZealotWander(unit);
+	if (std::rand() % 10 == 1) {
+		Broodwar->printf("Unit Wanderer Created");
+		new ZealotWander(unit);
+	}
+	else {
+		Broodwar->printf("Unit Grouper Created");
+		new UnitGrouping(unit);
+	}
 }
 
 BWAPI::UnitType GatewayBehaviour::shouldBuild(BWAPI::UnitType ) {

@@ -110,6 +110,7 @@
     <ClCompile Include="Source\FunctionObjects\DistanceSorter.cpp" />
     <ClCompile Include="Source\Important\Dll.cpp" />
     <ClCompile Include="Source\Important\Signals.cpp" />
+    <ClCompile Include="Source\UnitManager\Movement\UnitGrouping.cpp" />
     <ClCompile Include="Source\UnitManager\Movement\ZealotWander.cpp" />
     <ClCompile Include="Source\UnitTrainingManager\Behaviours\DefaultBehaviour.cpp" />
     <ClCompile Include="Source\UnitTrainingManager\Behaviours\GatewayBehaviour.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="Source\Important\Common.h" />
     <ClInclude Include="Source\Important\Signals.h" />
     <ClInclude Include="Source\UnitManager\IUnitManagerBehavior.h" />
+    <ClInclude Include="Source\UnitManager\Movement\UnitGrouping.h" />
     <ClInclude Include="Source\UnitManager\Movement\ZealotWander.h" />
     <ClInclude Include="Source\UnitManager\UnitManager.h" />
     <ClInclude Include="Source\UnitTrainingManager\Behaviours\DefaultBehaviour.h" />
