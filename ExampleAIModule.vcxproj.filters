@@ -116,9 +116,6 @@
     <ClInclude Include="Source\BaseManager\BaseManager.h">
       <Filter>Base Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Source\BaseManager\INexusBehaviourController.h">
-      <Filter>Base Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Cheese\Strategies\CannonAwesome.h">
       <Filter>Cheese\Strategies</Filter>
     </ClInclude>

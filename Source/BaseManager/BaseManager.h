@@ -2,16 +2,36 @@
 
 #include <BWAPI.h>
 #include <queue>
-#include "INexusBehaviourController.h"
 #include "UnitTrainingManager/Behaviours/NexusBehaviour.h"
+
+// Future design considerations
+//   This class could potentially several 'types' of delegate/behaviour (queueing discipline, base layout, etc.)
+//   The question is how to implement this.  As multiple sets of abstract bases?  Or as a single base class that
+//   contains multiple 'sections' and default implementations of all the different behaviours
+
+// Two major differences between the different designs: one has mandatory multiple inheritance, the other is single
+//  the MI model would also require three base classes, instead of one...
+// More files means that each one is smaller, the implemenation details of each thing aren't going to be wrapped up with eachother
+// 
+
+// Ideal model: 3 base classes with default implementations.  In order to customize this, you subclass just the class you want to customize.
+//   then, in order to make a class that can actually be used with the basemanager, you create a leaf class that inherits from the customized
+//   versions that you developed (plus any other classes you want to use)
+
+// Inheritance hierarchy looks like this (left = root, right = base)
+//  
+//  BasicQueueing -> CustomQueueingOne -> CustomQueueingOnePointTwo ->  LeafClass
+//  BasicLayout   -> CustomLayout  ----------------------------------->/
+// and then LeafClass is used as the delegate/behaviour of your BaseManager
+
 
 class RelativePosition;
 
-class BaseManager :
-	public INexusBehaviourController {
+class BaseManager {
 
 public:
 
+  // Use 'explicit' keyword to avoid allowing an implicit type conversion
 	explicit BaseManager(NexusBehaviour *nexusBehaviour): m_controllee(nexusBehaviour),
 														  m_lastBuildings(),
 														  m_buildQueue() {
