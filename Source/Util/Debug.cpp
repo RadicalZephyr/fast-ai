@@ -41,3 +41,8 @@ void setDebugSpeed(bool goDebugSuperFastCatCatCat)
 	else
 		BWAPI::Broodwar->setLocalSpeed(-1);
 }
+
+void drawCircleOnUnit(BWAPI::Unit *unit, BWAPI::Color color) {
+	BWAPI::Position pos(unit->getPosition());
+	Broodwar->drawCircleMap(pos.x(), pos.y(), 15, color);
+}

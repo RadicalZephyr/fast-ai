@@ -62,14 +62,11 @@ Unit *NexusBehaviour::removeProbe(void) {
 // Private methods
 //////////////////////////////////////////////////////
 
-void drawCircleOnUnit(BWAPI::Unit *unit) {
-	BWAPI::Position pos(unit->getPosition());
-	Broodwar->drawCircleMap(pos.x(), pos.y(), 15, Colors::Orange);
-}
-
 void NexusBehaviour::printDebug(void) {
-	std::for_each(m_minerals.begin(), m_minerals.end(), drawCircleOnUnit);
-	std::for_each(m_minGatherers.begin(), m_minGatherers.end(), drawCircleOnUnit);
+	std::for_each(m_minerals.begin(), m_minerals.end(), boost::bind(&drawCircleOnUnit, _1, BWAPI::Colors::Red));
+	std::for_each(m_minGatherers.begin(), m_minGatherers.end(), boost::bind(&drawCircleOnUnit, _1, BWAPI::Colors::Orange));
+  std::for_each(m_gas.begin(), m_gas.end(), boost::bind(&drawCircleOnUnit, _1, BWAPI::Colors::Blue));
+  std::for_each(m_gasGatherers.begin(), m_gasGatherers.end(), boost::bind(&drawCircleOnUnit, _1, BWAPI::Colors::Teal));
 }
 
 bool NexusBehaviour::isMyUnitSelected(void) {

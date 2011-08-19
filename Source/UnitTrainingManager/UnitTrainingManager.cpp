@@ -3,7 +3,7 @@
 using namespace BWAPI;
 
 // Constant for how far away units can be from their training building
-const int UnitTrainingManager::c_buildDistance = 100;
+const int UnitTrainingManager::c_buildDistance = 115;
 
 
 // Public methods, only meant to be called via the signals the class registers for at construction
@@ -60,6 +60,7 @@ void UnitTrainingManager::printDebug(void) {
 							"\x03trainingType: \x04%s \x03 \nunitTraining isDone: \x04%s \x03 \namountDone: \x04%d",
 							(m_trainingType ? m_trainingType.getName().c_str() : "none"),
 							(m_trainingTime ? "yes" : "no"), m_trainingTime.amountDone());
+    Broodwar->drawCircleMap(m_building.getPosition().x(), m_building.getPosition().y(), c_buildDistance, BWAPI::Colors::White);
 }
 
 bool UnitTrainingManager::isMyUnitSelected(void) {

@@ -16,5 +16,6 @@ private:
     bool debug;
 };
 
-
 void setDebugSpeed(bool goDebugSuperFastCatCatCat);
+
+void drawCircleOnUnit(BWAPI::Unit *unit, BWAPI::Color color);
