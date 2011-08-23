@@ -12,7 +12,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/function.hpp>
 
-#include "Signals.h"
+#include "Important/Signals.h"
 #include "Util/RelativePosition.h"
 #include "Util/ResourceManager.h"
 
