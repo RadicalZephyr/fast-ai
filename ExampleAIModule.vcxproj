@@ -97,17 +97,17 @@
       <AdditionalLibraryDirectories>$(BWAPI_ROOT)\lib;$(BOOST_ROOT)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\Release\Cannonball.dll" "$(ChaosDir)\bwapi-data\AI"</Command>
+      <Command>copy "$(SolutionDir)Release\Cannonball.dll" "$(ChaosDir)\..\bwapi-data\AI\Cannonball.dll"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ControlGroup.cpp" />
     <ClCompile Include="Source\BaseManager\BaseManager.cpp" />
     <ClCompile Include="Source\BWAPIadditions\BuildsWhat.cpp" />
     <ClCompile Include="Source\Cannonball.cpp" />
     <ClCompile Include="Source\Cheese\ProbeControl.cpp" />
     <ClCompile Include="Source\Cheese\Strategies\CannonAwesome.cpp" />
     <ClCompile Include="Source\Cheese\StrategyManager.cpp" />
+    <ClCompile Include="Source\ControlGroup.cpp" />
     <ClCompile Include="Source\FunctionObjects\DistanceSorter.cpp" />
     <ClCompile Include="Source\Important\Dll.cpp" />
     <ClCompile Include="Source\Important\Signals.cpp" />
@@ -125,7 +125,6 @@
     <ClCompile Include="Source\Util\ResourceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ControlGroup.h" />
     <ClInclude Include="Source\BaseManager\BaseManager.h" />
     <ClInclude Include="Source\BWAPIadditions\BuildsWhat.h" />
     <ClInclude Include="Source\Cannonball.h" />
@@ -136,6 +135,7 @@
     <ClInclude Include="Source\Cheese\Strategies\CannonAwesome.h" />
     <ClInclude Include="Source\Cheese\Strategy.h" />
     <ClInclude Include="Source\Cheese\StrategyManager.h" />
+    <ClInclude Include="Source\ControlGroup.h" />
     <ClInclude Include="Source\FunctionObjects\DistanceSorter.h" />
     <ClInclude Include="Source\Important\Common.h" />
     <ClInclude Include="Source\Important\Signals.h" />

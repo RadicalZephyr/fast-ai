@@ -62,7 +62,7 @@
     <ClCompile Include="Source\UnitManager\Movement\UnitGrouping.cpp">
       <Filter>Unit Manager\Movement</Filter>
     </ClCompile>
-    <ClCompile Include="ControlGroup.cpp" />
+    <ClCompile Include="Source\ControlGroup.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Cannonball.h" />
@@ -162,7 +162,7 @@
     <ClInclude Include="Source\UnitManager\Movement\UnitGrouping.h">
       <Filter>Unit Manager\Movement</Filter>
     </ClInclude>
-    <ClInclude Include="ControlGroup.h" />
+    <ClInclude Include="Source\ControlGroup.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Important">
