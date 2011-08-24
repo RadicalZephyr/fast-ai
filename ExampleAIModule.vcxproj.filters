@@ -63,6 +63,9 @@
       <Filter>Unit Manager\Movement</Filter>
     </ClCompile>
     <ClCompile Include="Source\ControlGroup.cpp" />
+    <ClCompile Include="Source\Util\pylonChecker.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Cannonball.h" />

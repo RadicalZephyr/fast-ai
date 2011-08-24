@@ -118,6 +118,7 @@
     <ClCompile Include="Source\UnitTrainingManager\Behaviours\NexusBehaviour.cpp" />
     <ClCompile Include="Source\UnitTrainingManager\UnitTrainingManager.cpp" />
     <ClCompile Include="Source\Util\BuildOrder.cpp" />
+    <ClCompile Include="Source\Util\pylonChecker.cpp" />
     <ClCompile Include="Source\Util\RelativeSide.cpp" />
     <ClCompile Include="Source\Util\Debug.cpp" />
     <ClCompile Include="Source\Util\Functions.cpp" />

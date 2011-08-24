@@ -236,32 +236,34 @@ void CheeseStrategies::CannonAwesome::attemptEarlyRecover(BuildOrderElement* ord
 void CheeseStrategies::CannonAwesome::recoverEcon()
 {
 	controls->resumeEcon();
+
+
 	static bool added;
 	if (!added)
 	{
 		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
 		controls->buildInBase(BWAPI::UnitTypes::Protoss_Gateway);
 		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
-		controls->buildInBase(BWAPI::UnitTypes::Protoss_Forge);
-		controls->buildInBase(BWAPI::UnitTypes::Protoss_Photon_Cannon);
-		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Forge);
+		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Photon_Cannon);
+		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
 		controls->buildInBase(BWAPI::UnitTypes::Protoss_Gateway);
-		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
-		controls->buildInBase(BWAPI::UnitTypes::Protoss_Cybernetics_Core);
-		controls->buildInBase(BWAPI::UnitTypes::Protoss_Photon_Cannon);
-		controls->buildInBase(BWAPI::UnitTypes::Protoss_Gateway);
-		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
-		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
-		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
-		controls->buildInBase(BWAPI::UnitTypes::Protoss_Gateway);
-		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
-		controls->buildInBase(BWAPI::UnitTypes::Protoss_Gateway);
-		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
-		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
-		controls->buildInBase(BWAPI::UnitTypes::Protoss_Gateway);
-		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
-		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
-		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Cybernetics_Core);
+		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Photon_Cannon);
+		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Gateway);
+		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Gateway);
+		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Gateway);
+		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Gateway);
+		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
 		added = true;
 	}
 }
