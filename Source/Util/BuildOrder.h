@@ -10,9 +10,11 @@ struct BuildOrderElement;
 
 typedef boost::function< void (BuildOrderElement* orderElement, BWAPI::Unit* builderProbe) > BuildOrderElementOnStartCallback;
 typedef boost::function< void (BWAPI::Unit* finishedBuilding) > BuildOrderElementOnDoneCallback;
+typedef boost::function< void (BWAPI::Unit* probe, BWAPI::TilePosition nextSpot) > BuildOrderProbeIdle;
 
 void BuildOrderElementOnStartVoid(BuildOrderElement* orderElement, BWAPI::Unit* builderProbe);
 void BuildOrderElementOnDoneVoid(BWAPI::Unit* finishedBuilding);
+void BuildOrderProbeDefaultProbeIdle(BWAPI::Unit* probe, BWAPI::TilePosition nextSpot);
 
 struct BuildOrderElement
 {
@@ -37,7 +39,7 @@ class BuildOrder
 public:
 	typedef boost::function< void (BWAPI::Unit* builderProbe) > OnEndCallback;
 
-	BuildOrder(OnEndCallback onEnd) : m_onEnd(onEnd) {}
+	BuildOrder(OnEndCallback onEnd) : m_onEnd(onEnd) {probeIdleFunction = BuildOrderProbeDefaultProbeIdle;}
 
 	// This will add the element to the stack.
 	// Optional elements will be poped off the stack as they appear.
@@ -48,7 +50,7 @@ public:
 	void start(BWAPI::Unit* probe);
 	BWAPI::Unit* stop();
 
-	BWAPI::Position idlePosition;
+	BuildOrderProbeIdle probeIdleFunction;
 
 private:
 	void onFrame();

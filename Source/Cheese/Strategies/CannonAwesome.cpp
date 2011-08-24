@@ -103,7 +103,6 @@ void CheeseStrategies::CannonAwesome::onUnitDiscover(BWAPI::Unit *unit) {
 		}
 
 		m_probe->move(BWAPI::Position(Cannon));
-		m_buildOrder->idlePosition = BWAPI::Position(Cannon);
 
 		m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Pylon, Pylon, false, boost::bind(&CannonAwesome::attemptEarlyRecover, this, _1, _2)));
 		m_buildOrder->addOrderElement(BuildOrderElement(UnitTypes::Protoss_Forge, Forge, false, boost::bind(&CannonAwesome::attemptEarlyRecover, this, _1, _2)));
