@@ -38,10 +38,11 @@ void CheeseStrategyManager::onFrame(void)
 {
 	if (m_scoutProbe == 0)
 	{
-		BaseManagerSet::iterator first = g_baseManagers . begin();
-		if (m_strategy -> whichProbe == 0)
+		BaseManagerSet::iterator first = g_baseManagers.begin();
+		if (m_strategy->whichProbe == 0)
 		{
-			m_scoutProbe = new ProbeControl((*first) -> getControllee() -> removeProbe(), boost::bind(&CheeseStrategyManager::foundEnemy, this, _1, _2));
+      // This is the problem child...
+			m_scoutProbe = new ProbeControl((*first)->getControllee()->removeProbe(), boost::bind(&CheeseStrategyManager::foundEnemy, this, _1, _2));
 			(*first)->getControllee()->onUnitDoneSignal().connect(boost::bind(&CheeseStrategyManager::onNewProbe, this, _1));
 			m_base = (*first);
 		}

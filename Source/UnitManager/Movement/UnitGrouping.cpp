@@ -1,7 +1,8 @@
 #include "UnitGrouping.h"
 #include "UnitManager/Movement/ZealotWander.h"
 
-UnitGrouping::UnitGrouping(BWAPI::Unit *unit) : m_unit(unit), m_connection(Signal::onFrame().connect(boost::bind(&UnitGrouping::onFrame, this))) {
+UnitGrouping::UnitGrouping(BWAPI::Unit *unit) : m_unit(unit), m_connection() {
+  m_connection = Signal::onFrame().connect(boost::bind(&UnitGrouping::onFrame, this));
 	m_rallyDestination = Broodwar->self()->getStartLocation().makeValid();
 	m_minGroupSize = 10;
 }

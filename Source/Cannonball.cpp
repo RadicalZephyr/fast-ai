@@ -12,29 +12,28 @@ using namespace BWAPI;
 
 void Cannonball::onStart()
 {
-    // Enable some cheat flags
-    Broodwar->enableFlag(Flag::UserInput);
-	setDebugSpeed(true);
-    // Uncomment to enable complete map information
-    //Broodwar->enableFlag(Flag::CompleteMapInformation);
+  // Enable some cheat flags
+  Broodwar->enableFlag(Flag::UserInput);
+  setDebugSpeed(false);
+  // Uncomment to enable complete map information
+  //Broodwar->enableFlag(Flag::CompleteMapInformation);
 
-	// Creation of the g_managerWatchMap.  Nexii get a specialized behaviour, all other buildings get the default (PRODUCE SOMETHING!!)
-	g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Nexus,
-										  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<NexusBehaviour>)));
-	// Gateways produce zealots, and then make a class to cause the zealots to wander the map
-	g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Gateway,
-										  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<GatewayBehaviour>)));
-	
-	// Default behaviours
-	g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Carrier,
-										  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
-	g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Reaver,
-										  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
+  // Creation of the g_managerWatchMap.  Nexii get a specialized behaviour, all other buildings get the default (PRODUCE SOMETHING!!)
+  g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Nexus,
+    static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<NexusBehaviour>)));
+  // Gateways produce zealots, and then make a class to cause the zealots to wander the map
+  g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Gateway,
+    static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<GatewayBehaviour>)));
+
+  // Default behaviours
+  g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Carrier,
+    static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
+  g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Reaver,
+    static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
 	//g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Stargate,
 	//									  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
 	//g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Robotics_Facility,
 	//									  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
-
 
 	// Register to check the watch map every time we create a unit
 	Signal::onFriendlyUnitCreate().connect(boost::bind(&checkForBuildings, _1, g_managerWatchMap));
@@ -75,7 +74,6 @@ void Cannonball::onSendText(std::string text)
 // The actually import callbacks to our AI
 void Cannonball::onFrame()
 {
-
 	/* Global Update TODO: Move somewhere more general */
 	g_frame = Broodwar->getFrameCount();
 
@@ -86,7 +84,6 @@ void Cannonball::onFrame()
 	//	Broodwar->printf("Happened");
 	//	probes->nextLocation();
 	//}
-
 	Signal::onFrame()();
 }
 

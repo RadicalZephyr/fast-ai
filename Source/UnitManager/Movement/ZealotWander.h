@@ -5,8 +5,10 @@
 class ZealotWander
 {
 public:
-	ZealotWander(BWAPI::Unit *unit): m_unit(unit), m_connection(Signal::onFrame().connect(boost::bind(&ZealotWander::onFrame, this))),
-						m_visitedPositions(), m_attacking(false) {}
+	ZealotWander(BWAPI::Unit *unit): m_unit(unit), m_connection(),
+						m_visitedPositions(), m_attacking(false) {
+    m_connection = Signal::onFrame().connect(boost::bind(&ZealotWander::onFrame, this));
+  }
 
 	~ZealotWander(void) {m_connection.disconnect();}
 

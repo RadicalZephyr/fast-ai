@@ -76,3 +76,5 @@ GLOBAL BaseManagerSet g_baseManagers;
 GLOBAL RelativePosition g_position;
 GLOBAL GatewayBehaviourSet g_gateways;
 GLOBAL ResourceManager g_resourceManager;
+
+#define DEBUG(x) ::MessageBoxA(0, x, "Debugging", 0)
