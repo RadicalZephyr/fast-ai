@@ -37,6 +37,7 @@ public:
 														  m_buildQueue() {
 		m_frameConnection = Signal::onFrame().connect(boost::bind(&BaseManager::onFrame, this));
 		m_unitCreateConnection = Signal::onFriendlyUnitCreate().connect(boost::bind(&BaseManager::onUnitCreate, this, _1));
+		m_morphCreateConnection = Signal::onUnitMorph().connect(boost::bind(&BaseManager::onUnitMorph, this, _1));
 	}
 
 	virtual ~BaseManager(void) {
@@ -52,6 +53,7 @@ public:
 
 	void onFrame(void);
 	void onUnitCreate(BWAPI::Unit *unit);
+	void onUnitMorph(BWAPI::Unit *unit);
 
 private:
 	
@@ -66,6 +68,7 @@ private:
 
 	boost::signals::connection m_frameConnection;
 	boost::signals::connection m_unitCreateConnection;
+	boost::signals::connection m_morphCreateConnection;
 
 	std::queue<BWAPI::UnitType> m_buildQueue;
 

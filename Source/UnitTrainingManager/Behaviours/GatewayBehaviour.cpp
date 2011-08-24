@@ -5,11 +5,11 @@
 void GatewayBehaviour::postBuild(BWAPI::Unit *unit) {
 	IUnitTrainingManagerBehaviour::postBuild(unit);
 	if (std::rand() % 10 == 1) {
-		Broodwar->printf("Unit Wanderer Created");
+		// Broodwar->printf("Unit Wanderer Created");
 		new ZealotWander(unit);
 	}
 	else {
-		Broodwar->printf("Unit Grouper Created");
+		// Broodwar->printf("Unit Grouper Created");
 		new UnitGrouping(unit);
 	}
 }

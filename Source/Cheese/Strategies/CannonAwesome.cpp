@@ -244,9 +244,10 @@ void CheeseStrategies::CannonAwesome::recoverEcon()
 		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
 		controls->buildInBase(BWAPI::UnitTypes::Protoss_Gateway);
 		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
-		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Forge);
-		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Photon_Cannon);
-		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Assimilator);	// Just added
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Forge);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Photon_Cannon);
+		controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
 		controls->buildInBase(BWAPI::UnitTypes::Protoss_Gateway);
 		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Pylon);
 		//controls->buildInBase(BWAPI::UnitTypes::Protoss_Cybernetics_Core);

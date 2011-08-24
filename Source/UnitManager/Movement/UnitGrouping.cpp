@@ -19,7 +19,7 @@ void UnitGrouping::onFrame(void) {
 	int numSameUnits = Broodwar->self()->completedUnitCount(m_unit->getType());
 
 	if (enemy && numSameUnits >= m_minGroupSize) {
-		BWAPI::Broodwar->printf("Attacking with a group");
+		// BWAPI::Broodwar->printf("Attacking with a group");
 		m_unit->attack(enemy->getPosition());
 
 		while (!m_unit->isIdle()) {
@@ -29,7 +29,7 @@ void UnitGrouping::onFrame(void) {
 		m_connection.disconnect();
 				
 		new ZealotWander(m_unit);
-		Broodwar->printf("This unit started wandering");
+		// Broodwar->printf("This unit started wandering");
 	}
 
 }

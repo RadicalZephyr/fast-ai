@@ -2,6 +2,7 @@
 #include "Important/Common.h"
 #include "UnitTrainingManager/IUnitTrainingManagerBehaviour.h"
 #include "Util/Debug.h"
+#include "Util/Timed.h"
 
 using BWAPI::Unit;
 
@@ -21,7 +22,8 @@ public:
 
 	void addProbe(Unit *unit);
 	Unit *removeProbe(void);
-
+	BWAPI::TilePosition startGas(void);
+	
 	Unit *getNexus(void) {return m_nexus;}
 
 private:

@@ -21,8 +21,6 @@ NexusBehaviour::NexusBehaviour(BWAPI::Unit *nexus): m_nexus(nexus),
 }
 
 void NexusBehaviour::onFrame(void) {
-	// This is meant to... what?  Call it's delegate/behaviour's methods?
-	// Could have it do two things, try and build a pylon, try and build an extractor
 }
 
 
@@ -32,7 +30,7 @@ void NexusBehaviour::postBuild(BWAPI::Unit *unit) {
 
 	IUnitTrainingManagerBehaviour::postBuild(unit);
 
-	addMiner(unit);
+	addProbe(unit); // !!!!!!
 }
 
 BWAPI::UnitType NexusBehaviour::shouldBuild(BWAPI::UnitType ) {
@@ -44,7 +42,8 @@ BWAPI::UnitType NexusBehaviour::shouldBuild(BWAPI::UnitType ) {
 }
 
 void NexusBehaviour::addProbe(Unit *unit) {
-	if (g_resourceManager.minerals() > 75 && g_resourceManager.gas() < 50 && m_gasGatherers.size() < 3) {
+	// Broodwar->printf("Gas Begin type is %s", (*m_gas.begin())->getType().getName().c_str());
+	if ((*m_gas.begin())->getType() == BWAPI::UnitTypes::Protoss_Assimilator && m_gasGatherers.size() < 3) {
 		addGasser(unit);
 	} else {
 		addMiner(unit);
@@ -55,6 +54,21 @@ Unit *NexusBehaviour::removeProbe(void) {
 	UnitSet::iterator first = m_minGatherers.begin();
 	m_minGatherers.erase(first);
 	return *first;
+}
+
+
+BWAPI::TilePosition NexusBehaviour::startGas(void) {
+	if (m_minGatherers.size() > 3 && m_gasGatherers.size() < 3) {
+		BWAPI::Unit *gasProbe1 = removeProbe();
+
+		addGasser(gasProbe1);
+
+		return (*m_gas.begin())->getTilePosition();
+	}
+	else {
+		Broodwar->printf("Couldn't start gas");
+		return BWAPI::TilePosition(0,0);
+	}
 }
 
 
@@ -110,7 +124,7 @@ bool NexusBehaviour::addGasser(BWAPI::Unit *probe) {
 		probe->build(m_gas.front()->getTilePosition(), UnitTypes::Protoss_Assimilator);
 		return addProbeToGatherers(probe, m_minGatherers, m_minerals, true);
 	} else if (m_gas.front()->isBeingConstructed()) {
-		return false;
+		return addProbeToGatherers(probe, m_minGatherers, m_minerals, true);
 	} else {
 		return addProbeToGatherers(probe, m_gasGatherers, m_gas);
 	}

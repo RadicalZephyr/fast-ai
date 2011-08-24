@@ -59,15 +59,26 @@ void BaseManager::onFrame(void) {
 //  and/or we should generalize that part too
 void BaseManager::onUnitCreate(BWAPI::Unit *unit) {
 	if (unit->getTilePosition().getDistance(m_lastTilePos) < 1.0 && m_buildQueue.front() == unit->getType()) {
+		// Broodwar->printf("A %s Has been Created", unit->getType().getName().c_str());
 		m_buildQueue.pop();
 		m_lastBuildings.push_back(unit);
 	}
 }
 
+void BaseManager::onUnitMorph(BWAPI::Unit *unit) {
+	// Broodwar->printf("UNIT MORPHED!!!");
+	onUnitCreate(unit);
+}
+
 bool BaseManager::doBuildCheck(void) {
 	UnitType type = m_buildQueue.front();
 
-	return m_probe->build(m_lastTilePos = getRandomBuildPos(type), type);
+	if (type == BWAPI::UnitTypes::Protoss_Assimilator) {
+		m_lastTilePos = m_controllee->startGas();
+	}
+	else {
+		return m_probe->build(m_lastTilePos = getRandomBuildPos(type), type);
+	}
 }
 
 
