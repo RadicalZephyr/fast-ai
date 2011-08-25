@@ -23,7 +23,7 @@ bool pylonCheck()
 			}
 		}
 	}
-	BWAPI::Broodwar->printf("supplyused: %d    foodneeded: %d   supplytotal: %d",BWAPI::Broodwar->self()->supplyUsed(), foodneeded, BWAPI::Broodwar->self()->supplyTotal());
+	// BWAPI::Broodwar->printf("supplyused: %d    foodneeded: %d   supplytotal: %d",BWAPI::Broodwar->self()->supplyUsed(), foodneeded, BWAPI::Broodwar->self()->supplyTotal());
 	if(BWAPI::Broodwar->self()->supplyUsed() + foodneeded > BWAPI::Broodwar->self()->supplyTotal())
 	{
 		return true;

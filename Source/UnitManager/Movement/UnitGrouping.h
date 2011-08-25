@@ -16,7 +16,6 @@ private:
 	boost::signals::connection m_connection;
 
 	BWAPI::TilePosition m_rallyDestination;
-	BWAPI::TilePosition m_attackDestination(void);
 	int m_minGroupSize;
 
 	BWAPI::Unit *visibleEnemy(void);

@@ -23,24 +23,53 @@ bool BaseManager::constructBuilding(BWAPI::UnitType type) {
 }
 
 void BaseManager::onFrame(void) {
+	if (!m_buildQueue.empty()) {
+		if (!m_probe) {
+			m_probe = m_controllee->removeProbe();
+		}
+		if (!m_probe->isConstructing()) {
+			doBuildCheck();
+		}
+	}
+	else { // Build queue is empty
+		if (pylonCheck()) {
+			Broodwar->printf("Pylon pushed onto queue by base Manager");
+			m_buildQueue.push(BWAPI::UnitTypes::Protoss_Pylon);
+		}
+	}
+
+	/* Old Version ------------------
+
+	if (!m_buildQueue.empty() && m_probe && !m_probe->isConstructing()) {
+		doBuildCheck();
+
+	} else if (m_buildQueue.empty() && m_probe && !m_probe->isConstructing() && g_resourceManager.minerals() > 200) {
+		if (Broodwar->self()->supplyTotal() - 7 >= Broodwar->self()->supplyUsed()) {
+			m_buildQueue.push(BWAPI::UnitTypes::Protoss_Pylon);
+		} else {
+			m_buildQueue.push(BWAPI::UnitTypes::Protoss_Gateway);
+		}
+	}
+	*/ // End Old Version ------------------------------
+
+	/* David's Version --------------
 	
 	if (!m_buildQueue.empty() && m_probe && !m_probe->isConstructing()) 
 	{
-		BWAPI::Broodwar->printf("1");
+		// BWAPI::Broodwar->printf("1");
 		doBuildCheck();
 
 	} else if (BWAPI::Broodwar->self()->supplyTotal() < 400 && m_buildQueue.empty() && pylonCheck() && g_resourceManager.minerals() >= 100)
 	{
-		BWAPI::Broodwar->printf("2");
+		// BWAPI::Broodwar->printf("2");
 		m_buildQueue.push(BWAPI::UnitTypes::Protoss_Pylon);
 	}
 	else if (m_buildQueue.empty() && g_resourceManager.minerals() > 500)
 	{
-		BWAPI::Broodwar->printf("3");
+		// BWAPI::Broodwar->printf("3");
 		m_buildQueue.push(BWAPI::UnitTypes::Protoss_Gateway);
 	}
-
-
+	*/ // End David's Version --------------
 
 
 	//else if (m_buildQueue.empty() && m_probe && !m_probe->isConstructing() && g_resourceManager.minerals() > 200) {
@@ -49,11 +78,12 @@ void BaseManager::onFrame(void) {
 	//	} else {
 	//		m_buildQueue.push(BWAPI::UnitTypes::Protoss_Gateway);
 	//	}
-}		/*else if (m_probe && !m_probe->isConstructing()) {  // This section is supposed to keep the 'building' probe from sitting idle
+		/*else if (m_probe && !m_probe->isConstructing()) {  // This section is supposed to keep the 'building' probe from sitting idle
 		m_controllee->addProbe(m_probe);                    //  sending it back to work when there's no buildings in the queue
 		m_probe = 0;
 		}*/
 
+}
 
 // The building list should probably be a type-keyed multiMap
 //  and/or we should generalize that part too
