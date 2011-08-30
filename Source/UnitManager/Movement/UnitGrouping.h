@@ -15,10 +15,13 @@ private:
 	BWAPI::Unit *m_unit;
 	boost::signals::connection m_connection;
 
+	BWAPI::Unit *visibleEnemy(void);
+
 	BWAPI::TilePosition m_rallyDestination;
 	int m_minGroupSize;
+	int m_defenseRadius;
 
-	BWAPI::Unit *visibleEnemy(void);
+
 
 };
 

@@ -5,6 +5,7 @@ UnitGrouping::UnitGrouping(BWAPI::Unit *unit) : m_unit(unit), m_connection() {
   m_connection = Signal::onFrame().connect(boost::bind(&UnitGrouping::onFrame, this));
 	m_rallyDestination = Broodwar->self()->getStartLocation().makeValid();
 	m_minGroupSize = 10;
+	m_defenseRadius = 500;
 }
 
 void UnitGrouping::onFrame(void) {
@@ -30,6 +31,15 @@ void UnitGrouping::onFrame(void) {
 				
 		new ZealotWander(m_unit);
 		// Broodwar->printf("This unit started wandering");
+	}
+	else if (enemy && enemy->getDistance(Position(Broodwar->self()->getStartLocation())) < m_defenseRadius) {
+		BWAPI::Broodwar->printf("Defending Base");
+		m_unit->attack(enemy->getPosition());
+
+		SIGNAL_OFF_FRAME(UnitGrouping);
+		m_connection.disconnect();
+				
+		new ZealotWander(m_unit);
 	}
 
 }

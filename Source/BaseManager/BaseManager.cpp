@@ -32,7 +32,7 @@ void BaseManager::onFrame(void) {
 		}
 	}
 	else { // Build queue is empty
-		if (pylonCheck()) {
+		if (pylonCheck() && Broodwar->self()->supplyTotal() != 400) {
 			Broodwar->printf("Pylon pushed onto queue by base Manager");
 			m_buildQueue.push(BWAPI::UnitTypes::Protoss_Pylon);
 		}
