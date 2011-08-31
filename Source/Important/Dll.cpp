@@ -1,4 +1,4 @@
-#define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
+#define WIN32_LEAN_AND_MEAN     // Exclude rarely-used stuff from Windows headers
 
 #include <windows.h>
 #include <stdio.h>
@@ -13,38 +13,38 @@
 #include "../Cannonball.h"
 #include "BWAPIadditions/BuildsWhat.h"
 
-namespace BWAPI { 
-	Game* Broodwar; 
+namespace BWAPI {
+   Game* Broodwar;
 
-	UnitTypeSet const &buildsWhat(UnitType unitType) {
-		static BuildsWhat buildsWhatMap;
-		return buildsWhatMap.lookupBuildsWhat(unitType);
-	}
+    UnitTypeSet const &buildsWhat(UnitType unitType) {
+   static BuildsWhat buildsWhatMap;
+        return buildsWhatMap.lookupBuildsWhat(unitType);
+    }
 }
 
-BOOL APIENTRY DllMain( HANDLE, 
-                       DWORD  ul_reason_for_call, 
-                       LPVOID
-					 )
+BOOL APIENTRY DllMain( HANDLE,
+  DWORD ul_reason_for_call,
+  LPVOID
+  )
 {
-	switch (ul_reason_for_call)
-	{
-	case DLL_PROCESS_ATTACH:
-    BWAPI::BWAPI_init();
-		break;
-	case DLL_PROCESS_DETACH:
-		break;
-	}
+    switch (ul_reason_for_call)
+    {
+    case DLL_PROCESS_ATTACH:
+        BWAPI::BWAPI_init();
+        break;
+    case DLL_PROCESS_DETACH:
+        break;
+    }
 
 
-	return TRUE;
+    return TRUE;
 }
 
- extern "C" __declspec(dllexport) BWAPI::AIModule* newAIModule(BWAPI::Game* game)
+extern "C" __declspec(dllexport) BWAPI::AIModule* newAIModule(BWAPI::Game* game)
 {
-  // Explicitly ignoring the return value.  This call is solely to initialize the buildsWhat static
-  //  data structure
-  BWAPI::Broodwar=game;
-  (void)BWAPI::buildsWhat(BWAPI::UnitTypes::getUnitType("Protoss Nexus"));
-  return new Cannonball();
+    // Explicitly ignoring the return value.  This call is solely to initialize the buildsWhat static
+    //  data structure
+    BWAPI::Broodwar=game;
+      (void)BWAPI::buildsWhat(BWAPI::UnitTypes::getUnitType("Protoss Nexus"));
+    return new Cannonball();
 }

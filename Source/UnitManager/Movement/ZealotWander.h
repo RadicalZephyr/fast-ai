@@ -5,22 +5,24 @@
 class ZealotWander
 {
 public:
-	ZealotWander(BWAPI::Unit *unit): m_unit(unit), m_connection(),
-						m_visitedPositions(), m_attacking(false) {
-    m_connection = Signal::onFrame().connect(boost::bind(&ZealotWander::onFrame, this));
-  }
+    ZealotWander(BWAPI::Unit *unit) : m_unit(unit), m_connection(),
+                                      m_visitedPositions(), m_attacking(false) {
+        m_connection = Signal::onFrame().connect(boost::bind(&ZealotWander::onFrame, this));
+    }
 
-	~ZealotWander(void) {m_connection.disconnect();}
+    ~ZealotWander(void) {
+   m_connection.disconnect();
+    }
 
-	void onFrame(void);
+    void onFrame(void);
 
 private:
-	BWAPI::Position newDestination(void);
-	BWAPI::Unit *nearestEnemy(void);
+    BWAPI::Position newDestination(void);
+    BWAPI::Unit *nearestEnemy(void);
 
-	BWAPI::Unit *m_unit;
-	boost::signals::connection m_connection;
+    BWAPI::Unit *m_unit;
+    boost::signals::connection m_connection;
 
-	std::set<BWAPI::Position> m_visitedPositions;
-	bool m_attacking;
+    std::set<BWAPI::Position> m_visitedPositions;
+    bool m_attacking;
 };

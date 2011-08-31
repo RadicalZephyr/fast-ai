@@ -98,7 +98,14 @@
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)Release\Cannonball.dll" "$(ChaosDir)\..\bwapi-data\AI\Cannonball.dll"</Command>
+      <Message>Copy the compiled Cannonball.dll to the BWAPI AI folder.  This step is optional, so the build was successful even if it says it fails.</Message>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>FOR /R $(SolutionDir)Source\ %%G IN (*.cpp,*.h) DO $(SolutionDir)..\uncrustify\uncrustify.exe -c $(SolutionDir)uncrust.cfg --no-backup %%G</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>Runs uncrustify (a source reformatting tool) on all cpp, and h files in the Source directory.</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\BaseManager\BaseManager.cpp" />

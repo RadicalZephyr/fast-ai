@@ -5,21 +5,23 @@
 class UnitGrouping
 {
 public:
-	UnitGrouping(BWAPI::Unit *unit);
+    UnitGrouping(BWAPI::Unit *unit);
 
-	~UnitGrouping(void) { m_connection.disconnect(); }
+    ~UnitGrouping(void) {
+   m_connection.disconnect();
+    }
 
-	void onFrame(void);
+    void onFrame(void);
 
 private:
-	BWAPI::Unit *m_unit;
-	boost::signals::connection m_connection;
+    BWAPI::Unit *m_unit;
+    boost::signals::connection m_connection;
 
-	BWAPI::Unit *visibleEnemy(void);
+    BWAPI::Unit *visibleEnemy(void);
 
-	BWAPI::TilePosition m_rallyDestination;
-	int m_minGroupSize;
-	int m_defenseRadius;
+    BWAPI::TilePosition m_rallyDestination;
+    int m_minGroupSize;
+    int m_defenseRadius;
 
 
 

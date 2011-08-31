@@ -17,86 +17,86 @@
 namespace Signal
 {
 
-	//Register a start callback.
-	//Only called once, so no need for return value
-	boost::signal<void ()> &onStart(void);
+    //Register a start callback.
+    //Only called once, so no need for return value
+    boost::signal<void ()> &onStart(void);
 
-	//Register an end callback.
-	//Only called once, so no need for return value
-	//1 = isWinner
-	boost::signal<void (bool)> &onEnd();
+    //Register an end callback.
+    //Only called once, so no need for return value
+    //1 = isWinner
+    boost::signal<void (bool)> &onEnd();
 
-	//Register a frame callback.
-	boost::signal<void ()> &onFrame(void);
+    //Register a frame callback.
+    boost::signal<void ()> &onFrame(void);
 
-	//Register a sending_text callback.
-	//1 = text
-	boost::signal<void (std::string)> &onSendText(void);
+    //Register a sending_text callback.
+    //1 = text
+    boost::signal<void (std::string)> &onSendText(void);
 
-	//Register a receiving_text callback.
-	//1 = player
-	//2 = text
-	boost::signal<void (BWAPI::Player* player, std::string)> &onReceiveText(void);
+    //Register a receiving_text callback.
+    //1 = player
+    //2 = text
+    boost::signal<void (BWAPI::Player* player, std::string)> &onReceiveText(void);
 
-	//Register a player_left callback.
-	//1 = player
-	boost::signal<void (BWAPI::Player* player)> &onPlayerLeft(void);
+    //Register a player_left callback.
+    //1 = player
+    boost::signal<void (BWAPI::Player* player)> &onPlayerLeft(void);
 
-	//Register a nuke_detect callback.
-	//1 = posistion
-	boost::signal<void (BWAPI::Position target)> &onNukeDetect(void);
+    //Register a nuke_detect callback.
+    //1 = posistion
+    boost::signal<void (BWAPI::Position target)> &onNukeDetect(void);
 
-	//Register a unit discover callback.
-	//1 = unit
-	boost::signal<void (BWAPI::Unit*)> &onUnitDiscover(void);
+    //Register a unit discover callback.
+    //1 = unit
+    boost::signal<void (BWAPI::Unit*)> &onUnitDiscover(void);
 
-	//Register a unit evade callback.
-	//1 = unit
-	boost::signal<void (BWAPI::Unit*)> &onUnitEvade(void);
+    //Register a unit evade callback.
+    //1 = unit
+    boost::signal<void (BWAPI::Unit*)> &onUnitEvade(void);
 
-	//Register a unit show callback.
-	//1 = unit
-	boost::signal<void (BWAPI::Unit*)> &onUnitShow(void);
+    //Register a unit show callback.
+    //1 = unit
+    boost::signal<void (BWAPI::Unit*)> &onUnitShow(void);
 
-	//Register a unit hide callback.
-	//1 = unit
-	boost::signal<void (BWAPI::Unit*)> &onUnitHide(void);
+    //Register a unit hide callback.
+    //1 = unit
+    boost::signal<void (BWAPI::Unit*)> &onUnitHide(void);
 
-	//Register a friendly unit create callback.
-	//1 = unit
-	boost::signal<void (BWAPI::Unit*)> &onFriendlyUnitCreate(void);
+    //Register a friendly unit create callback.
+    //1 = unit
+    boost::signal<void (BWAPI::Unit*)> &onFriendlyUnitCreate(void);
 
-	//Register an enemy unit create callback.
-	//1 = unit
-	boost::signal<void (BWAPI::Unit*)> &onEnemyUnitCreate(void);
+    //Register an enemy unit create callback.
+    //1 = unit
+    boost::signal<void (BWAPI::Unit*)> &onEnemyUnitCreate(void);
 
-	//Register a frienldy unit destroy callback.
-	//1 = unit
-	boost::signal<void (BWAPI::Unit*)> &onFriendlyUnitDestroy(void);
+    //Register a frienldy unit destroy callback.
+    //1 = unit
+    boost::signal<void (BWAPI::Unit*)> &onFriendlyUnitDestroy(void);
 
-	//Register an enemy unit destroy callback.
-	//1 = unit
-	boost::signal<void (BWAPI::Unit*)> &onEnemyUnitDestroy(void);
+    //Register an enemy unit destroy callback.
+    //1 = unit
+    boost::signal<void (BWAPI::Unit*)> &onEnemyUnitDestroy(void);
 
-	//Register a neutral unit destroy callback.
-	//1 = unit
-	boost::signal<void (BWAPI::Unit*)> &onNeutralUnitDestroy(void);
+    //Register a neutral unit destroy callback.
+    //1 = unit
+    boost::signal<void (BWAPI::Unit*)> &onNeutralUnitDestroy(void);
 
-	//Register a unit morph callback.
-	//1 = unit
-	boost::signal<void (BWAPI::Unit*)> &onUnitMorph(void);
+    //Register a unit morph callback.
+    //1 = unit
+    boost::signal<void (BWAPI::Unit*)> &onUnitMorph(void);
 
-	//Register a unit renegade callback.
-	//1 = unit
-	boost::signal<void (BWAPI::Unit*)> &onUnitRenegade(void);
+    //Register a unit renegade callback.
+    //1 = unit
+    boost::signal<void (BWAPI::Unit*)> &onUnitRenegade(void);
 
-	//Register a on save game callback.
-	//1 = gamename
-	boost::signal<void (std::string)> &onSaveGame(void);
+    //Register a on save game callback.
+    //1 = gamename
+    boost::signal<void (std::string)> &onSaveGame(void);
 
 }
 
-#define SIGNAL_ON_START(type) Signal::onStart().connect(boost::bind(&##type##::onStart, this))
-#define SIGNAL_OFF_START(type) Signal::onStart().disconnect(boost::bind(&##type##::onStart, this))
-#define SIGNAL_ON_FRAME(type) Signal::onFrame().connect(boost::bind(&##type##::onFrame, this))
-#define SIGNAL_OFF_FRAME(type) Signal::onFrame().disconnect(boost::bind(&##type##::onFrame, this))
+#define SIGNAL_ON_START(type) Signal::onStart().connect(boost::bind(& ## type ## ::onStart, this))
+#define SIGNAL_OFF_START(type) Signal::onStart().disconnect(boost::bind(& ## type ## ::onStart, this))
+#define SIGNAL_ON_FRAME(type) Signal::onFrame().connect(boost::bind(& ## type ## ::onFrame, this))
+#define SIGNAL_OFF_FRAME(type) Signal::onFrame().disconnect(boost::bind(& ## type ## ::onFrame, this))

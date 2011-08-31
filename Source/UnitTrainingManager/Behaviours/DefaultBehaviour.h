@@ -3,22 +3,23 @@
 #include "Important/Common.h"
 #include "UnitTrainingManager/IUnitTrainingManagerBehaviour.h"
 
-// A Default behaviour that basically does nothing except constantly attempt 
+// A Default behaviour that basically does nothing except constantly attempt
 //  to build a unit at that building
 class DefaultBehaviour :
-	public IUnitTrainingManagerBehaviour
+    public IUnitTrainingManagerBehaviour
 {
 public:
-	DefaultBehaviour(BWAPI::Unit *building): m_building(building) {}
+    DefaultBehaviour(BWAPI::Unit *building) : m_building(building) {
+    }
 
-	virtual void postBuild(BWAPI::Unit *unit);
-	virtual BWAPI::UnitType shouldBuild(BWAPI::UnitType type);
+    virtual void postBuild(BWAPI::Unit *unit);
+    virtual BWAPI::UnitType shouldBuild(BWAPI::UnitType type);
 
 private:
-	BWAPI::Unit *m_building;
-	UnitTypeList m_canBuildList;
+    BWAPI::Unit *m_building;
+    UnitTypeList m_canBuildList;
 
-	// Unimplemented to prevent assignment/copying
-	DefaultBehaviour(DefaultBehaviour &);
-	DefaultBehaviour &operator=(DefaultBehaviour &);
+    // Unimplemented to prevent assignment/copying
+    DefaultBehaviour(DefaultBehaviour &);
+    DefaultBehaviour &operator=(DefaultBehaviour &);
 };

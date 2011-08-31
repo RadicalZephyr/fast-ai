@@ -18,51 +18,54 @@ void BuildOrderProbeDefaultProbeIdle(BWAPI::Unit* probe, BWAPI::TilePosition nex
 
 struct BuildOrderElement
 {
-	friend class BuildOrder;
+    friend class BuildOrder;
 
-	BuildOrderElement(BWAPI::UnitType const& type, BWAPI::TilePosition const& position, bool optional = false, BuildOrderElementOnStartCallback onStart = &BuildOrderElementOnStartVoid, BuildOrderElementOnDoneCallback onDone = &BuildOrderElementOnDoneVoid) : type(type), position(position), optional(optional), onStart(onStart), onDone(onDone) {}
+    BuildOrderElement(BWAPI::UnitType const& type, BWAPI::TilePosition const& position, bool optional = false, BuildOrderElementOnStartCallback onStart = &BuildOrderElementOnStartVoid, BuildOrderElementOnDoneCallback onDone = &BuildOrderElementOnDoneVoid) : type(type), position(position), optional(optional), onStart(onStart), onDone(onDone) {
+    }
 
-	BWAPI::TilePosition position;
-	BWAPI::UnitType type;
-	bool optional;
+    BWAPI::TilePosition position;
+    BWAPI::UnitType type;
+    bool optional;
 
 protected:
-	// onDone not currently called.
-	BuildOrderElementOnDoneCallback onDone;
+    // onDone not currently called.
+    BuildOrderElementOnDoneCallback onDone;
 
-	// onStart will be called after the order to build. This is good for queuing.
-	BuildOrderElementOnStartCallback onStart;
+    // onStart will be called after the order to build. This is good for queuing.
+    BuildOrderElementOnStartCallback onStart;
 };
 
 class BuildOrder
 {
 public:
-	typedef boost::function< void (BWAPI::Unit* builderProbe) > OnEndCallback;
+    typedef boost::function< void (BWAPI::Unit* builderProbe) > OnEndCallback;
 
-	BuildOrder(OnEndCallback onEnd) : m_onEnd(onEnd) {probeIdleFunction = BuildOrderProbeDefaultProbeIdle;}
+    BuildOrder(OnEndCallback onEnd) : m_onEnd(onEnd) {
+        probeIdleFunction = BuildOrderProbeDefaultProbeIdle;
+    }
 
-	// This will add the element to the stack.
-	// Optional elements will be poped off the stack as they appear.
-	// The top non optional element is used first
-	void addOrderElement(BuildOrderElement const& newOrder);
-	void addOptionalElement(BuildOrderElement const& newOrder);
+    // This will add the element to the stack.
+    // Optional elements will be poped off the stack as they appear.
+    // The top non optional element is used first
+    void addOrderElement(BuildOrderElement const& newOrder);
+    void addOptionalElement(BuildOrderElement const& newOrder);
 
-	void start(BWAPI::Unit* probe);
-	BWAPI::Unit* stop();
+    void start(BWAPI::Unit* probe);
+    BWAPI::Unit* stop();
 
-	BuildOrderProbeIdle probeIdleFunction;
+    BuildOrderProbeIdle probeIdleFunction;
 
 private:
-	void onFrame();
+    void onFrame();
 
-	BuildOrderElement* m_currentBuildOrder;
+    BuildOrderElement* m_currentBuildOrder;
 
-	BWAPI::Unit* m_probe;
+    BWAPI::Unit* m_probe;
 
-	std::queue<BuildOrderElement> m_buildQueue;
-	std::list<BuildOrderElement> m_optionals;
+    std::queue<BuildOrderElement> m_buildQueue;
+    std::list<BuildOrderElement> m_optionals;
 
-	OnEndCallback m_onEnd;
+    OnEndCallback m_onEnd;
 
-	void clearOptionals(void);
+    void clearOptionals(void);
 };

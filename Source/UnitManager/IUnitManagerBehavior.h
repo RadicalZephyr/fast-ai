@@ -9,18 +9,20 @@ class IUnitManagerBehaviour
 {
 public:
 
-	virtual ~IUnitManagerBehaviour(void) {}
+    virtual ~IUnitManagerBehaviour(void) {
+    }
 
-	virtual void manageUnit(BWAPI::Unit *unit) = 0;
-	virtual std::set<BWAPI::UnitType> const& manageableUnits() = 0;
+    virtual void manageUnit(BWAPI::Unit *unit) = 0;
+    virtual std::set<BWAPI::UnitType> const& manageableUnits() = 0;
 
 };
 
 
 // The abstract base class that allows us to make a map containing templated factory objects
 struct UnitTrainingManager_BaseBehaviourFactory {
-	virtual ~UnitTrainingManager_BaseBehaviourFactory(void) {}
-	virtual IUnitTrainingManager_BehaviourPtr Create(BWAPI::Unit *unit) = 0;
+    virtual ~UnitTrainingManager_BaseBehaviourFactory(void) {
+    }
+    virtual IUnitTrainingManager_BehaviourPtr Create(BWAPI::Unit *unit) = 0;
 };
 
 // This is a factory class template.  Intended to be used with the g_managerWatchMap global variable
@@ -30,8 +32,8 @@ struct UnitTrainingManager_BaseBehaviourFactory {
 template<class T>
 struct BM_BehaviourFactory : UnitTrainingManager_BaseBehaviourFactory {
 
-	virtual IUnitTrainingManager_BehaviourPtr Create(BWAPI::Unit *unit) {
-		Broodwar->printf("Creating a behaviour for: %s", unit->getType().getName().c_str());
-		return IUnitTrainingManager_BehaviourPtr(static_cast<IUnitTrainingManagerBehaviour *>(new T(*unit)));
-	}
+    virtual IUnitTrainingManager_BehaviourPtr Create(BWAPI::Unit *unit) {
+   Broodwar->printf("Creating a behaviour for: %s", unit->getType().getName().c_str());
+        return IUnitTrainingManager_BehaviourPtr(static_cast<IUnitTrainingManagerBehaviour *>(new T(*unit)));
+    }
 };

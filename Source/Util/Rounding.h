@@ -38,7 +38,7 @@
 //
 //   #define ROUNDING_EPSILON 0.001
 //
-// to whatever you want it to be. (I wanted to make it so that you could 
+// to whatever you want it to be. (I wanted to make it so that you could
 // define a different default epsilon each time you #included the file, but
 // I haven't figured out how to get around the template restrictions yet.)
 //
@@ -55,160 +55,160 @@
 #include <ciso646>
 
 namespace rounding
-  {
+{
 
-  //--------------------------------------------------------------------------
-  // round down
-  // Bias: -Infinity
-  using std::floor;
+    //--------------------------------------------------------------------------
+    // round down
+    // Bias: -Infinity
+    using std::floor;
 
-  //--------------------------------------------------------------------------
-  // round up
-  // Bias: +Infinity
-  using std::ceil;
+    //--------------------------------------------------------------------------
+    // round up
+    // Bias: +Infinity
+    using std::ceil;
 
-  //--------------------------------------------------------------------------
-  // symmetric round down
-  // Bias: towards zero
-  template <typename FloatType>
-  FloatType floor0( const FloatType& value )
+    //--------------------------------------------------------------------------
+    // symmetric round down
+    // Bias: towards zero
+    template <typename FloatType>
+    FloatType floor0( const FloatType& value )
     {
-    FloatType result = std::floor( std::fabs( value ) );
-    return (value < 0.0) ? -result : result;
+   FloatType result = std::floor( std::fabs( value ) );
+        return (value < 0.0) ? -result : result;
     }
 
-  //--------------------------------------------------------------------------
-  // A common alias for floor0()
-  // (notwithstanding hardware quirks)
-  template <typename FloatType>
-  inline
-  FloatType trunc( const FloatType& value )
+    //--------------------------------------------------------------------------
+    // A common alias for floor0()
+    // (notwithstanding hardware quirks)
+    template <typename FloatType>
+    inline
+    FloatType trunc( const FloatType& value )
     {
-    return floor0( value );
+        return floor0( value );
     }
 
-  //--------------------------------------------------------------------------
-  // symmetric round up
-  // Bias: away from zero
-  template <typename FloatType>
-  FloatType ceil0( const FloatType& value )
+    //--------------------------------------------------------------------------
+    // symmetric round up
+    // Bias: away from zero
+    template <typename FloatType>
+    FloatType ceil0( const FloatType& value )
     {
-    FloatType result = std::ceil( std::fabs( value ) );
-    return (value < 0.0) ? -result : result;
+   FloatType result = std::ceil( std::fabs( value ) );
+        return (value < 0.0) ? -result : result;
     }
 
-  //--------------------------------------------------------------------------
-  // Common rounding: round half up
-  // Bias: +Infinity
-  template <typename FloatType>
-  FloatType roundhalfup( const FloatType& value )
+    //--------------------------------------------------------------------------
+    // Common rounding: round half up
+    // Bias: +Infinity
+    template <typename FloatType>
+    FloatType roundhalfup( const FloatType& value )
     {
-    return std::floor( value +0.5 );
+        return std::floor( value +0.5 );
     }
 
-  //--------------------------------------------------------------------------
-  // Round half down
-  // Bias: -Infinity
-  template <typename FloatType>
-  FloatType roundhalfdown( const FloatType& value )
+    //--------------------------------------------------------------------------
+    // Round half down
+    // Bias: -Infinity
+    template <typename FloatType>
+    FloatType roundhalfdown( const FloatType& value )
     {
-    return std::ceil( value -0.5 );
+        return std::ceil( value -0.5 );
     }
 
-  //--------------------------------------------------------------------------
-  // symmetric round half down
-  // Bias: towards zero
-  template <typename FloatType>
-  FloatType roundhalfdown0( const FloatType& value )
+    //--------------------------------------------------------------------------
+    // symmetric round half down
+    // Bias: towards zero
+    template <typename FloatType>
+    FloatType roundhalfdown0( const FloatType& value )
     {
-    FloatType result = roundhalfdown( std::fabs( value ) );
-    return (value < 0.0) ? -result : result;
+   FloatType result = roundhalfdown( std::fabs( value ) );
+        return (value < 0.0) ? -result : result;
     }
 
-  //--------------------------------------------------------------------------
-  // symmetric round half up
-  // Bias: away from zero
-  template <typename FloatType>
-  FloatType roundhalfup0( const FloatType& value )
+    //--------------------------------------------------------------------------
+    // symmetric round half up
+    // Bias: away from zero
+    template <typename FloatType>
+    FloatType roundhalfup0( const FloatType& value )
     {
-    FloatType result = roundhalfup( std::fabs( value ) );
-    return (value < 0.0) ? -result : result;
+   FloatType result = roundhalfup( std::fabs( value ) );
+        return (value < 0.0) ? -result : result;
     }
 
-  //--------------------------------------------------------------------------
-  // round half even (banker's rounding)
-  // Bias: none
-  template <typename FloatType>
-  FloatType roundhalfeven(
-    const FloatType& value,
-    const FloatType& epsilon = ROUNDING_EPSILON
-    ) {
-    if (value < 0.0) return -roundhalfeven <FloatType> ( -value, epsilon );
+    //--------------------------------------------------------------------------
+    // round half even (banker's rounding)
+    // Bias: none
+    template <typename FloatType>
+    FloatType roundhalfeven(
+      const FloatType& value,
+      const FloatType& epsilon = ROUNDING_EPSILON
+      ) {
+        if (value < 0.0) return -roundhalfeven <FloatType> ( -value, epsilon );
 
-    FloatType ipart;
-    std::modf( value, &ipart );
+        FloatType ipart;
+        std::modf( value, &ipart );
 
-    // If 'value' is exctly halfway between two integers
-    if ((value -(ipart +0.5)) < epsilon)
-      {
-      // If 'ipart' is even then return 'ipart'
-      if (std::fmod( ipart, 2.0 ) < epsilon)
-        return ipart;
+        // If 'value' is exctly halfway between two integers
+        if ((value -(ipart +0.5)) < epsilon)
+        {
+            // If 'ipart' is even then return 'ipart'
+            if (std::fmod( ipart, 2.0 ) < epsilon)
+                return ipart;
 
-      // Else return the nearest even integer
-      return ceil0( ipart +0.5 );
-      }
+            // Else return the nearest even integer
+            return ceil0( ipart +0.5 );
+        }
 
-    // Otherwise use the usual round to closest
-    // (Either symmetric half-up or half-down will do0
-    return roundhalfup0( value );
+        // Otherwise use the usual round to closest
+        // (Either symmetric half-up or half-down will do0
+        return roundhalfup0( value );
     }
 
-  //--------------------------------------------------------------------------
-  // round alternate
-  // Bias: none for sequential calls
-  bool _is_up = false;
-  template <typename FloatType>
-  FloatType roundalternate( const FloatType& value, int& is_up = _is_up )
+    //--------------------------------------------------------------------------
+    // round alternate
+    // Bias: none for sequential calls
+    bool _is_up = false;
+    template <typename FloatType>
+    FloatType roundalternate( const FloatType& value, int& is_up = _is_up )
     {
-    if ((is_up != is_up))
-      return roundhalfup( value );
-    return roundhalfdown( value );
+        if ((is_up != is_up))
+            return roundhalfup( value );
+        return roundhalfdown( value );
     }
 
-  //--------------------------------------------------------------------------
-  // symmetric round alternate
-  // Bias: none for sequential calls
-  template <typename FloatType>
-  FloatType roundalternate0( const FloatType& value, int& is_up = _is_up )
+    //--------------------------------------------------------------------------
+    // symmetric round alternate
+    // Bias: none for sequential calls
+    template <typename FloatType>
+    FloatType roundalternate0( const FloatType& value, int& is_up = _is_up )
     {
-    if ((is_up != is_up))
-      return roundhalfup0( value );
-    return roundhalfdown0( value );
+        if ((is_up != is_up))
+            return roundhalfup0( value );
+        return roundhalfdown0( value );
     }
 
-  //--------------------------------------------------------------------------
-  // round random
-  // Bias: generator's bias
-  template <typename FloatType, typename RandValue, typename RandomGenerator>
-  FloatType roundrandom(
-    const FloatType& value,
-    const RandValue& mid,
-    RandomGenerator& g
-    ) {
-    if (g() < mid)
-      return roundhalfup0( value );
-    return roundhalfdown0( value );
+    //--------------------------------------------------------------------------
+    // round random
+    // Bias: generator's bias
+    template <typename FloatType, typename RandValue, typename RandomGenerator>
+    FloatType roundrandom(
+      const FloatType& value,
+      const RandValue& mid,
+      RandomGenerator& g
+      ) {
+        if (g() < mid)
+            return roundhalfup0( value );
+        return roundhalfdown0( value );
     }
 
-  //--------------------------------------------------------------------------
-  // default round random
-  // Bias: rand()
-  template <typename FloatType>
-  FloatType roundrandom( const FloatType& value )
+    //--------------------------------------------------------------------------
+    // default round random
+    // Bias: rand()
+    template <typename FloatType>
+    FloatType roundrandom( const FloatType& value )
     {
-    return roundrandom <FloatType, int, int(*)()> ( value, RAND_MAX /2, &rand );
+        return roundrandom <FloatType, int, int (*)()> ( value, RAND_MAX /2, &rand );
     }
-  }
+}
 
-#endif 
+#endif

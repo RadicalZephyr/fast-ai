@@ -36,7 +36,7 @@ typedef std::list<BWAPI::UnitType> UnitTypeList;
 // Usage: buildsWhat(UnitType)
 namespace BWAPI {
 
-	UnitTypeSet const &buildsWhat(UnitType unitType);
+    UnitTypeSet const &buildsWhat(UnitType unitType);
 }
 
 class UnitTrainingManager;

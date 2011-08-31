@@ -19,24 +19,24 @@ using BWAPI::Unit;
 // TODO: Figure out how to call the damn signal!  Probably the issue is in the combiner
 class UnitMovement {
 public:
-	typedef boost::signal<MovementVector (Unit *, MovementVector), std::plus<MovementVector> > signal_t;
-	typedef boost::signals::connection connection_t;
+    typedef boost::signal<MovementVector (Unit *, MovementVector), std::plus<MovementVector> > signal_t;
+    typedef boost::signals::connection connection_t;
 
-	explicit UnitMovement(Unit &unit): m_unit(unit) {
-		Signal::onFrame().connect(boost::bind(&UnitMovement::onFrame, this));
-	}
+    explicit UnitMovement(Unit &unit) : m_unit(unit) {
+   Signal::onFrame().connect(boost::bind(&UnitMovement::onFrame, this));
+    }
 
-	~UnitMovement(void) {
-		Signal::onFrame().disconnect(boost::bind(&UnitMovement::onFrame, this));
-	}
+    ~UnitMovement(void) {
+   Signal::onFrame().disconnect(boost::bind(&UnitMovement::onFrame, this));
+    }
 
-	connection_t connect(signal_t::slot_function_type subscriber) {
-		return m_sig.connect(subscriber);
-	}
+    connection_t connect(signal_t::slot_function_type subscriber) {
+        return m_sig.connect(subscriber);
+    }
 
-	void onFrame(void);
+    void onFrame(void);
 private:
-	const Unit &m_unit;
-	signal_t m_sig;
-	MovementVector m_vector;
+    const Unit &m_unit;
+    signal_t m_sig;
+    MovementVector m_vector;
 };
