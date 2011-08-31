@@ -5,7 +5,7 @@ CheeseStrategyManager::CheeseStrategyManager(ICheeseStrategy* strategy) : m_stra
 {
     SIGNAL_ON_START(CheeseStrategyManager);
     SIGNAL_ON_FRAME(CheeseStrategyManager);
-    strategy->init();
+    // strategy->init();
 }
 
 // ICheeseStrategyControls
@@ -52,7 +52,7 @@ void CheeseStrategyManager::onFrame(void)
             m_base = (*first);
             m_scoutProbe = (ProbeControl*) 0xBADBEAF0;
         }
-    }
+	}
 }
 
 void CheeseStrategyManager::onStart()
@@ -67,7 +67,8 @@ void CheeseStrategyManager::onNewProbe(BWAPI::Unit* unit)
 
     if (m_probe++ == m_strategy->whichProbe)
     {
-        m_scoutProbe = new ProbeControl(0,0);
+        m_scoutProbe = new ProbeControl(m_base->getControllee()->removeProbe(), boost::bind(&CheeseStrategyManager::foundEnemy, this, _1, _2));
+		m_strategy->init();
     }
 
     if (m_strategy->buildProbesTo != -1 && m_probe >= m_strategy->buildProbesTo)
@@ -78,7 +79,6 @@ void CheeseStrategyManager::onNewProbe(BWAPI::Unit* unit)
 }
 
 void CheeseStrategyManager::foundEnemy(BWAPI::Unit *probe, BWAPI::Unit *enemyBase) {
-
     m_strategy->controls = this;
 
     m_strategy->setEnemyBase(enemyBase);

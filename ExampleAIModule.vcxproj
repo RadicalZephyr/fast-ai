@@ -46,6 +46,7 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <PreBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</PreBuildEventUseInBuild>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -104,7 +105,7 @@
       <Command>FOR /R $(SolutionDir)Source\ %%G IN (*.cpp,*.h) DO $(SolutionDir)..\uncrustify\uncrustify.exe -c $(SolutionDir)uncrust.cfg --no-backup %%G</Command>
     </PreBuildEvent>
     <PreBuildEvent>
-      <Message>Runs uncrustify (a source reformatting tool) on all cpp, and h files in the Source directory.</Message>
+      <Message>FOR /R $(SolutionDir)Source\ %%G IN (*.cpp,*.h) DO $(SolutionDir)..\uncrustify\uncrustify.exe -c $(SolutionDir)uncrust.cfg --no-backup %%G</Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -113,6 +114,7 @@
     <ClCompile Include="Source\Cannonball.cpp" />
     <ClCompile Include="Source\Cheese\ProbeControl.cpp" />
     <ClCompile Include="Source\Cheese\Strategies\CannonAwesome.cpp" />
+    <ClCompile Include="Source\Cheese\Strategies\StandardPlay.cpp" />
     <ClCompile Include="Source\Cheese\StrategyManager.cpp" />
     <ClCompile Include="Source\ControlGroup.cpp" />
     <ClCompile Include="Source\FunctionObjects\DistanceSorter.cpp" />
@@ -141,6 +143,7 @@
     <ClInclude Include="Source\Cheese\Strategies.h" />
     <ClInclude Include="Source\Cheese\Strategies\Base.h" />
     <ClInclude Include="Source\Cheese\Strategies\CannonAwesome.h" />
+    <ClInclude Include="Source\Cheese\Strategies\StandardPlay.h" />
     <ClInclude Include="Source\Cheese\Strategy.h" />
     <ClInclude Include="Source\Cheese\StrategyManager.h" />
     <ClInclude Include="Source\ControlGroup.h" />

@@ -34,8 +34,8 @@ void NexusBehaviour::postBuild(BWAPI::Unit *unit) {
 }
 
 BWAPI::UnitType NexusBehaviour::shouldBuild(BWAPI::UnitType ) {
-    if (m_shouldBuild && ((m_minerals.size() * 2.5f) > m_minGatherers.size()) && (Broodwar->self()->supplyUsed() > 17 || Broodwar->self()->supplyUsed() < 14 || g_resourceManager.minerals() >= 200)) { // &&  // TODO: Uncomment these lines when gas production is implemented
-        return UnitTypes::Protoss_Probe;                                     //((m_gas.size() * 3) > m_gasGatherers.size());
+    if (m_shouldBuild && ((m_minerals.size() * 2.5f) > m_minGatherers.size())) { // && (Broodwar->self()->supplyUsed() > 17 || Broodwar->self()->supplyUsed() < 14 || g_resourceManager.minerals() >= 200)) { // &&  // TODO: Uncomment these lines when gas production is implemented
+		return UnitTypes::Protoss_Probe;                                     //((m_gas.size() * 3) > m_gasGatherers.size());
     } else {
         return UnitTypes::None;
     }

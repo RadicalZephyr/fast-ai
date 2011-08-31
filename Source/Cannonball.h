@@ -9,7 +9,7 @@
 
 class Cannonball : public BWAPI::AIModule {
 public:
-    Cannonball(void) : m_strategyMan(new CheeseStrategies::CannonAwesome()) {
+    Cannonball(void) : m_strategyMan(new CheeseStrategies::StandardPlay()) {
     };
 
     virtual void onStart();
