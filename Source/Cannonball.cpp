@@ -68,7 +68,7 @@ void Cannonball::onSendText(std::string text)
 			Broodwar->printf("%s", itr->getName().c_str());
 		}
 	}
-	// Signal::onSendText()(text);
+	Signal::onSendText()(text);
 }
 
 // The actually import callbacks to our AI
