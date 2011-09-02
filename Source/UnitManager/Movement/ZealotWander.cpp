@@ -20,7 +20,7 @@ void ZealotWander::onFrame(void) {
         timeout = 0;
     }
     BWAPI::Unit *enemy = nearestEnemy();
-    if (enemy) {
+    if (enemy && enemy->isDetected()) {
    m_unit->attack(enemy->getPosition());
         m_attacking = true;
     } else if (m_unit->isIdle()) {

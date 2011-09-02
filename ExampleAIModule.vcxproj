@@ -105,7 +105,7 @@
       <Command>FOR /R $(SolutionDir)Source\ %%G IN (*.cpp,*.h) DO $(SolutionDir)..\uncrustify\uncrustify.exe -c $(SolutionDir)uncrust.cfg --no-backup %%G</Command>
     </PreBuildEvent>
     <PreBuildEvent>
-      <Message>FOR /R $(SolutionDir)Source\ %%G IN (*.cpp,*.h) DO $(SolutionDir)..\uncrustify\uncrustify.exe -c $(SolutionDir)uncrust.cfg --no-backup %%G</Message>
+      <Message>Runs uncrustify (a source reformatting tool) on all cpp, and h files in the Source directory.</Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
