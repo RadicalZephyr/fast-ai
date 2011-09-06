@@ -69,6 +69,12 @@
     <ClCompile Include="Source\Cheese\Strategies\StandardPlay.cpp">
       <Filter>Cheese\Strategies</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UnitTrainingManager\Behaviours\RoboticsBehaviour.cpp">
+      <Filter>Unit Training Manager\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UnitManager\Movement\ObserverFollow.cpp">
+      <Filter>Unit Manager\Movement</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Cannonball.h" />
@@ -171,6 +177,12 @@
     <ClInclude Include="Source\ControlGroup.h" />
     <ClInclude Include="Source\Cheese\Strategies\StandardPlay.h">
       <Filter>Cheese\Strategies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UnitTrainingManager\Behaviours\RoboticsBehaviour.h">
+      <Filter>Unit Training Manager\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UnitManager\Movement\ObserverFollow.h">
+      <Filter>Unit Manager\Movement</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

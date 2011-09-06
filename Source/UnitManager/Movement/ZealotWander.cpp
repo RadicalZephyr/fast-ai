@@ -3,7 +3,7 @@
 
 void ZealotWander::onFrame(void) {
    static int timeout = 0;
-    if (!m_unit->isVisible() && m_unit->getHitPoints() < 0) {
+    if (!m_unit->exists()) {
         //BWAPI::Broodwar->printf("Deleting zealot wanderer");
         delete this;
         return;

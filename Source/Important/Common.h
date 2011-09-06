@@ -62,9 +62,13 @@ typedef boost::shared_ptr<BaseManager> BaseManagerPtr;
 typedef std::set<BaseManagerPtr> BaseManagerSet;
 
 class GatewayBehaviour;
+class RoboticsBehaviour;
 
 typedef boost::shared_ptr<GatewayBehaviour> GatewayBehaviourPtr;
 typedef std::set<GatewayBehaviourPtr> GatewayBehaviourSet;
+
+typedef boost::shared_ptr<RoboticsBehaviour> RoboticsBehaviourPtr;
+typedef std::set<RoboticsBehaviourPtr> RoboticsBehaviourSet;
 
 class ResourceManager;
 
@@ -75,6 +79,7 @@ GLOBAL UnitTrainingManager_factoryMap g_managerWatchMap;
 GLOBAL BaseManagerSet g_baseManagers;
 GLOBAL RelativePosition g_position;
 GLOBAL GatewayBehaviourSet g_gateways;
+GLOBAL RoboticsBehaviourSet g_robotics;
 GLOBAL ResourceManager g_resourceManager;
 
 #define DEBUG(x) ::MessageBoxA(0, x, "Debugging", 0)

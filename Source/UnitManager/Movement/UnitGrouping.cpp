@@ -5,12 +5,12 @@ UnitGrouping::UnitGrouping(BWAPI::Unit *unit) : m_unit(unit), m_connection() {
     m_connection = Signal::onFrame().connect(boost::bind(&UnitGrouping::onFrame, this));
     m_rallyDestination = Broodwar->self()->getStartLocation().makeValid();
     m_minGroupSize = 10;
-    m_defenseRadius = 500;
+    m_defenseRadius = 750;
 }
 
 void UnitGrouping::onFrame(void) {
-    if (!m_unit->isVisible() && m_unit->getHitPoints() < 0) {
-        //BWAPI::Broodwar->printf("Unit has died");
+    if (!m_unit->exists()) {
+        // BWAPI::Broodwar->printf("Unit has died");
         delete this;
         return;
     }
