@@ -23,6 +23,10 @@ bool BaseManager::constructBuilding(BWAPI::UnitType type) {
 }
 
 void BaseManager::onFrame(void) {
+    if (m_probe && !m_probe->exists()) {
+        m_probe = NULL;
+    }
+
     if (!m_buildQueue.empty()) {
         if (!m_probe) {
             m_probe = m_controllee->removeProbe();
@@ -32,14 +36,19 @@ void BaseManager::onFrame(void) {
         }
     }
     else { // Build queue is empty
-		if (pylonCheck() && Broodwar->self()->supplyTotal() != 400) {
-			Broodwar->printf("Pylon pushed onto queue by base Manager");
-			m_buildQueue.push(BWAPI::UnitTypes::Protoss_Pylon);
+        if (pylonCheck() && Broodwar->self()->supplyTotal() != 400) {
+   Broodwar->printf("Pylon pushed onto queue by base Manager");
+   m_buildQueue.push(BWAPI::UnitTypes::Protoss_Pylon);
         }
-		else { // Nothing to do
-			m_controllee->addProbe(m_probe);
-			m_probe = 0;
-		}
+        else { // Nothing to do
+   m_controllee->addProbe(m_probe);
+            m_probe = 0;
+        }
+    }
+
+    if (m_probe && !m_probe->isConstructing()) {
+   m_controllee->addProbe(m_probe);
+        m_probe = NULL;
     }
 
     /* Old Version ------------------
@@ -109,6 +118,7 @@ bool BaseManager::doBuildCheck(void) {
 
     if (type == BWAPI::UnitTypes::Protoss_Assimilator) {
         m_lastTilePos = m_controllee->startGas();
+        return true;
     }
     else {
         return m_probe->build(m_lastTilePos = getRandomBuildPos(type), type);

@@ -34,7 +34,7 @@ void Cannonball::onStart()
     //g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Stargate,
     //									  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<DefaultBehaviour>)));
     g_managerWatchMap.insert(std::make_pair(BWAPI::UnitTypes::Protoss_Robotics_Facility,
-    									  static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<RoboticsBehaviour>)));
+          static_cast<UnitTrainingManager_BaseBehaviourFactory *>(new BM_BehaviourFactory<RoboticsBehaviour>)));
 
     // Register to check the watch map every time we create a unit
     Signal::onFriendlyUnitCreate().connect(boost::bind(&checkForBuildings, _1, g_managerWatchMap));

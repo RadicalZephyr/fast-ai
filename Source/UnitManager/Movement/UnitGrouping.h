@@ -14,7 +14,7 @@ public:
     void onFrame(void);
 
 private:
-	BWAPI::Unit *visibleEnemy(void);
+    BWAPI::Unit *visibleEnemy(void);
 
     BWAPI::Unit *m_unit;
     boost::signals::connection m_connection;

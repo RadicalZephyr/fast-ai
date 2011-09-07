@@ -52,7 +52,7 @@ void CheeseStrategyManager::onFrame(void)
             m_base = (*first);
             m_scoutProbe = (ProbeControl*) 0xBADBEAF0;
         }
-	}
+    }
 }
 
 void CheeseStrategyManager::onStart()
@@ -68,7 +68,7 @@ void CheeseStrategyManager::onNewProbe(BWAPI::Unit* unit)
     if (m_probe++ == m_strategy->whichProbe)
     {
         m_scoutProbe = new ProbeControl(m_base->getControllee()->removeProbe(), boost::bind(&CheeseStrategyManager::foundEnemy, this, _1, _2));
-		m_strategy->init();
+        m_strategy->init();
     }
 
     if (m_strategy->buildProbesTo != -1 && m_probe >= m_strategy->buildProbesTo)
