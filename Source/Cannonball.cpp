@@ -41,7 +41,7 @@ void Cannonball::onStart()
 
     Signal::onStart() ();
 
-    std::set<BWAPI::TilePosition> startLocs = Broodwar->getStartLocations();
+    //std::set<BWAPI::TilePosition> startLocs = Broodwar->getStartLocations();
 
     //char buff[2048];
     //int point = 0;

@@ -22,7 +22,7 @@ ProbeControl::ProbeControl(BWAPI::Unit *newProbe, onFindCallbackFunction callbac
 
     startLocations.erase(myPlace);
 
-    m_scoutLocations = startLocations.cbegin();
+    m_scoutLocations = startLocations.begin();
 
     Position nextPlace(*m_scoutLocations);
     nextPlace.makeValid();

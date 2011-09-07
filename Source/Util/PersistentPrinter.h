@@ -25,7 +25,7 @@ public:
    va_list ap;
 
         va_start(ap, format);
-        vsnprintf_s(buff, 512, format, ap);
+        vsnprintf_s(buff, 512, 512, format, ap);
         va_end(ap);
 
         m_printText.assign(buff);
