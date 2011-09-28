@@ -56,9 +56,6 @@
     <ClCompile Include="Source\Util\ResourceManager.cpp">
       <Filter>Util</Filter>
     </ClCompile>
-    <ClCompile Include="Source\UnitManager\Movement\ZealotWander.cpp">
-      <Filter>Unit Manager\Movement</Filter>
-    </ClCompile>
     <ClCompile Include="Source\UnitManager\Movement\UnitGrouping.cpp">
       <Filter>Unit Manager\Movement</Filter>
     </ClCompile>
@@ -73,6 +70,9 @@
       <Filter>Unit Training Manager\Behaviours</Filter>
     </ClCompile>
     <ClCompile Include="Source\UnitManager\Movement\ObserverFollow.cpp">
+      <Filter>Unit Manager\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UnitManager\Movement\UnitWander.cpp">
       <Filter>Unit Manager\Movement</Filter>
     </ClCompile>
   </ItemGroup>
@@ -168,9 +168,6 @@
     <ClInclude Include="Source\Util\ResourceManager.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="Source\UnitManager\Movement\ZealotWander.h">
-      <Filter>Unit Manager\Movement</Filter>
-    </ClInclude>
     <ClInclude Include="Source\UnitManager\Movement\UnitGrouping.h">
       <Filter>Unit Manager\Movement</Filter>
     </ClInclude>
@@ -182,6 +179,9 @@
       <Filter>Unit Training Manager\Behaviours</Filter>
     </ClInclude>
     <ClInclude Include="Source\UnitManager\Movement\ObserverFollow.h">
+      <Filter>Unit Manager\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UnitManager\Movement\UnitWander.h">
       <Filter>Unit Manager\Movement</Filter>
     </ClInclude>
   </ItemGroup>

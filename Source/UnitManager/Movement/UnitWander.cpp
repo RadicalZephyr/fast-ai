@@ -1,7 +1,7 @@
-#include "ZealotWander.h"
+#include "UnitWander.h"
 #include <random>
 
-void ZealotWander::onFrame(void) {
+void UnitWander::onFrame(void) {
    static int timeout = 0;
     if (!m_unit->exists()) {
         //BWAPI::Broodwar->printf("Deleting zealot wanderer");
@@ -29,7 +29,7 @@ void ZealotWander::onFrame(void) {
     }
 }
 
-BWAPI::Position ZealotWander::newDestination(void) {
+BWAPI::Position UnitWander::newDestination(void) {
     BWAPI::Position newPos(std::rand() % (BWAPI::Broodwar->mapWidth() * TILE_SIZE),
       std::rand() % (BWAPI::Broodwar->mapHeight() * TILE_SIZE));
 
@@ -40,7 +40,7 @@ BWAPI::Position ZealotWander::newDestination(void) {
     return newPos;
 }
 
-BWAPI::Unit *ZealotWander::nearestEnemy(void) {
+BWAPI::Unit *UnitWander::nearestEnemy(void) {
    UnitSet units = BWAPI::Broodwar->enemy()->getUnits();
     return *units.begin();
 }

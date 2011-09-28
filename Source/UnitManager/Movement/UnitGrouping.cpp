@@ -1,5 +1,5 @@
 #include "UnitGrouping.h"
-#include "UnitManager/Movement/ZealotWander.h"
+#include "UnitManager/Movement/UnitWander.h"
 
 UnitGrouping::UnitGrouping(BWAPI::Unit *unit) : m_unit(unit), m_connection() {
     m_connection = Signal::onFrame().connect(boost::bind(&UnitGrouping::onFrame, this));
@@ -29,7 +29,7 @@ void UnitGrouping::onFrame(void) {
         SIGNAL_OFF_FRAME(UnitGrouping);
         m_connection.disconnect();
 
-        new ZealotWander(m_unit);
+        new UnitWander(m_unit);
         // Broodwar->printf("This unit started wandering");
     }
     else if (enemy && enemy->isDetected() && enemy->getDistance(Position(Broodwar->self()->getStartLocation())) < m_defenseRadius) {
@@ -39,7 +39,7 @@ void UnitGrouping::onFrame(void) {
         SIGNAL_OFF_FRAME(UnitGrouping);
         m_connection.disconnect();
 
-        new ZealotWander(m_unit);
+        new UnitWander(m_unit);
     }
 
 }

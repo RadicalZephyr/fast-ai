@@ -2,15 +2,15 @@
 
 #include "Important/Common.h"
 
-class ZealotWander
+class UnitWander
 {
 public:
-    ZealotWander(BWAPI::Unit *unit) : m_unit(unit), m_connection(),
-                                      m_visitedPositions(), m_attacking(false) {
-        m_connection = Signal::onFrame().connect(boost::bind(&ZealotWander::onFrame, this));
+    UnitWander(BWAPI::Unit *unit) : m_unit(unit), m_connection(),
+                                    m_visitedPositions(), m_attacking(false) {
+        m_connection = Signal::onFrame().connect(boost::bind(&UnitWander::onFrame, this));
     }
 
-    ~ZealotWander(void) {
+    ~UnitWander(void) {
    m_connection.disconnect();
     }
 

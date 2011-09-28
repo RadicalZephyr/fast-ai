@@ -122,7 +122,7 @@
     <ClCompile Include="Source\Important\Signals.cpp" />
     <ClCompile Include="Source\UnitManager\Movement\ObserverFollow.cpp" />
     <ClCompile Include="Source\UnitManager\Movement\UnitGrouping.cpp" />
-    <ClCompile Include="Source\UnitManager\Movement\ZealotWander.cpp" />
+    <ClCompile Include="Source\UnitManager\Movement\UnitWander.cpp" />
     <ClCompile Include="Source\UnitTrainingManager\Behaviours\DefaultBehaviour.cpp" />
     <ClCompile Include="Source\UnitTrainingManager\Behaviours\GatewayBehaviour.cpp" />
     <ClCompile Include="Source\UnitTrainingManager\Behaviours\NexusBehaviour.cpp" />
@@ -155,7 +155,7 @@
     <ClInclude Include="Source\UnitManager\IUnitManagerBehavior.h" />
     <ClInclude Include="Source\UnitManager\Movement\ObserverFollow.h" />
     <ClInclude Include="Source\UnitManager\Movement\UnitGrouping.h" />
-    <ClInclude Include="Source\UnitManager\Movement\ZealotWander.h" />
+    <ClInclude Include="Source\UnitManager\Movement\UnitWander.h" />
     <ClInclude Include="Source\UnitManager\UnitManager.h" />
     <ClInclude Include="Source\UnitTrainingManager\Behaviours\DefaultBehaviour.h" />
     <ClInclude Include="Source\UnitTrainingManager\Behaviours\GatewayBehaviour.h" />
